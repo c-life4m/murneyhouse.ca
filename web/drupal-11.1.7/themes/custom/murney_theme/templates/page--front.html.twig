@@ -1,0 +1,119 @@
+{# page--front.html.twig #}
+<div class="page" data-lang="en">
+  <header>
+    <div class="logo">
+      <a href="{{ path('<front>') }}"><img src="{{ base_path ~ directory }}/images/logo.png" alt="Murney House Logo">Murney House</a>
+    </div>
+    <nav>
+      <div class="desktop-nav">
+        <ul>
+          <li><a href="#rooms" data-en="Rooms" data-fr="Chambres">Rooms</a></li>
+          <li><a href="#amenities" data-en="Amenities" data-fr="Commodités">Amenities</a></li>
+          <li><a href="#local-area" data-en="Local Area" data-fr="Région">Local Area</a></li>
+          <li><a href="#contact" data-en="Contact" data-fr="Contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="mobile-nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="mobile-nav">
+        <ul>
+          <li><a href="#rooms" data-en="Rooms" data-fr="Chambres">Rooms</a></li>
+          <li><a href="#amenities" data-en="Amenities" data-fr="Commodités">Amenities</a></li>
+          <li><a href="#local-area" data-en="Local Area" data-fr="Région">Local Area</a></li>
+          <li><a href="#contact" data-en="Contact" data-fr="Contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="header-controls">
+      <button class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+      </button>
+      <button class="lang-toggle" aria-label="Toggle language">
+        <span class="en-flag">🇬🇧</span>
+        <span class="fr-flag">🇫🇷</span>
+      </button>
+      <a href="#book-now" class="cta-button" data-en="Book Now" data-fr="Réserver">Book Now</a>
+    </div>
+  </header>
+
+  {# Hero Section #}
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-image-container">
+        <div class="hero-image" style="background-image: url('{{ base_path ~ directory }}/images/hero.jpg')"></div>
+        <div class="hero-mask"></div>
+      </div>
+      <div class="hero-text">
+        <h1 data-en="Your Home Away From Home" data-fr="Votre maison loin de chez vous">Your Home Away From Home</h1>
+        <p data-en="Experience the comfort and charm of Murney House" data-fr="Découvrez le confort et le charme de Murney House">Experience the comfort and charm of Murney House</p>
+        <a href="#rooms" class="explore-button" data-en="Explore" data-fr="Explorer">
+          Explore
+          <i class="fas fa-chevron-down"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {# Rooms Section #}
+  <section id="rooms" class="section-padding">
+    <div class="container">
+      <h2 class="section-title" data-en="Our Rooms" data-fr="Nos Chambres">Our Rooms</h2>
+      <p class="section-subtitle" data-en="Comfort meets elegance in our carefully designed rooms" data-fr="Le confort rencontre l'élégance dans nos chambres soigneusement conçues">Comfort meets elegance in our carefully designed rooms</p>
+
+      <div class="room-grid">
+        {{ content.rooms }}
+      </div>
+    </div>
+  </section>
+
+  {# Additional sections with Drupal regions #}
+  <section id="common-areas" class="section-padding">
+    <div class="container">
+      <h2 class="section-title" data-en="Common Areas" data-fr="Espaces Communs">Common Areas</h2>
+      <p class="section-subtitle" data-en="Shared spaces designed for relaxation and connection" data-fr="Des espaces partagés conçus pour la détente et les rencontres">Shared spaces designed for relaxation and connection</p>
+
+      <div class="common-areas-grid">
+        {{ content.common_areas }}
+      </div>
+    </div>
+  </section>
+
+  {# Rest of the sections #}
+  <section id="amenities" class="section-padding">
+    <div class="container">
+      {{ content.amenities }}
+    </div>
+  </section>
+
+  <section id="local-area" class="section-padding">
+    <div class="container">
+      {{ content.local_area }}
+    </div>
+  </section>
+
+  <section id="additional-features" class="section-padding">
+    <div class="container">
+      {{ content.additional_features }}
+    </div>
+  </section>
+
+  <section id="book-now" class="section-padding">
+    <div class="container">
+      {{ content.book_now }}
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      {{ content.footer }}
+    </div>
+  </footer>
+
+  {{ attach_library('murney_theme/fontawesome') }}
+  {{ attach_library('murney_theme/google_fonts') }}
+</div>
+

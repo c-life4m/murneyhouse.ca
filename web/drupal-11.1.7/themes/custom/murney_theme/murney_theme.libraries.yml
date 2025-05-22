@@ -1,0 +1,31 @@
+global:
+  version: 1.x
+  css:
+    theme:
+      css/styles.css: {}
+  js:
+    js/script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+fontawesome:
+  remote: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css
+  version: 6.4.0
+  license:
+    name: Font Awesome Free License
+    url: https://fontawesome.com/license/free
+  css:
+    theme:
+      https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css: { type: external, minified: true }
+
+google_fonts:
+  remote: https://fonts.googleapis.com
+  version: 1.x
+  license:
+    name: SIL Open Font License
+    url: https://scripts.sil.org/OFL
+  css:
+    theme:
+      https://fonts.googleapis.com/css2?family=Poppins&display=swap: { type: external }
+
