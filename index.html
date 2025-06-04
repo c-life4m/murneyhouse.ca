@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Murney House - Your Home Away From Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/styles/style.css">
+</head>
+<body>
+    <!-- Header with navigation -->
+    <header>
+        <div class="logo">
+            <a href="#">Murney House</a>
+        </div>
+        <nav>
+            <div class="desktop-nav">
+                <ul>
+                    <li><a href="#rooms">Rooms</a></li>
+                    <li><a href="#amenities">Amenities</a></li>
+                    <li><a href="#local-area">Local Area</a></li>
+                    <li><a href="otherpages/guest-hub.html">Guest Hub</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="mobile-nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="mobile-nav">
+                <ul>
+                    <li class="nav-item"><a href="#rooms" class="nav-link">Rooms</a></li>
+                    <li class="nav-item"><a href="#amenities" class="nav-link">Amenities</a></li>
+                    <li class="nav-item"><a href="#local-area" class="nav-link">Local Area</a></li>
+                    <li class="nav-item"><a href="otherpages/guest-hub.html" class="nav-link">Guest Hub</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="header-controls">
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/>
+                    <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/>
+                    <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </button>
+            <a href="#book-now" class="cta-button">Book Now</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <div class="hero-image-container">
+                <div class="hero-image" style="background-image: url('public/images/assets/PX/hero-1920.webp')"></div>
+                <div class="hero-mask"></div>
+            </div>
+            <div class="hero-text">
+                <h1>Your Home Away From Home</h1>
+                <p>Experience the comfort and charm of Murney House</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Section -->
+    <section id="rooms" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Our Rooms</h2>
+            <p class="section-subtitle">Comfort meets elegance in our carefully designed rooms</p>
+
+            <div class="room-grid">
+                <!-- Room 1 -->
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="public/images/assets/PX/Brm-1A-1200.webp" alt="Garden Suite">
+                    </div>
+                    <div class="room-details">
+                        <h3>Garden Suite</h3>
+                        <p>A spacious room overlooking our green front yard.</p>
+                        <div class="room-features">
+                            <span><i class="fas fa-user-friends"></i> 2</span>
+                            <span><i class="fas fa-bed"></i> Double</span>
+                        </div>
+                        <div class="room-price">From $189/night</div>
+                        <a href="otherpages/rooms.html" class="button">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Room 2 -->
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="public/images/assets/PX/Brm-2A-1200.webp" alt="Heritage Room">
+                    </div>
+                    <div class="room-details">
+                        <h3>Bedroom 2</h3>
+                        <p>Combining historic charm with modern amenities in this cozy and elegant room.</p>
+                        <div class="room-features">
+                            <span><i class="fas fa-user-friends"></i> 2</span>
+                            <span><i class="fas fa-bed"></i> Twin</span>
+                            <span><i class="fas fa-bed"></i> Twin</span>
+                        </div>
+                        <div class="room-price">From $179/night</div>
+                        <a href="otherpages/rooms.html" class="button">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Room 3 -->
+                <div class="room-card">
+                    <div class="room-image">
+                        <img src="public/images/assets/PX/Brm-3A-1200.webp" alt="Lakeside Loft">
+                    </div>
+                    <div class="room-details">
+                        <h3>Lakeside Loft</h3>
+                        <p>Our premium room with stunning lake views and a private balcony perfect for sunsets.</p>
+                        <div class="room-features">
+                            <span><i class="fas fa-user-friends"></i> 2-4</span>
+                            <span><i class="fas fa-bed"></i> double</span>
+                            <span><i class="fas fa-bed"></i> double futon</span>
+                        </div>
+                        <div class="room-price">From $229/night</div>
+                        <a href="otherpages/rooms.html" class="button">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Common Areas Section -->
+    <section id="common-areas" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Common Areas</h2>
+            <p class="section-subtitle">Shared spaces designed for relaxation and connection</p>
+
+            <div class="common-areas-grid">
+                <div class="common-area-image">
+                    <img src="public/images/assets/PX/Kitch-4-1200.webp" alt="Kitchen">
+                </div>
+                <div class="common-area-content order-mobile-first">
+                    <h3>Chef's Kitchen</h3>
+                    <p>Start your day right in our Amazing Kitchen.</p>
+                </div>
+                <div class="common-area-content">
+                    <h3>Cozy Living Room</h3>
+                    <p>Our spacious living room features comfortable seating and a collection of books and board games for your enjoyment. It's the perfect place to unwind after a day of exploring or to meet other guests.</p>
+                </div>
+                <div class="common-area-image">
+                    <img src="public/images/assets/PX/LR-2-1200.webp" alt="Living Room">
+                </div>
+                <div class="common-area-image">
+                    <img src="public/images/assets/PX/Bath-5-1200.webp" alt="Main Bathroom">
+                </div>
+                <div class="common-area-content order-mobile-first">
+                    <h3>Main Bathroom</h3>
+                    <p>Where you can enjoy a luxurious shower.</p>
+                </div>
+                <div class="common-area-content">
+                    <h3>Powder Room</h3>
+                    <p>For when nature calls while the main bathroom is in use.</p>
+                </div>
+                <div class="common-area-image">
+                    <img src="public/images/assets/PX/Powder-2-1200.webp" alt="Powder Room">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section id="amenities" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Amenities</h2>
+            <p class="section-subtitle">Everything you need for a comfortable stay</p>
+
+            <div class="amenities-grid">
+                <div class="amenity-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>Free Internet</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-parking"></i>
+                    <span>Free Parking</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-utensils"></i>
+                    <span>Meals On Site</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-temperature-low"></i>
+                    <span>Air Conditioning</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-tshirt"></i>
+                    <span>Laundry On Site</span>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="otherpages/amenities.html" class="button">See All Amenities</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Local Area Section -->
+    <section id="local-area" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Discover the Area</h2>
+            <p class="section-subtitle">Explore the beauty and charm of our small town</p>
+
+            <div class="local-area-grid">
+                <div class="local-area-content">
+                    <p>Nestled in the heart of a picturesque small town, Murney House is the perfect base for exploring all that the region has to offer. From scenic hiking trails and waterfalls to charming local shops and restaurants, there's something for everyone just minutes from our doorstep.</p>
+                    <h3>Local Highlights</h3>
+                    <ul>
+                        <li>Historic downtown district (5 min walk)</li>
+                        <li>Lakeside trails and beaches (10 min walk)</li>
+                        <li>Local winery tours (15 min drive)</li>
+                        <li>Farmer's market (Saturdays, 2 min walk)</li>
+                        <li>Nature preserve with hiking trails (20 min drive)</li>
+                    </ul>
+                    <a href="otherpages/gallery.html" class="button">Explore More</a>
+                </div>
+                <div class="local-area-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10000!2d-76.4812!3d44.2312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cd2ab0674408ea5%3A0x76a5497715d6d9ea!2sKingston%2C%20ON%2C%20Canada!5e0!3m2!1sen!2sus!4v1623251234567!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Features Section -->
+    <section id="additional-features" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Special Features</h2>
+            <p class="section-subtitle">Going the extra mile for our guests</p>
+
+            <div class="features-grid">
+                <!-- Emergency Info -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-first-aid"></i>
+                    </div>
+                    <h3>Emergency Information</h3>
+                    <p>Your safety is our priority. Find information about emergency contacts, procedures, and the location of first aid kits in your room guide. Our staff is trained in first aid and emergency response.</p>
+                    <a href="otherpages/contact.html" class="text-button">Learn More</a>
+                </div>
+
+                <!-- Special Offers -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>Special Offers</h3>
+                    <p>From seasonal packages to celebration specials, we offer various deals throughout the year. Sign up for our newsletter to be the first to know about our latest offers.</p>
+                    <a href="otherpages/booking.html" class="text-button">View Offers</a>
+                </div>
+
+                <!-- Add-ons -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3>Add-on Services</h3>
+                    <p>Enhance your stay with our additional services: in-room massage, special occasion decorations, picnic baskets for outings, or private dining arrangements. Contact us to customize your experience.</p>
+                    <a href="otherpages/contact.html" class="text-button">Explore Add-ons</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guest Book Section -->
+    <section id="guest-book" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Guest Experiences</h2>
+            <p class="section-subtitle">Read what our guests have to say about their stay</p>
+
+            <div class="guest-book-card" id="guest-book-card">
+                <div class="guest-book-content" id="guest-book-content">
+                    <!-- Content loaded from JSON -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Now Section -->
+    <section id="book-now" class="section-padding">
+        <div class="container">
+            <div class="book-now-card">
+                <h2>Ready to Experience Murney House?</h2>
+                <p>Book directly with us for the best rates and personalized service. We look forward to welcoming you!</p>
+                <a href="otherpages/booking.html" class="cta-button large">Book Your Stay</a>
+                <p class="small-text">Questions? Call us at (555) 123-4567</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <span>Murney House</span>
+                    </div>
+                    <p>Your home away from home in the heart of our charming town.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <address>
+                        <p>123 Main Street<br>Small Town, CA 12345</p>
+                        <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+                        <p><a href="mailto:info@murneyhouse.ca">info@murneyhouse.ca</a></p>
+                    </address>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#rooms">Rooms</a></li>
+                        <li><a href="#amenities">Amenities</a></li>
+                        <li><a href="#local-area">Local Area</a></li>
+                        <li><a href="otherpages/booking.html">Policies</a></li>
+                        <li><a href="otherpages/contact.html">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Stay Connected</h3>
+                    <p>Follow us for updates and local tips.</p>
+                    <a href="otherpages/guest-hub.html" class="button">Share Your Experience</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2023 Murney House. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="otherpages/booking.html">Privacy Policy</a>
+                    <a href="otherpages/booking.html">Terms of Service</a>
+                    <a href="otherpages/contact.html">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="src/script.js"></script>
+</body>
+</html>
