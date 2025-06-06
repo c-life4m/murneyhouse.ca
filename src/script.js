@@ -263,7 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (data.notifications) {
             data.notifications.forEach(notification => {
                 if (notification.active) {
-                    console.log('Notification:', notification.message);
                     // Handle notifications as needed
                 }
             });
@@ -319,15 +318,9 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('load', function() {
             setTimeout(() => {
                 const perfData = performance.getEntriesByType('navigation')[0];
-                console.log('Page Load Performance:', {
-                    'DOM Content Loaded': Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart) + 'ms',
-                    'Full Load': Math.round(perfData.loadEventEnd - perfData.loadEventStart) + 'ms'
-                });
             }, 0);
         });
     }
-
-    console.log('Murney House website loaded successfully - Mobile optimized with original design preserved!');
 
 class UpdatesCard {
     constructor() {
@@ -357,10 +350,12 @@ class UpdatesCard {
     async loadUpdates() {
         try {
             const response = await fetch('data/Updates.json');
+
             if (!response.ok) throw new Error('Failed to load updates');
 
             const data = await response.json();
             this.displayUpdates(data);
+
         } catch (error) {
             console.warn('Updates not available:', error);
             this.showFallbackContent();
@@ -368,9 +363,9 @@ class UpdatesCard {
     }
 
     displayUpdates(data) {
-        if (!this.content || !data.updates) return;
+        if (!this.content || !data) return;
 
-        const updatesHTML = data.updates.map(update =>
+        const updatesHTML = data.map(update =>
             `<div class="updates-text">${update.message}</div>`
         ).join('');
 

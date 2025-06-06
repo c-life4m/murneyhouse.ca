@@ -1791,6 +1791,7 @@ footer address a:hover::before {
     z-index: 3;
     max-width: 90%;
     width: 100%;
+    height: 200px;
     margin: 0 auto;
     margin-top: calc(2 * 1.5em); /* 2 blank text lines below hero text */
     background: rgba(255, 255, 255, 0.1);
@@ -1830,7 +1831,7 @@ footer address a:hover::before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.2rem;
+    padding: 0.1rem 0.2rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(255, 255, 255, 0.05);
 }
@@ -1876,25 +1877,25 @@ footer address a:hover::before {
 }
 
 .updates-scroll {
-    height: 100%;
+    height: 200px;
     padding: 1rem 1.2rem;
     overflow-y: auto;
-    padding-right: 2rem; /* Space for scrollbar alignment */
+    padding-right: 1rem; /* Space for scrollbar alignment */
 }
 
 /* Custom scrollbar for all browsers */
 .updates-scroll::-webkit-scrollbar {
-    width: 6px;
+    width: 10px;
 }
 
 .updates-scroll::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .updates-scroll::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.3);
-    border-radius: 3px;
+    border-radius: 5px;
     transition: background var(--transition-fast);
 }
 
@@ -1904,7 +1905,7 @@ footer address a:hover::before {
 
 /* Firefox scrollbar */
 .updates-scroll {
-    scrollbar-width: thin;
+    scrollbar-width: auto;
     scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
 }
 
