@@ -243,8 +243,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    loadGuestBook();
-
     // Load Updates - exact original functionality
     async function loadUpdates() {
         try {
@@ -268,8 +266,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-
-    loadUpdates();
 
     // Touch and mobile-specific optimizations
 
@@ -389,7 +385,8 @@ class UpdatesCard {
         }, 500);
     }
 }
-
+    loadUpdates();
     new UpdatesCard();
+    loadGuestBook();
 
 });
