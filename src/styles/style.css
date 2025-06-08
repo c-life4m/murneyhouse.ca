@@ -282,14 +282,19 @@ ul {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.cta-button.large {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
+.book-now-card .cta-button.large {
+    width: auto !important;
+    max-width: fit-content !important;
+    padding: 1rem 1.5rem !important;
+    margin: 0 auto !important; /* Center the button */
+    display: inline-block !important; /* Prevent full-width */
+    white-space: nowrap !important;
+    text-align: center !important;
 }
 
 @media (min-width: 768px) {
-    .cta-button.large {
-        font-size: 1.2rem;
+    .book-now-card .cta-button.large {
+        padding: 1rem 1.8rem !important;
     }
 }
 
@@ -1229,7 +1234,7 @@ nav {
 .guest-book-card {
     background-color: var(--light-card);
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: 0.5rem;
     max-height: 400px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--light-border);
@@ -1250,16 +1255,28 @@ nav {
 }
 
 .guest-book-content {
-    max-height: 300px;
-    overflow-y: auto;
-    padding-right: 8px;
-    text-align: center;
+    min-height: 120px; /* Set minimum height */
+    max-height: 200px; /* Maximum height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 0.5rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.guest-book-content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .guest-book-content:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .guest-review {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+    padding: 0.1rem 0;
     border-bottom: 1px solid var(--light-border);
+    margin-bottom: 1rem;
 }
 
 .dark-mode .guest-review {
@@ -1280,10 +1297,41 @@ nav {
 .review-text {
     color: var(--light-muted);
     line-height: 1.6;
+    word-wrap: break-word; /* Add this line */
+    overflow-wrap: break-word; /* Add this line for better browser support */
 }
 
 .dark-mode .review-text {
     color: var(--dark-muted);
+}
+
+.review-date {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* Custom scrollbar styling - only visible when needed */
+.guest-book-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.guest-book-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.guest-book-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.dark-mode .guest-book-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.guest-book-content::-webkit-scrollbar-thumb:hover {
+    background: var(--cta);
 }
 
 /* Book Now - exact original styling */

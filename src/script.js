@@ -192,69 +192,97 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-    // Guest Book - Load and display reviews from JSON - exact original functionality
-    async function loadGuestBook() {
-        try {
-            const response = await fetch('data/GuestBook.json');
-            if (!response.ok) throw new Error('Failed to load guest book');
+// Guest Book - Load and display reviews from JSON - exact original functionality
+// Update the loadGuestBook function
+async function loadGuestBook() {
+    try {
+        const response = await fetch('data/GuestBook.json');
+        const reviews = await response.json();
+        const container = document.getElementById('guest-book-content');
 
-            const data = await response.json();
-            displayGuestBook(data.entries || []);
-        } catch (error) {
-            console.warn('Guest book not available:', error);
-            // Show fallback content - exact original fallback
-            const guestBookContent = document.getElementById('guest-book-content');
-            if (guestBookContent) {
-                guestBookContent.innerHTML = `
-                    <div class="guest-review">
-                        <div class="review-author">Sarah & Mike, Toronto</div>
-                        <div class="review-text">"A wonderful stay! The personal touch and attention to detail made our visit truly memorable. We'll definitely be back!"</div>
-                    </div>
-                `;
-            }
+        if (container && reviews.length > 0) {
+            // Display all reviews at once
+            container.innerHTML = reviews.map(review => `
+                <div class="guest-review">
+                    <div class="review-author">${review.name}${review.location ? `, ${review.location}` : ''}</div>
+                    <div class="review-text">"${review.review}"</div>
+                    <div class="review-date">${new Date(review.date).toLocaleDateString()}</div>
+                </div>
+            `).join('');
         }
+    } catch (error) {
+    }
+}
+
+function displayGuestBook(entries) {
+    const guestBookContent = document.getElementById('guest-book-content');
+
+    if (!guestBookContent || entries.length === 0) {
+        return;
     }
 
-    function displayGuestBook(entries) {
-        const guestBookContent = document.getElementById('guest-book-content');
-        if (!guestBookContent || entries.length === 0) return;
+    let currentIndex = 0;
+    let rotationInterval; // Store interval reference
+    let isPaused = false;
 
-        let currentIndex = 0;
+    function showReview(index) {
+        const entry = entries[index];
 
-        function showReview(index) {
-            const entry = entries[index];
-            guestBookContent.innerHTML = `
-                <div class="guest-review">
-                    <div class="review-author">${entry.name}${entry.location ? `, ${entry.location}` : ''}</div>
-                    <div class="review-text">"${entry.message}"</div>
-                </div>
-            `;
-        }
+        guestBookContent.innerHTML = `
+            <div class="guest-review">
+                <div class="review-author">${entry.name}${entry.location ? `, ${entry.location}` : ''}</div>
+                <div class="review-text">"${entry.review}"</div>
+            </div>
+        `;
+    }
 
-        // Show first review
-        showReview(currentIndex);
-
-        // Rotate reviews if there are multiple - exact original timing
-        if (entries.length > 1) {
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % entries.length;
-                showReview(currentIndex);
+    function startRotation() {
+        if (entries.length > 1 && !isPaused) {
+            rotationInterval = setInterval(() => {
+                if (!isPaused) {
+                    currentIndex = (currentIndex + 1) % entries.length;
+                    showReview(currentIndex);
+                }
             }, 5000);
         }
     }
 
-    // Load Updates - exact original functionality
-    async function loadUpdates() {
-        try {
-            const response = await fetch('data/Updates.json');
-            if (!response.ok) throw new Error('Failed to load updates');
-
-            const data = await response.json();
-            processUpdates(data);
-        } catch (error) {
-            console.warn('Updates not available:', error);
+    function stopRotation() {
+        if (rotationInterval) {
+            clearInterval(rotationInterval);
+            rotationInterval = null;
         }
     }
+
+    // Show first review
+    showReview(currentIndex);
+
+    // Add hover event listeners
+    guestBookContent.addEventListener('mouseenter', () => {
+        isPaused = true;
+        stopRotation();
+    });
+
+    guestBookContent.addEventListener('mouseleave', () => {
+        isPaused = false;
+        startRotation();
+    });
+
+    // Start rotation initially
+    startRotation();
+}
+
+// Load Updates - exact original functionality
+async function loadUpdates() {
+    try {
+        const response = await fetch('data/Updates.json');
+        if (!response.ok) throw new Error('Failed to load updates');
+
+        const data = await response.json();
+        processUpdates(data);
+    } catch (error) {
+    }
+}
 
     function processUpdates(data) {
         // Process any site updates or notifications - exact original
@@ -353,7 +381,6 @@ class UpdatesCard {
             this.displayUpdates(data);
 
         } catch (error) {
-            console.warn('Updates not available:', error);
             this.showFallbackContent();
         }
     }
