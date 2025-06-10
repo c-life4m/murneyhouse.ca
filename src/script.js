@@ -192,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-// Guest Book - Load and display reviews from JSON - exact original functionality
 // Update the loadGuestBook function
 async function loadGuestBook() {
     try {
