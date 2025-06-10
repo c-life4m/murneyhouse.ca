@@ -60,6 +60,7 @@
     src: url('/public/images/assets/FONTS/fontawesome/webfonts/fa-solid-900.woff2') format('woff2');
     font-weight: 900;
     font-display: swap;
+    src: url('../../webfonts/fa-regular-400.woff2') format('woff2');
 }
 
 /* Scale up spacing for larger screens */
