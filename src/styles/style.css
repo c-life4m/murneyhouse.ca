@@ -418,7 +418,7 @@ nav {
 }
 
 /* Desktop Navigation - Simple width increase only */
-@media (min-width: 768px) {
+@media (min-width: 991px) {
     .mobile-nav-toggle {
         display: none;
     }
@@ -434,7 +434,8 @@ nav {
     .desktop-nav ul {
         display: flex;
         justify-content: space-between; /* Spread links evenly */
-        width: 100%;
+        gap: var(--spacing-md);
+        width: 90%;
     }
 
     .desktop-nav li {
