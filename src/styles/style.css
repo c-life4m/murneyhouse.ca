@@ -273,6 +273,9 @@ ul {
     display: inline-block;
     padding: 0.8rem 1.5rem;
     border-radius: 4px;
+    width: auto !important;
+    max-width: fit-content !important;
+    margin: 0 auto !important;
     background-color: var(--cta);
     color: white;
     font-weight: 600;
@@ -2141,4 +2144,132 @@ footer address a:hover::before {
 /* Hide card by default until animation */
 .updates-card.hidden {
     display: none;
+}
+
+/* Add this section at the very bottom of your existing style.css file */
+
+/* ========================================
+   ROOMS PAGE SPECIFIC STYLES
+   ======================================== */
+
+.rooms-hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.rooms-hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.rooms-hero-content {
+    position: absolute;
+    top: 25%; /* Adjust this percentage to position text where you want */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: var(--light-text);
+    z-index: 2;
+    animation: slideInUp 1s ease-out;
+    width: 100%;
+    padding: 0 var(--spacing-md);
+}
+
+/* Button Styling Updates - Match Main CTA Style */
+.view-rooms-btn,
+.book-room-btn,
+.view-common-areas-btn,
+.explore-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px; /* More rectangular with subtle rounding */
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+/* Primary button style (book room) */
+.book-room-btn {
+    background-color: var(--cta);
+    color: white;
+}
+
+.book-room-btn:hover {
+    background-color: var(--cta-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Secondary button style (view rooms, common areas) */
+.view-rooms-btn,
+.view-common-areas-btn {
+    background-color: transparent;
+    color: var(--cta);
+    border: 2px solid var(--cta);
+}
+
+.view-rooms-btn:hover,
+.view-common-areas-btn:hover {
+    background-color: var(--cta);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark mode adjustments */
+.dark-mode .view-rooms-btn,
+.dark-mode .view-common-areas-btn {
+    color: var(--cta);
+    border-color: var(--cta);
+}
+
+.dark-mode .view-rooms-btn:hover,
+.dark-mode .view-common-areas-btn:hover {
+    background-color: var(--cta);
+    color: white;
+}
+
+/* Hero explore button - keep white border for contrast on image */
+.explore-button {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    border-radius: 8px; /* Update from 50px to match other buttons */
+}
+
+.explore-button:hover {
+    background-color: white;
+    color: var(--dark-text);
+}
+
+/* Icon spacing in buttons */
+.view-rooms-btn i,
+.book-room-btn i,
+.view-common-areas-btn i,
+.explore-button i {
+    margin-left: var(--spacing-xs);
+    transition: transform var(--transition-fast);
+}
+
+.explore-button:hover i {
+    transform: translateY(5px);
 }

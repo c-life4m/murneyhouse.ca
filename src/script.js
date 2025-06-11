@@ -416,3 +416,60 @@ class UpdatesCard {
     loadGuestBook();
 
 });
+
+
+/* ========================================
+   ROOMS PAGE SPECIFIC FUNCTIONALITY
+   ======================================== */
+
+// Set responsive background image for rooms hero
+function setRoomsHeroBackground() {
+    const heroBackground = document.querySelector('.rooms-hero-background');
+    if (!heroBackground) return; // Only run on rooms page
+
+    const width = window.innerWidth;
+
+    let imagePath;
+    if (width >= 1200) {
+        imagePath = '../public/images/assets/PX/Brm-3A-1920.webp';
+    } else if (width >= 768) {
+        imagePath = '../public/images/assets/PX/Brm-3A-1200.webp';
+    } else {
+        imagePath = '../public/images/assets/PX/Brm-3A-800.webp';
+    }
+
+    heroBackground.style.backgroundImage = `url('${imagePath}')`;
+}
+
+// Smooth scroll to specific room sections from main page
+function handleRoomNavigation() {
+    const hash = window.location.hash;
+    if (hash) {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+            setTimeout(() => {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+        }
+    }
+}
+
+// Initialize rooms page functionality
+function initializeRoomsPage() {
+    // Only run rooms-specific code if we're on the rooms page
+    if (document.querySelector('.rooms-hero')) {
+        setRoomsHeroBackground();
+        handleRoomNavigation();
+
+        // Handle window resize for hero background
+        window.addEventListener('resize', setRoomsHeroBackground);
+    }
+}
+
+// Add to existing DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    // Your existing initialization code stays here
+
+    // Add rooms page initialization
+    initializeRoomsPage();
+});
