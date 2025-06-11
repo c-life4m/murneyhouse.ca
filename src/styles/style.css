@@ -1349,6 +1349,11 @@ nav {
     background: transparent;
 }
 
+.guest-book-content {
+    scrollbar-width: thin;  /* Firefox specific */
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;  /* Firefox specific */
+}
+
 .guest-book-content::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 3px;
@@ -1580,6 +1585,17 @@ footer {
     .feature-card,
     .amenity-item {
         border: 2px solid currentColor;
+        forced-color-adjust: none;
+    }
+}
+
+/* Fallback for older browsers */
+@media screen and (forced-colors: active) {
+    .room-card,
+    .feature-card,
+    .amenity-item {
+        border: 2px solid CanvasText;
+        forced-color-adjust: none;
     }
 }
 
