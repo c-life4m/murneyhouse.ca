@@ -6,257 +6,8 @@
     <title>Our Rooms - Murney House</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="../public/images/assets/icons/favicon.png?v=1">
     <link rel="stylesheet" href="../src/styles/style.css">
-    <style>
-        /* Room-specific styles */
-        .rooms-hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .rooms-hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            opacity: 0.5;
-            z-index: -1;
-        }
-
-        .rooms-hero-content {
-            text-align: center;
-            color: var(--light-text);
-            z-index: 2;
-            animation: slideInUp 1s ease-out;
-        }
-
-        .dark-mode .rooms-hero-content {
-            color: var(--dark-text);
-        }
-
-        .rooms-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: var(--spacing-md);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .rooms-hero p {
-            font-size: 1.3rem;
-            margin-bottom: var(--spacing-lg);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .room-section {
-            padding: var(--spacing-xl) 0;
-        }
-
-        .room-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: var(--spacing-lg);
-            color: var(--cta);
-        }
-
-        .room-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-lg);
-            align-items: center;
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .room-image-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-
-        .room-image-container img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            transition: transform var(--transition-medium);
-        }
-
-        .room-image-container:hover img {
-            transform: scale(1.05);
-        }
-
-        .room-text {
-            padding: var(--spacing-md);
-        }
-
-        .room-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: var(--spacing-sm);
-            color: var(--cta);
-        }
-
-        .room-text p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .room-features {
-            display: flex;
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-md);
-            flex-wrap: wrap;
-        }
-
-        .room-features span {
-            background: var(--light-surface);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .dark-mode .room-features span {
-            background: var(--dark-surface);
-        }
-
-        .room-price {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--cta);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .book-room-btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background: linear-gradient(135deg, var(--cta), var(--cta-hover));
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all var(--transition-fast);
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .book-room-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.3);
-            animation: buttonWobble 0.8s ease-in-out;
-        }
-
-        .book-room-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .book-room-btn:hover::before {
-            left: 100%;
-        }
-
-        .reverse {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .reverse .room-image-container {
-            order: 2;
-        }
-
-        .reverse .room-text {
-            order: 1;
-        }
-
-        .common-areas-cta {
-            text-align: center;
-            padding: var(--spacing-xl) 0;
-            background: var(--light-surface);
-        }
-
-        .dark-mode .common-areas-cta {
-            background: var(--dark-surface);
-        }
-
-        .common-areas-btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--cta);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all var(--transition-fast);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .common-areas-btn:hover {
-            background: var(--cta-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.3);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 767px) {
-            .room-grid {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-md);
-            }
-
-            .reverse .room-image-container,
-            .reverse .room-text {
-                order: unset;
-            }
-
-            .rooms-hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .rooms-hero p {
-                font-size: 1.1rem;
-            }
-
-            .room-title {
-                font-size: 2rem;
-            }
-
-            .room-image-container img {
-                height: 300px;
-            }
-        }
-
-        @media (max-width: 575px) {
-            .rooms-hero h1 {
-                font-size: 2rem;
-            }
-
-            .room-features {
-                justify-content: center;
-            }
-
-            .room-text {
-                text-align: center;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Header with navigation -->
@@ -311,21 +62,21 @@
     </header>
 
     <!-- Rooms Hero Section -->
-    <section class="rooms-hero">
-        <div class="rooms-hero-background"></div>
-        <div class="rooms-hero-content">
+    <section id=hero class="rooms-hero">
+        <div class="rooms-hero-background hero-image"></div>
+        <div class="rooms-hero-content hero-text">
             <h1>Explore Our Rooms</h1>
-            <p>Discover comfort, elegance, and tranquility in each carefully designed space</p>
+            <p>Discover comfort, elegance, and tranquility in each of our expertly renovated rooms</p>
         </div>
     </section>
 
     <!-- Bedroom 1 Section -->
-    <section id="bedroom-1" class="room-section">
+    <section id="bedroom-1" class="room-section room-card">
         <div class="container">
-            <h2 class="room-title">Bedroom 1 - Garden Suite</h2>
+            <h2 class="room-title">Bedroom 1</h2>
 
             <!-- Row 1: Image/Text -->
-            <div class="room-grid">
+            <div class="room-grid room-card">
                 <div class="room-image-container">
                     <picture>
                         <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-1A-1920.webp">
@@ -334,19 +85,20 @@
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Tranquil Garden Views</h3>
-                    <p>Wake up to the serene beauty of our landscaped garden. This spacious room features a comfortable double bed and large windows that flood the space with natural light, creating a peaceful retreat for your stay.</p>
+                    <h3>Double Bed</h3>
+                    <p>This spacious room features a double bed, heated floor and in room ductless, whisper quite AC unit. Natural oak floor and solid wood door with a digital privacy lock. A perfect retreat for a couple.</p>
                     <div class="room-features">
                         <span><i class="fas fa-user-friends"></i> 2 Guests</span>
                         <span><i class="fas fa-bed"></i> Double Bed</span>
-                        <span><i class="fas fa-leaf"></i> Garden View</span>
+                        <span><i class="fas fa-leaf"></i> Front Yard View</span>
+                        <span><i class="fas fa-snowflake"></i> Climate Control</span>
                     </div>
-                    <div class="room-price">From $189/night</div>
+                    <div class="room-price">From $129/night</div>
                 </div>
             </div>
 
             <!-- Row 2: Text/Image -->
-            <div class="room-grid reverse">
+            <div class="room-grid reverse room-card">
                 <div class="room-image-container">
                     <picture>
                         <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-1B-1920.webp">
@@ -355,18 +107,16 @@
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Comfortable Living Space</h3>
-                    <p>Relax in the cozy seating area, perfect for reading or enjoying your morning coffee while overlooking the garden. The room includes modern amenities and thoughtful touches to ensure your comfort.</p>
+                    <h3>Storage</h3>
+                    <p>Featuring built in drawers and a small, yet functional closet with a motion light and mirrored door, as well as small built-in open shelves. Also features wired internet jacks.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-wifi"></i> Free WiFi</span>
-                        <span><i class="fas fa-coffee"></i> Coffee Station</span>
-                        <span><i class="fas fa-chair"></i> Seating Area</span>
+                        <span><i class="fas fa-wifi"></i> Free Wired Internet</span>
                     </div>
                 </div>
             </div>
 
             <!-- Row 3: Image/Text -->
-            <div class="room-grid">
+            <div class="room-grid room-card">
                 <div class="room-image-container">
                     <picture>
                         <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-1C-1920.webp">
@@ -375,12 +125,11 @@
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Private Ensuite</h3>
-                    <p>Enjoy the convenience of your own private bathroom with modern fixtures, fresh towels, and premium toiletries. The clean, contemporary design complements the room's peaceful atmosphere.</p>
+                    <h3>Large Window</h3>
+                    <p>Overlooking the front yard and our quite street beyond, window blind for privacy. A work desk and extra seating for added comfort and utility. The clean, contemporary design complements the room's bright and peaceful atmosphere.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-bath"></i> Private Bath</span>
-                        <span><i class="fas fa-spray-can"></i> Premium Toiletries</span>
-                        <span><i class="fas fa-snowflake"></i> Climate Control</span>
+                        <span><i class="fas fa-chair"></i> Seating Area</span>
+                        <span><i class="fas fa-book"></i> Desk</span>
                     </div>
                     <a href="booking.html" class="cta-button">Book This Room</a>
                 </div>
@@ -389,12 +138,12 @@
     </section>
 
     <!-- Bedroom 2 Section -->
-    <section id="bedroom-2" class="room-section">
+    <section id="bedroom-2" class="room-section room-card">
         <div class="container">
-            <h2 class="room-title">Bedroom 2 - Heritage Room</h2>
+            <h2 class="room-title">Bedroom 2 - Twins</h2>
 
             <!-- Row 1: Text/Image -->
-            <div class="room-grid reverse">
+            <div class="room-grid reverse room-card">
                 <div class="room-image-container">
                     <picture>
                         <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-2A-1920.webp">
@@ -403,19 +152,18 @@
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Classic Charm & Comfort</h3>
-                    <p>Step into history with this beautifully appointed room featuring twin beds and classic décor that honors the heritage of Murney House while providing all modern conveniences.</p>
+                    <h3>Small Bedroom with stacked twin beds</h3>
+                    <p>The bed can be converted to 2 twin beds, side by side. This will make them sit low to the ground - can be a good option for younger guests. Large window overlooking an enormous green side yard. </p>
                     <div class="room-features">
                         <span><i class="fas fa-user-friends"></i> 2 Guests</span>
-                        <span><i class="fas fa-bed"></i> Twin Beds</span>
-                        <span><i class="fas fa-landmark"></i> Heritage Style</span>
+                        <span><i class="fas fa-bed"></i> 2 Twin Beds</span>
                     </div>
-                    <div class="room-price">From $179/night</div>
+                    <div class="room-price">From $99/night</div>
                 </div>
             </div>
 
             <!-- Row 2: Image/Text -->
-            <div class="room-grid">
+            <div class="room-grid room-card">
                 <div class="room-image-container">
                     <picture>
                         <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-2B-1920.webp">
@@ -425,17 +173,16 @@
                 </div>
                 <div class="room-text">
                     <h3>Elegant Details</h3>
-                    <p>Admire the thoughtful design elements that blend historical character with contemporary amenities. Each detail has been carefully chosen to create an atmosphere of refined comfort.</p>
+                    <p>Natural country oak floor (hydronically heated in winter for added comfort), Solid wood door with a digital lock for privacy, a quiet AC unit, ceiling fan and a desk. Also features wired internet wall jack. Each detail has been carefully chosen to create an atmosphere of refined comfort.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-palette"></i> Original Features</span>
-                        <span><i class="fas fa-lamp"></i> Period Lighting</span>
-                        <span><i class="fas fa-book"></i> Reading Nook</span>
+                        <span><i class="fas fa-wifi"></i> Free Wired Internet</span>
+                        <span><i class="fas fa-book"></i> Desk</span>
                     </div>
                 </div>
             </div>
 
             <!-- Row 3: Text/Image -->
-            <div class="room-grid reverse">
+            <div class="room-grid reverse room-card">
                 <div class="room-image-container">
                     <picture>
                         <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-2E-1920.webp">
@@ -444,8 +191,8 @@
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Peaceful Retreat</h3>
-                    <p>Unwind in this serene space where vintage charm meets modern comfort. The carefully curated atmosphere provides the perfect backdrop for a restful stay in historic surroundings.</p>
+                    <h3>Plenty of Storage</h3>
+                    <p>Built in drawers, open shelving and a barn door that reveals more closet storage behind it. Unwind in this serene space where vintage charm meets modern comfort. The carefully curated atmosphere provides the perfect backdrop for a restful stay in a small town.</p>
                     <div class="room-features">
                         <span><i class="fas fa-window-maximize"></i> Large Windows</span>
                         <span><i class="fas fa-fan"></i> Ceiling Fan</span>
@@ -458,12 +205,12 @@
     </section>
 
     <!-- Bedroom 3 Section -->
-    <section id="bedroom-3" class="room-section">
+    <section id="bedroom-3" class="room-section room-card">
         <div class="container">
-            <h2 class="room-title">Bedroom 3 - Lakeside Loft</h2>
+            <h2 class="room-title">Bedroom 3 - Our Biggest</h2>
 
             <!-- Row 1: Image/Text -->
-            <div class="room-grid">
+            <div class="room-grid room-card">
                 <div class="room-image-container">
                     <picture>
                         <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-3A-1920.webp">
@@ -472,19 +219,18 @@
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Premium Lake Views</h3>
-                    <p>Our crown jewel offers breathtaking views of the lake from your private balcony. This spacious loft accommodates up to 4 guests with a double bed and comfortable futon seating area.</p>
+                    <h3>Premium Bedroom or Party Room</h3>
+                    <p>Our largest bedroom that is completely separate from the rest of the house. Features a cathedral ceiling, natural oak flooring (heated in winter for added comfort), solid wood doors, digital lock for privacy and security. Accommodates up to 4 guests with a double murphy bed and comfortable futon seating that opens to a double bed.</p>
                     <div class="room-features">
                         <span><i class="fas fa-users"></i> 2-4 Guests</span>
-                        <span><i class="fas fa-bed"></i> Double Bed</span>
-                        <span><i class="fas fa-water"></i> Lake View</span>
+                        <span><i class="fas fa-bed"></i> Double Murphy Bed</span>
                     </div>
-                    <div class="room-price">From $229/night</div>
+                    <div class="room-price">From $199/night</div>
                 </div>
             </div>
 
             <!-- Row 2: Text/Image -->
-            <div class="room-grid reverse">
+            <div class="room-grid reverse room-card">
                 <div class="room-image-container">
                     <picture>
                         <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-3B-1920.webp">
@@ -493,18 +239,16 @@
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Comfortable Lounge Area</h3>
-                    <p>The versatile futon provides additional sleeping space or a comfortable spot to relax while taking in the stunning lake views. Perfect for families or small groups seeking extra space.</p>
+                    <h3>Laptop Nook & Lounge area</h3>
+                    <p>With shelving and a small bank of drawers.</p>
                     <div class="room-features">
                         <span><i class="fas fa-couch"></i> Double Futon</span>
-                        <span><i class="fas fa-tv"></i> Entertainment Area</span>
-                        <span><i class="fas fa-utensils"></i> Kitchenette</span>
                     </div>
                 </div>
             </div>
 
             <!-- Row 3: Image/Text -->
-            <div class="room-grid">
+            <div class="room-grid room-card">
                 <div class="room-image-container">
                     <picture>
                         <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-3C-1920.webp">
@@ -513,18 +257,17 @@
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Private Balcony</h3>
-                    <p>Step out onto your private balcony to enjoy morning coffee with sunrise views or evening relaxation as the sun sets over the lake. The perfect spot for romantic moments or peaceful reflection.</p>
+                    <h3>Seating Area</h3>
+                    <p>That can also sleep two, when the futon is unfolded. This room also features several wired internet wall jacks, guiet room AC and a ceiling fan.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-door-open"></i> Private Balcony</span>
-                        <span><i class="fas fa-sun"></i> Sunrise Views</span>
-                        <span><i class="fas fa-chair"></i> Outdoor Seating</span>
+                        <span><i class="fas fa-wifi"></i> Free Wired Internet</span>
+                        <span><i class="fas fa-fan"></i> Ceiling Fan</span>
                     </div>
                 </div>
             </div>
 
             <!-- Row 4: Text/Image -->
-            <div class="room-grid reverse">
+            <div class="room-grid reverse room-card">
                 <div class="room-image-container">
                     <picture>
                         <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-3D-1920.webp">
@@ -533,12 +276,9 @@
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Premium Amenities</h3>
-                    <p>Enjoy all the comforts of home and more with premium amenities including a fully equipped kitchenette, spacious bathroom, and luxury furnishings throughout this exceptional loft space.</p>
+                    <h3>Closet</h3>
+                    <p>With shelving, hanger rod and mirrored door.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-bath"></i> Luxury Bath</span>
-                        <span><i class="fas fa-snowflake"></i> Climate Control</span>
-                        <span><i class="fas fa-star"></i> Premium Linens</span>
                     </div>
                     <a href="booking.html" class="cta-button">Book This Room</a>
                 </div>
@@ -549,8 +289,8 @@
     <!-- Common Areas CTA -->
     <section class="common-areas-cta">
         <div class="container">
-            <h2>Explore Our Common Areas</h2>
-            <p>Discover shared spaces designed for relaxation and connection</p>
+            <h2 class="section-title">Explore Our Common Areas</h2>
+            <p class="section-subtitle">Discover shared spaces designed for relaxation and connection</p>
             <a href="common-areas.html" class="cta-button">View Common Areas</a>
         </div>
     </section>
@@ -566,8 +306,8 @@
                     <div class="amenity-icon">
                         <i class="fas fa-wifi"></i>
                     </div>
-                    <h3>Free WiFi</h3>
-                    <p>High-speed internet throughout the property</p>
+                    <h3>Free Wired Internet</h3>
+                    <p>High-speed internet in every room</p>
                 </div>
 
                 <div class="amenity-item">
@@ -575,95 +315,64 @@
                         <i class="fas fa-car"></i>
                     </div>
                     <h3>Free Parking</h3>
-                    <p>Complimentary on-site parking for all guests</p>
+                    <p> One free on-site parking available</p>
                 </div>
 
                 <div class="amenity-item">
                     <div class="amenity-icon">
                         <i class="fas fa-coffee"></i>
                     </div>
-                    <h3>Breakfast Included</h3>
-                    <p>Start your day with our complimentary breakfast</p>
-                </div>
-
-                <div class="amenity-item">
-                    <div class="amenity-icon">
-                        <i class="fas fa-snowflake"></i>
-                    </div>
-                    <h3>Air Conditioning</h3>
-                    <p>Climate control in all rooms and common areas</p>
-                </div>
-
-                <div class="amenity-item">
-                    <div class="amenity-icon">
-                        <i class="fas fa-swimming-pool"></i>
-                    </div>
-                    <h3>Hot Tub Access</h3>
-                    <p>Relax in our outdoor hot tub with lake views</p>
-                </div>
-
-                <div class="amenity-item">
-                    <div class="amenity-icon">
-                        <i class="fas fa-bicycle"></i>
-                    </div>
-                    <h3>Bike Rentals</h3>
-                    <p>Explore the area with our complimentary bikes</p>
+                    <h3>Brew Your Own</h3>
+                    <p>Start your day with freshly ground/brewed coffee. Premium Coffee Maker available in our shared kitchen</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Book Your Stay Section -->
+    <!-- Book Now Section -->
     <section id="book-now" class="section-padding">
         <div class="container">
-            <div class="booking-card">
-                <div class="booking-content">
-                    <h2>Book Your Stay</h2>
-                    <p>Ready to experience the comfort and charm of Murney House? Reserve your room today and create unforgettable memories.</p>
-                    <a href="booking.html" class="cta-button">Reserve Now</a>
-                </div>
-                <div class="booking-image">
-                    <img src="../public/images/assets/PX/hero-1200.webp" alt="Murney House Exterior">
-                </div>
+            <div class="book-now-card">
+                <h2>Ready to Experience Murney House?</h2>
+                <p>Book directly with us for the best rates and personalized service. We look forward to welcoming you!</p>
+                <a href="otherpages/booking.html" class="cta-button large">Book Your Stay</a>
+                <p class="small-text">Questions? Call us at <a href="tel:+15551234567">(555) 123-4567</a></p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer id="contact">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <address>
+                        <p>123 Main Street<br>Small Town, CA 12345</p>
+                        <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+                        <p><a href="mailto:info@murneyhouse.ca">info@murneyhouse.ca</a></p>
+                    </address>
+                </div>
+
+                <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="#rooms">Rooms</a></li>
-                        <li><a href="../index.html#amenities">Amenities</a></li>
-                        <li><a href="guest-hub.html">Guest Hub</a></li>
+                        <li><a href="#guest-hub">Guest Hub</a></li>
+                        <li><a href="otherpages/rooms.html#">Rooms</a></li>
+                        <li><a href="#amenities">Amenities</a></li>
+                        <li><a href="#local-area">Local Area</a></li>
+                        <li><a href="otherpages/booking.html">Policies</a></li>
+                        <li><a href="otherpages/contact.html">FAQs</a></li>
                     </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <div class="contact-info">
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Lakeside Drive, Kingston, ON</p>
-                        <p><i class="fas fa-phone"></i> (613) 555-0123</p>
-                        <p><i class="fas fa-envelope"></i> info@murneyhouse.ca</p>
-                    </div>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Murney House</h3>
-                    <p>Your home away from home, where comfort meets elegance in the heart of Kingston's historic waterfront.</p>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2024 Murney House. All rights reserved.</p>
+                <p>&copy; 2025 Murney House. All rights reserved.</p>
                 <div class="footer-links">
-                    <a href="privacy-policy.html">Privacy Policy</a>
-                    <a href="terms-of-service.html">Terms of Service</a>
-                    <a href="sitemap.html">Sitemap</a>
+                    <a href="otherpages/booking.html">Privacy Policy</a>
+                    <a href="otherpages/booking.html">Terms of Service</a>
+                    <a href="otherpages/contact.html">Sitemap</a>
                 </div>
             </div>
         </div>

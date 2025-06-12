@@ -185,7 +185,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .common-area-content,
         .local-area-content,
         .local-area-map,
-        .book-now-card
+        .book-now-card,
+        .room-text h3,
+        .room-text p,
+        .room-price,
+        .hero-image,
+        .hero-text,
+        .hero-text h1,
+        .hero-text p
     `);
 
     animatedElements.forEach(el => {
@@ -466,10 +473,20 @@ function initializeRoomsPage() {
     }
 }
 
-// Add to existing DOMContentLoaded event listener
+// Hero animation on page load for rooms page
 document.addEventListener('DOMContentLoaded', function() {
-    // Your existing initialization code stays here
+    // Check if we're on the rooms page
+    if (window.location.pathname.includes('rooms.html')) {
+        setTimeout(() => {
+            const heroImage = document.querySelector('.rooms-hero .hero-image');
+            const heroText = document.querySelector('.rooms-hero .hero-text');
+            const heroTitle = document.querySelector('.rooms-hero .hero-text h1');
+            const heroSubtitle = document.querySelector('.rooms-hero .hero-text p');
 
-    // Add rooms page initialization
-    initializeRoomsPage();
+            if (heroImage) heroImage.classList.add('in-view');
+            if (heroText) heroText.classList.add('in-view');
+            if (heroTitle) heroTitle.classList.add('in-view');
+            if (heroSubtitle) heroSubtitle.classList.add('in-view');
+        }, 100); // Small delay to ensure DOM is ready
+    }
 });
