@@ -963,7 +963,7 @@ nav {
 }
 
 /* Mobile Layout */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .common-areas-grid {
         grid-template-columns: 1fr;
     }
@@ -2124,7 +2124,7 @@ footer address a:hover::before {
 }
 
 /* Mobile optimizations */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     .updates-card {
         margin-left: var(--spacing-sm);
         margin-right: var(--spacing-sm);
@@ -2149,6 +2149,10 @@ footer address a:hover::before {
 /* ========================================
    ROOMS PAGE SPECIFIC STYLES
    ======================================== */
+
+.room-image-container img {
+    height: auto; /* Allow height to adjust based on content */
+}
 
 .rooms-hero {
     position: relative;
@@ -2214,14 +2218,37 @@ footer address a:hover::before {
 
         .room-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-lg);
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
             align-items: center;
-            margin-bottom: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
         }
 
         .room-grid.reverse {
-            grid-template-columns: 1fr 1fr; /* Keep the same columns */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .room-grid.reverse .room-image-container {
+            order: 2; /* Image first in reverse */
+        }
+
+        .room-grid.reverse .room-text {
+            order: 1; /* Text second in reverse */
+        }
+
+        @media (max-width: 768px) {
+            .room-grid,
+            .room-grid.reverse {
+                grid-template-columns: 1fr; /* Switch to single column */
+            }
+
+            .room-grid.reverse .room-image-container,
+            .room-grid.reverse .room-text {
+                order: unset; /* Reset order for single column layout */
+            }
         }
 
 .room-image-container {
@@ -2229,14 +2256,6 @@ footer address a:hover::before {
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-        }
-
-        .room-grid.reverse .room-image-container {
-            order: 2; /* Move image to the right */
-        }
-
-        .room-grid.reverse .room-text {
-            order: 1; /* Move text to the left */
         }
 
         .room-image-container img {
