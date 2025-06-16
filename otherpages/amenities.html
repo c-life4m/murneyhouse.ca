@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Rooms - Murney House</title>
+    <title>Amenities - Murney House</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="../public/images/assets/icons/favicon.png?v=1">
@@ -18,10 +18,10 @@
         <nav>
             <div class="desktop-nav">
                 <ul>
-                    <li><a href="#rooms" class="active">Rooms</a></li>
-                    <li><a href="../index.html#amenities">Amenities</a></li>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../../otherpages/rooms.html">Rooms</a></li>
                     <li><a href="../index.html#local-area">Local Area</a></li>
-                    <li><a href="guest-hub.html">Guest Hub</a></li>
+                    <li><a href="../../otherpages/guest-hub.html">Guest Hub</a></li>
                     <li><a href="../index.html#contact">Contact</a></li>
                 </ul>
             </div>
@@ -32,8 +32,9 @@
             </div>
             <div class="mobile-nav">
                 <ul>
-                    <li class="nav-item"><a href="#rooms" class="nav-link active">Rooms</a></li>
-                    <li class="nav-item"><a href="../index.html#amenities" class="nav-link">Amenities</a></li>
+                    <li class="mobile-cta-link"><a href="otherpages/booking.html" class="cta-button">Book Now</a></li>
+                    <li><a href="../index.html">Back to Home</a></li>
+                    <li><a href="../../otherpages/rooms.html">Rooms</a></li>
                     <li class="nav-item"><a href="../index.html#local-area" class="nav-link">Local Area</a></li>
                     <li class="nav-item"><a href="guest-hub.html" class="nav-link">Guest Hub</a></li>
                     <li class="nav-item"><a href="../index.html#contact" class="nav-link">Contact</a></li>
@@ -61,39 +62,45 @@
         </div>
     </header>
 
-    <!-- Rooms Hero Section -->
-    <section id=hero class="rooms-hero">
-        <div class="rooms-hero-background hero-image"></div>
-        <div class="rooms-hero-content hero-text">
-            <h1>Explore Our Rooms</h1>
-            <p>Discover comfort, elegance, and tranquility in each of our expertly renovated rooms</p>
-        </div>
-    </section>
+    <!-- Amenities Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <div class="hero-image-container">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="../../public/images/assets/PX/Kitch-4-800.webp">
+                    <source media="(max-width: 1200px)" srcset="../../public/images/assets/PX/Kitch-4-1200.webp">
+                    <img src="../../public/images/assets/PX/Kitch-4-1920.webp" alt="Murney House - Beautiful bed and breakfast" class="hero-image" loading="eager">
+                </picture>
+                <div class="hero-mask"></div>
+            </div>
+            <div class="hero-text">
+                <h1>Common Areas & Amenities</h1>
+                <p>Modern conveniences at your finger tips</p>
+            </div>
+    </section
 
-    <!-- Bedroom 1 Section -->
-    <section id="bedroom-1" class="room-section room-card">
+    <!-- Common Area Section -->
+    <section id="Kitchen-1" class="room-section room-card">
         <div class="container">
-            <h2 class="room-title">Bedroom 1</h2>
+            <h2 class="room-title">Chef's Kitchen</h2>
 
             <!-- Row 1: Image/Text -->
             <div class="room-grid room-card">
                 <div class="room-image-container">
                     <picture>
-                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-1A-1920.webp">
-                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Brm-1A-1200.webp">
-                        <img src="../public/images/assets/PX/Brm-1A-800.webp" alt="Garden Suite Main View">
+                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Kitch-3-1920.webp">
+                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Kitch-3-1200.webp">
+                        <img src="../public/images/assets/PX/Kitch-3-800.webp" alt="Chef's Kitchen">
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Double Bed</h3>
-                    <p>This spacious room features a double bed, heated floor and in room ductless, whisper quite AC unit. Natural oak floor and solid wood door with a digital privacy lock. A perfect retreat for a couple.</p>
+                    <h3>Natural Granite Countertop</h3>
+                    <p>Heat resistant and food safe. Modern faucet with waterfall, cup wash and temperature display. Tripple filtered drinking water spout. Insinkerator food waste disposal.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-user-friends"></i> 2 Guests</span>
-                        <span><i class="fas fa-bed"></i> Double Bed</span>
+                        <span><i class="fas fa-user-friends"></i> Shared by all Guests</span>
                         <span><i class="fas fa-leaf"></i> Front Yard View</span>
                         <span><i class="fas fa-snowflake"></i> Climate Control</span>
                     </div>
-                    <div class="room-price">From $129/night</div>
                 </div>
             </div>
 
@@ -101,14 +108,14 @@
             <div class="room-grid reverse room-card">
                 <div class="room-image-container">
                     <picture>
-                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-1B-1920.webp">
-                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Brm-1B-1200.webp">
-                        <img src="../public/images/assets/PX/Brm-1B-800.webp" alt="Garden Suite Seating Area">
+                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Kitch-4-1920.webp">
+                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Kitch-4-1200.webp">
+                        <img src="../public/images/assets/PX/Kitch-4-800.webp" alt="Kitchen-2">
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Storage</h3>
-                    <p>Featuring built in drawers and a small, yet functional closet with a motion light and mirrored door, as well as small built-in open shelves. Also features wired internet jacks.</p>
+                    <h3>Chef's Delight!</h3>
+                    <p>Featuring solid maple cabinetry with led lighting, high end appliances and a wired internet jack.</p>
                     <div class="room-features">
                         <span><i class="fas fa-wifi"></i> Free Wired Internet</span>
                     </div>
@@ -119,46 +126,41 @@
             <div class="room-grid room-card">
                 <div class="room-image-container">
                     <picture>
-                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-1C-1920.webp">
-                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Brm-1C-1200.webp">
-                        <img src="../public/images/assets/PX/Brm-1C-800.webp" alt="Garden Suite Bathroom">
+                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Kitch-6-1920.webp">
+                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Kitch-6-1200.webp">
+                        <img src="../public/images/assets/PX/Kitch-6-800.webp" alt="Kitchen-3">
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Large Window</h3>
-                    <p>Overlooking the front yard and our quiet street beyond, window blind for privacy. A work desk and extra seating for added comfort and utility. The clean, contemporary design complements the room's bright and peaceful atmosphere.</p>
+                    <h3>Premium Gas Stove</h3>
+                    <p>Double oven "Cafe" gas stove, Breville programmable coffee maker with built-in bean grinder.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-chair"></i> Seating Area</span>
-                        <span><i class="fas fa-book"></i> Desk</span>
                     </div>
-                    <a href="booking.html" class="cta-button">Book This Room</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Bedroom 2 Section -->
-    <section id="bedroom-2" class="room-section room-card">
+    <!-- LR Section -->
+    <section id="Living Room" class="room-section room-card">
         <div class="container">
-            <h2 class="room-title">Bedroom 2 - Twins</h2>
+            <h2 class="room-title">Cozy Living Room</h2>
 
             <!-- Row 1: Text/Image -->
             <div class="room-grid reverse room-card">
                 <div class="room-image-container">
                     <picture>
-                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-2A-1920.webp">
-                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Brm-2A-1200.webp">
-                        <img src="../public/images/assets/PX/Brm-2A-800.webp" alt="Heritage Room Main View">
+                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/LR-2-1920.webp">
+                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/LR-2-1200.webp">
+                        <img src="../public/images/assets/PX/LR-2-800.webp" alt="Living Room">
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Small Bedroom with stacked twin beds</h3>
-                    <p>The bed can be converted to 2 twin beds, side by side. This will make them sit low to the ground - can be a good option for younger guests. Large window overlooking an enormous green side yard. </p>
+                    <h3>Shared Living Room</h3>
+                    <p>Where you can curl up on the comfy sofa with a book, or strike up a conversation with other guests. A linux desktop with a large screen monitor can be used to surf the web or watch streaming content like Youtube. </p>
                     <div class="room-features">
-                        <span><i class="fas fa-user-friends"></i> 2 Guests</span>
-                        <span><i class="fas fa-bed"></i> 2 Twin Beds</span>
+                        <span><i class="fas fa-user-friends"></i> shared with all guests</span>
                     </div>
-                    <div class="room-price">From $99/night</div>
                 </div>
             </div>
 
@@ -166,17 +168,15 @@
             <div class="room-grid room-card">
                 <div class="room-image-container">
                     <picture>
-                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-2B-1920.webp">
-                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Brm-2B-1200.webp">
-                        <img src="../public/images/assets/PX/Brm-2B-800.webp" alt="Heritage Room Details">
+                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Bath-5-1920.webp">
+                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Bath-5-1200.webp">
+                        <img src="../public/images/assets/PX/Bath-5-800.webp" alt="Main Bathroom">
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Elegant Details</h3>
-                    <p>Natural country oak floor (hydronically heated in winter for added comfort), Solid wood door with a digital lock for privacy, a quiet AC unit, ceiling fan and a desk. Also features wired internet wall jack. Each detail has been carefully chosen to create an atmosphere of refined comfort.</p>
+                    <h3>Main Bathroom</h3>
+                    <p>Expertly designed in a perfect mix of functionality and elegance. Large walk in shower with a heated floor (in winter). A rustic sink carved out of a solid chunk of Onyx, imported from Italy.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-wifi"></i> Free Wired Internet</span>
-                        <span><i class="fas fa-book"></i> Desk</span>
                     </div>
                 </div>
             </div>
@@ -185,113 +185,53 @@
             <div class="room-grid reverse room-card">
                 <div class="room-image-container">
                     <picture>
-                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-2E-1920.webp">
-                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Brm-2E-1200.webp">
-                        <img src="../public/images/assets/PX/Brm-2E-800.webp" alt="Heritage Room Window View">
+                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Bath-8-1920.webp">
+                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Bath-8-1200.webp">
+                        <img src="../public/images/assets/PX/Bath-8-800.webp" alt="Heritage Room Window View">
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Plenty of Storage</h3>
-                    <p>Built in drawers, open shelving and a barn door that reveals more closet storage behind it. Unwind in this serene space where vintage charm meets modern comfort. The carefully curated atmosphere provides the perfect backdrop for a restful stay in a small town.</p>
+                    <h3>Smart Toilet</h3>
+                    <p>Never need to worry about running out of toilet paper or leaving the seat up - it takes care of those things for you. You can find instructions on how to use the remote control on our Guest Hub page.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-window-maximize"></i> Large Windows</span>
-                        <span><i class="fas fa-fan"></i> Ceiling Fan</span>
-                        <span><i class="fas fa-shield-alt"></i> Secure Storage</span>
                     </div>
-                    <a href="booking.html" class="cta-button">Book This Room</a>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Bedroom 3 Section -->
-    <section id="bedroom-3" class="room-section room-card">
-        <div class="container">
-            <h2 class="room-title">Bedroom 3 - Our Biggest</h2>
-
-            <!-- Row 1: Image/Text -->
+         <!-- Row 4: Image/Text -->
             <div class="room-grid room-card">
                 <div class="room-image-container">
                     <picture>
-                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-3A-1920.webp">
-                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Brm-3A-1200.webp">
-                        <img src="../public/images/assets/PX/Brm-3A-800.webp" alt="Lakeside Loft Main View">
+                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Powder-2-1920.webp">
+                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Powder-2-1200.webp">
+                        <img src="../public/images/assets/PX/Powder-2-800.webp" alt="Main Bathroom">
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Premium Bedroom or Party Room</h3>
-                    <p>Our largest bedroom that is completely separate from the rest of the house. Features a cathedral ceiling, natural oak flooring (heated in winter for added comfort), solid wood doors, digital lock for privacy and security. Accommodates up to 4 guests with a double murphy bed and comfortable futon seating that opens to a double bed.</p>
+                    <h3>Powder Room</h3>
+                    <p>When the nature calls while the main bathroom is being enjoyed by another guest, you can treat yourself to the same level of comfort in our separate Powder Room, also featuring a smart toilet witht the requisite bells and whistles.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-users"></i> 2-4 Guests</span>
-                        <span><i class="fas fa-bed"></i> Double Murphy Bed</span>
                     </div>
-                    <div class="room-price">From $199/night</div>
                 </div>
             </div>
 
-            <!-- Row 2: Text/Image -->
+             <!-- Row 5: Text/Image -->
             <div class="room-grid reverse room-card">
                 <div class="room-image-container">
                     <picture>
-                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-3B-1920.webp">
-                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Brm-3B-1200.webp">
-                        <img src="../public/images/assets/PX/Brm-3B-800.webp" alt="Lakeside Loft Seating">
+                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Laundry-1920.webp">
+                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Laundry-1200.webp">
+                        <img src="../public/images/assets/PX/Laundry-800.webp" alt="Heritage Room Window View">
                     </picture>
                 </div>
                 <div class="room-text">
-                    <h3>Laptop Nook & Lounge area</h3>
-                    <p>With shelving and a small bank of drawers.</p>
+                    <h3>On-site Laundry</h3>
+                    <p>For your longer stays there's a modern laundry set up.</p>
                     <div class="room-features">
-                        <span><i class="fas fa-couch"></i> Double Futon</span>
                     </div>
                 </div>
             </div>
-
-            <!-- Row 3: Image/Text -->
-            <div class="room-grid room-card">
-                <div class="room-image-container">
-                    <picture>
-                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-3C-1920.webp">
-                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Brm-3C-1200.webp">
-                        <img src="../public/images/assets/PX/Brm-3C-800.webp" alt="Lakeside Loft Balcony">
-                    </picture>
-                </div>
-                <div class="room-text">
-                    <h3>Seating Area</h3>
-                    <p>That can also sleep two, when the futon is unfolded. This room also features several wired internet wall jacks, guiet room AC and a ceiling fan.</p>
-                    <div class="room-features">
-                        <span><i class="fas fa-wifi"></i> Free Wired Internet</span>
-                        <span><i class="fas fa-fan"></i> Ceiling Fan</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Row 4: Text/Image -->
-            <div class="room-grid reverse room-card">
-                <div class="room-image-container">
-                    <picture>
-                        <source media="(min-width: 1200px)" srcset="../public/images/assets/PX/Brm-3D-1920.webp">
-                        <source media="(min-width: 768px)" srcset="../public/images/assets/PX/Brm-3D-1200.webp">
-                        <img src="../public/images/assets/PX/Brm-3D-800.webp" alt="Lakeside Loft Amenities">
-                    </picture>
-                </div>
-                <div class="room-text">
-                    <h3>Closet</h3>
-                    <p>With shelving, hanger rod and mirrored door.</p>
-                    <div class="room-features">
-                    </div>
-                    <a href="booking.html" class="cta-button">Book This Room</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Common Areas CTA -->
-    <section class="common-areas-cta">
-        <div class="container">
-            <h2 class="section-title">Explore Our Common Areas</h2>
-            <p class="section-subtitle">Discover shared spaces designed for relaxation and connection</p>
-            <a href="common-areas.html" class="cta-button">View Common Areas</a>
         </div>
     </section>
 
@@ -348,50 +288,52 @@
                 <div class="footer-column">
                     <h3>Contact</h3>
                     <address>
-                        <p>123 Main Street<br>Small Town, CA 12345</p>
+                        <p>123 Main Street<br>Belleville, ON K8P 3N6</p>
                         <p><a href="tel:+15551234567">(555) 123-4567</a></p>
                         <p><a href="mailto:info@murneyhouse.ca">info@murneyhouse.ca</a></p>
                     </address>
                 </div>
 
+                <div class="footer-column"> </div>
+                <div class="footer-column"> </div>
+
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#guest-hub">Guest Hub</a></li>
-                        <li><a href="otherpages/rooms.html">Rooms</a></li>
-                        <li><a href="#amenities">Amenities</a></li>
-                        <li><a href="#local-area">Local Area</a></li>
-                        <li><a href="otherpages/booking.html">Policies</a></li>
-                        <li><a href="otherpages/contact.html">FAQs</a></li>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../../otherpages/guest-hub.html">Guest Hub</a></li>
+                        <li><a href="../../otherpages/rooms.html">Rooms</a></li>
+                        <li><a href="../index.html#local-area">Local Area</a></li>
+                        <li><a href="../../otherpages/booking.html">Policies</a></li>
+                        <li><a href="../../otherpages/contact.html">FAQs</a></li>
                     </ul>
                 </div>
             </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 Murney House. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="otherpages/booking.html">Privacy Policy</a>
-                    <a href="otherpages/booking.html">Terms of Service</a>
-                    <a href="otherpages/contact.html">Sitemap</a>
-                </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Murney House. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="otherpages/booking.html">Privacy Policy</a>
+                <a href="otherpages/booking.html">Terms of Service</a>
+                <a href="otherpages/contact.html">Sitemap</a>
             </div>
         </div>
     </footer>
 
    <script src="../src/script.js"></script>
     <script>
-        // Set responsive background image for rooms hero
-        function setRoomsHeroBackground() {
-            const heroBackground = document.querySelector('.rooms-hero-background');
+        // Set responsive background image for Amenities hero
+        function setAmenitiesHeroBackground() {
+            const heroBackground = document.querySelector('.amenities-hero-background');
             const width = window.innerWidth;
 
             let imagePath;
             if (width >= 1200) {
-                imagePath = '../public/images/assets/PX/Brm-3A-1920.webp';
+                imagePath = '../public/images/assets/PX/Kitch-4-1920.webp';
             } else if (width >= 768) {
-                imagePath = '../public/images/assets/PX/Brm-3A-1200.webp';
+                imagePath = '../public/images/assets/PX/Kitch-4-1200.webp';
             } else {
-                imagePath = '../public/images/assets/PX/Brm-3A-800.webp';
+                imagePath = '../public/images/assets/PX/Kitch-4-800.webp';
             }
 
             heroBackground.style.backgroundImage = `url('${imagePath}')`;

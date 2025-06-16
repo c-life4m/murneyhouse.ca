@@ -2218,7 +2218,7 @@ footer address a:hover::before {
 
         .room-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: var(--spacing-md);
             margin-top: var(--spacing-lg);
             align-items: center;
