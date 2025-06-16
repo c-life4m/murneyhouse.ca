@@ -2179,7 +2179,7 @@ footer address a:hover::before {
 
 .rooms-hero-content {
     position: absolute;
-    top: 15%; /* Adjust this percentage to position text where you want */
+    top: 5%; /* Adjust this percentage to position text where you want */
     transform: translateX(-50%);
     text-align: center;
     color: var(--light-text);
@@ -2316,7 +2316,7 @@ footer address a:hover::before {
 #bedroom-1 {
     position: relative;
     z-index: 10;
-    margin-top: -460px; /* determines card position under hero text */
+    margin-top: -360px; /* determines card position under hero text */
 }
 
 /* Hero animations for rooms page */
