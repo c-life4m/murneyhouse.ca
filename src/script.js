@@ -448,6 +448,10 @@ function setRoomsHeroBackground() {
     heroBackground.style.backgroundImage = `url('${imagePath}')`;
 }
 
+// Set background on load and resize
+        window.addEventListener('load', setRoomsHeroBackground);
+        window.addEventListener('resize', setRoomsHeroBackground);
+
 // Smooth scroll to specific room sections from main page
 function handleRoomNavigation() {
     const hash = window.location.hash;

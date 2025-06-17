@@ -3,19 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Under Construction - Murney House</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="description" content="Murney House - Your home away from home">
+    <title>Murney House - Booking</title>
+    <link rel="icon" type="image/svg+xml" href="../public/images/assets/icons/favicon.png?v=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../public/images/assets/FONTS/fontawesome/css/all.min.css">
+
+    <!-- Main CSS -->
     <link rel="stylesheet" href="../src/styles/style.css">
 </head>
 <body>
-    <div class="construction-page">
-        <div class="construction-content">
-            <h1>🏠 Under Construction</h1>
-            <p>This page is currently being developed. Please check back soon for exciting new content!</p>
-            <a href="../index.html" class="cta-button">Return Home</a>
+    <!-- Header with navigation -->
+    <header>
+        <div class="logo">
+            <a href="../index.html">Murney House</a>
         </div>
-    </div>
+        <nav>
+            <div class="desktop-nav">
+                <ul>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="amenities.html">Amenities</a></li>
+                    <li><a href="../index.html#local-area">Local Area</a></li>
+                    <li><a href="guest-hub.html">Guest Hub</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="mobile-nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="mobile-nav">
+                <ul>
+                    <li><a href="../index.html">Back to Home</a></li>
+                    <li class="nav-item"><li><a href="rooms.html">Rooms</a></li>
+                    <li class="nav-item"><a href="amenities.html">Amenities</a></li>
+                    <li class="nav-item"><a href="../index.html#local-area" class="nav-link">Local Area</a></li>
+                    <li class="nav-item"><a href="guest-hub.html" class="nav-link">Guest Hub</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="header-controls">
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/>
+                    <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/>
+                    <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+     <!-- Booking Hero Section -->
+    <section id=hero class="booking-hero">
+        <div class="booking-hero-background hero-image"></div>
+        <div class="booking-hero-content hero-text">
+            <h1>Booking Page</h1>
+            <p>Please read on</p>
+        </div>
+    </section>
+
     <script src="../src/script.js"></script>
+    <script>
+        // Set responsive background image for booking hero
+        function setBookingHeroBackground() {
+            const heroBackground = document.querySelector('.booking-hero-background');
+            const width = window.innerWidth;
+
+            let imagePath;
+            if (width >= 1200) {
+                imagePath = '../public/images/assets/PX/hero-1920.webp';
+            } else if (width >= 768) {
+                imagePath = '../public/images/assets/PX/hero-1200.webp';
+            } else {
+                imagePath = '../public/images/assets/PX/hero-800.webp';
+            }
+
+            heroBackground.style.backgroundImage = `url('${imagePath}')`;
+        }
+
+        // Set background on load and resize
+        window.addEventListener('load', setBookingHeroBackground);
+        window.addEventListener('resize', setBookingHeroBackground);
+
+        // Smooth scroll to specific room sections from main page
+        window.addEventListener('load', function() {
+            const hash = window.location.hash;
+            if (hash) {
+                const targetElement = document.querySelector(hash);
+                if (targetElement) {
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }, 500);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

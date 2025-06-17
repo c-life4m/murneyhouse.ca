@@ -357,7 +357,7 @@
                 <div class="footer-column">
                     <h3>Contact</h3>
                     <address>
-                        <p>123 Main Street<br>Small Town, CA 12345</p>
+                        <p>123 Main Street<br>Belleville, ON, Canada K8P 3N6
                         <p><a href="tel:+15551234567">(555) 123-4567</a></p>
                         <p><a href="mailto:info@murneyhouse.ca">info@murneyhouse.ca</a></p>
                     </address>
@@ -391,40 +391,6 @@
     </footer>
 
    <script src="../src/script.js"></script>
-    <script>
-        // Set responsive background image for rooms hero
-        function setRoomsHeroBackground() {
-            const heroBackground = document.querySelector('.rooms-hero-background');
-            const width = window.innerWidth;
 
-            let imagePath;
-            if (width >= 1200) {
-                imagePath = '../public/images/assets/PX/Brm-3A-1920.webp';
-            } else if (width >= 768) {
-                imagePath = '../public/images/assets/PX/Brm-3A-1200.webp';
-            } else {
-                imagePath = '../public/images/assets/PX/Brm-3A-800.webp';
-            }
-
-            heroBackground.style.backgroundImage = `url('${imagePath}')`;
-        }
-
-        // Set background on load and resize
-        window.addEventListener('load', setRoomsHeroBackground);
-        window.addEventListener('resize', setRoomsHeroBackground);
-
-        // Smooth scroll to specific room sections from main page
-        window.addEventListener('load', function() {
-            const hash = window.location.hash;
-            if (hash) {
-                const targetElement = document.querySelector(hash);
-                if (targetElement) {
-                    setTimeout(() => {
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                    }, 500);
-                }
-            }
-        });
-    </script>
 </body>
 </html>
