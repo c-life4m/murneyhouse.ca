@@ -59,7 +59,7 @@
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     font-display: swap;
-    src: url('/murneyhouse.ca/public/images/assets/FONTS/fontawesome/webfonts/fa-solid-900.woff2') format('woff2');
+    src: url('/public/images/assets/FONTS/fontawesome/webfonts/fa-solid-900.woff2') format('woff2');
 }
 
 @font-face {
@@ -1031,20 +1031,19 @@ nav {
 /* Amenities - exact original grid with mobile-first */
 .amenities-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
 }
 
 @media (min-width: 768px) {
     .amenities-grid {
-        grid-template-columns: repeat(3, 1fr);
+       grid-template-columns: repeat(3, minmax(150px, 1fr));
     }
 }
 
 @media (min-width: 1024px) {
     .amenities-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(3, minmax(150px, 1fr));
     }
 }
 
