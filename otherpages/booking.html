@@ -75,6 +75,64 @@
             }
         }
 
+        /* ─── Card & Animation (Houses Rules, Requirements & Disclaimers) ─── */
+            .rules-card {
+            background-color: var(--light-card);
+            padding: 3rem;                    /* adjust as needed */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            max-width: 800px;
+            margin: 3rem auto;                /* center + spacing from other sections */
+            animation: fadeInUp 1s ease-out both;
+            }
+
+            body.dark-mode .rules-card {
+            background-color: var(--dark-card);
+            }
+
+            .rules-list,
+            .requirements-list,
+            .disclaimers-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            }
+
+            .rules-list li,
+            .requirements-list li,
+            .disclaimers-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;              /* one blank line between bullets */
+            }
+
+            .rules-list li:last-child,
+            .requirements-list li:last-child,
+            .disclaimers-list li:last-child {
+            margin-bottom: 0;
+            }
+
+            .rules-list li i,
+            .requirements-list li i,
+            .disclaimers-list li i {
+            flex-shrink: 0;
+            font-size: 1.25rem;
+            color: var(--cta);                      /* or your primary color */
+            margin-right: 2ch;                /* two character spaces */
+            }
+
+            /* Fade-in from below */
+            @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .booking-section {
             padding: 60px 20px;
             max-width: 1200px;
@@ -399,25 +457,25 @@
     </section>
 
     <!-- House Rules Section -->
-    <section class="booking-section">
+    <section class="booking-section rules-card">
         <h2>House Rules</h2>
         <ul class="rules-list">
             <li><i class="fas fa-smoking-ban"></i> No smoking/vaping on the property.</li>
             <li><i class="fas fa-volume-down"></i> No loud noises after 10pm.</li>
             <li><i class="fas fa-clock"></i> Check-in after 3pm / checkout before 12pm (noon).</li>
+            <li><i class="fas fa-shoe-prints"></i> Take shoes off at the door.</li>
             <li><i class="fas fa-wifi"></i> You must agree not to use our internet for anything illegal.</li>
             <li><i class="fas fa-music"></i> Bedroom 3 ("Party Room") is the only room for louder music, partying, dancing, etc. The rest of the house is for quieter enjoyment.</li>
             <li><i class="fas fa-question-circle"></i> Special needs/requests? Check with us in advance.</li>
-            <li><i class="fas fa-shoe-prints"></i> Take shoes off at the door.</li>
             <li><i class="fas fa-book"></i> Familiarize yourself with all appliances/gadgets (see Guest Hub page for instructions) before use — it's your responsibility.</li>
         </ul>
     </section>
 
     <!-- Booking Requirements Section -->
-    <section class="booking-section">
+    <section class="booking-section rules-card">
         <h2>Booking Requirements</h2>
         <ul class="requirements-list">
-            <li><i class="fas fa-credit-card"></i> Primary renter must have a current credit score of 800+, or provide a recent credit card bill showing a $30,000+ credit limit, or (if neither) a refundable security deposit of at least $1,000 (amount may increase with the number of guests/days).</li>
+            <li><i class="fas fa-credit-card"></i> Primary renter must have a current credit score of 800+, or provide a recent credit card bill showing a $30,000+ credit limit, or (if neither is available) a refundable security deposit of at least $1,000 (amount may increase with the number of guests/days).</li>
             <li><i class="fas fa-money-check"></i> 50% of rental fee required to confirm booking (Interac transfer only at this time).</li>
             <li><i class="fas fa-undo"></i> <strong>Refund policy:</strong>
                 <ul style="margin-top: 10px; padding-left: 20px;">
@@ -431,7 +489,7 @@
     </section>
 
     <!-- Disclaimers & Warnings Section -->
-    <section class="booking-section">
+    <section class="booking-section rules-card">
         <h2>Disclaimers & Warnings</h2>
         <ul class="disclaimers-list">
             <li><i class="fas fa-exclamation-triangle"></i> Use of gadgets, appliances, cookware, and utensils is at your own risk.</li>
@@ -447,7 +505,7 @@
                 <img src="../public/images/assets/PX/Brm-1A-800.webp" alt="Room 1" onerror="this.src='../public/images/assets/PX/placeholder.jpg'">
                 <div class="room-card-content">
                     <h3>Room 1</h3>
-                    <p>Double bed. 1-2 Guests.</p>
+                    <p>Double bed. 1-2 Guests, large window, morning sun and view of front yard.</p>
                     <button class="cta-button" onclick="openCalendar('room1')">Check Availability</button>
                 </div>
             </div>
@@ -455,15 +513,15 @@
                 <img src="../public/images/assets/PX/Brm-2A-800.webp" alt="Room 2" onerror="this.src='../public/images/assets/PX/placeholder.jpg'">
                 <div class="room-card-content">
                     <h3>Room 2</h3>
-                    <p>2 stacked twin beds. 1-2 Guests.</p>
+                    <p>2 stacked twin beds. 1-2 Guests. Large window overlooking a green side yard.</p>
                     <button class="cta-button" onclick="openCalendar('room1')">Check Availability</button>
                 </div>
             </div>
             <div class="room-card">
                 <img src="../public/images/assets/PX/Brm-3A-800.webp" alt="Room 3 - Party Room" onerror="this.src='../public/images/assets/PX/placeholder.jpg'">
                 <div class="room-card-content">
-                    <h3>Room 3 - Party Room</h3>
-                    <p>The entertainment room for music and gatherings.</p>
+                    <h3>Room 3 - Party</h3>
+                    <p>Sleeps up to 4, can also be used for louder music, parties and gatherings.</p>
                     <button class="cta-button" onclick="openCalendar('room1')">Check Availability</button>
                 </div>
             </div>
@@ -620,31 +678,40 @@
         </div>
     </div>
 
-    <!-- Footer (Copy from rooms.html) -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Murney House</h3>
-                <p>Your home away from home in Kingston, Ontario.</p>
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <address>
+                        <p>123 Main Street<br>Belleville, ON, Canada K8P 3N6
+                        <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+                        <p><a href="mailto:info@murneyhouse.ca">info@murneyhouse.ca</a></p>
+                    </address>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="guest-hub.html">Guest Hub</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                       <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="booking.html">Policies</a></li>
+                        <li><a href="contact.html">FAQs</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="rooms.html">Rooms</a></li>
-                    <li><a href="amenities.html">Amenities</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Murney House. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="booking.html">Privacy Policy</a>
+                    <a href="booking.html">Terms of Service</a>
+                    <a href="contact.html">Sitemap</a>
+                </div>
             </div>
-            <div class="footer-section">
-                <h3>Contact Info</h3>
-                <p><i class="fas fa-envelope"></i> info@murneyhouse.ca</p>
-                <p><i class="fas fa-phone"></i> (613) 123-4567</p>
-                <p><i class="fas fa-map-marker-alt"></i> Kingston, ON</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Murney House. All rights reserved.</p>
         </div>
     </footer>
 

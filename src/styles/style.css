@@ -2422,6 +2422,18 @@ footer address a:hover::before {
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
-/* Hero animations for booking page */
+        footer#contact .footer-grid {
+        display: grid;
+        /* auto-fit a minimum of 240px per column, up to available space */
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: var(--spacing-lg);
+        /* center column contents */
+        justify-items: center;
+        align-items: start;
+        }
 
+        /* hide any empty placeholder columns */
+        footer#contact .footer-column:empty {
+        display: none;
+        }
 
