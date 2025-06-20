@@ -212,6 +212,30 @@
             width: 90%;
             max-height: 80%;
             overflow-y: auto;
+            color: white;
+        }
+
+        /* Calendar specific text styling */
+        .calendar-content h2,
+        .calendar-content h3,
+        .calendar-content h4 {
+            color: white !important;
+        }
+
+        /* FullCalendar date numbers */
+        .fc-daygrid-day-number {
+            color: white !important;
+            font-weight: 500;
+        }
+
+        /* FullCalendar headers (day names) */
+        .fc-col-header-cell {
+            color: white !important;
+        }
+
+        /* FullCalendar toolbar (month/year title and navigation) */
+        .fc-toolbar-title {
+            color: white !important;
         }
 
         .booking-form {
@@ -380,6 +404,57 @@
             text-align: center;
         }
 
+
+        .booking-button-container {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .room-selection-container {
+            padding: 15px;
+            background: var(--dark-background);
+            border-radius: 8px;
+            border: 1px solid var(--light-border);
+            text-align: center;
+        }
+
+        .room-selection-container h4 {
+            color: white; /* Make the "Select Room(s):" title white */
+            margin-bottom: 15px;
+        }
+
+        .room-checkboxes {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .room-checkbox {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border: 1px solid var(--light-border);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .room-checkbox:hover {
+            background: var(--cta);
+            color: white;
+        }
+
+        .room-checkbox input {
+            margin-right: 8px;
+        }
+
+        .room-checkbox input:checked + span {
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
             .form-row {
                 grid-template-columns: 1fr;
@@ -536,7 +611,27 @@
             <div id="calendar"></div>
             <div style="margin-top: 20px;">
                 <p><span style="color: green;">■</span> Available <span style="color: orange;">■</span> Pending <span style="color: red;">■</span> Booked</p>
-                <button id="proceedToBooking" onclick="proceedToBooking()" style="display: none;" class="submit-btn">Proceed to Booking Form</button>
+                <div class="booking-button-container">
+                <button id="proceedToBooking" onclick="proceedToBooking()" style="display: none;" class="cta-button large">Proceed to Booking Form</button>
+            </div>
+        </div>
+            <!-- Room Selection -->
+            <div class="room-selection-container" style="margin-bottom: 20px;">
+                <h4>Select Room(s):</h4>
+                <div class="room-checkboxes">
+                    <label class="room-checkbox">
+                        <input type="checkbox" value="garden-suite" checked>
+                        <span>Garden Suite</span>
+                    </label>
+                    <label class="room-checkbox">
+                        <input type="checkbox" value="bedroom-2">
+                        <span>Bedroom 2</span>
+                    </label>
+                    <label class="room-checkbox">
+                        <input type="checkbox" value="lakeside-loft">
+                        <span>Lakeside Loft</span>
+                    </label>
+                </div>
             </div>
         </div>
     </div>
@@ -758,39 +853,113 @@
             document.getElementById('calendarModal').style.display = 'none';
         }
 
+        let firstSelectedDate = null; // Variable to track the first selected date
+
         function initializeCalendar() {
             const calendarEl = document.getElementById('calendar');
             calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 selectable: true,
+                validRange: {
+                    start: new Date() // Disable past days
+                },
                 events: [
                     // Sample events - replace with real data
                     { title: 'Booked', start: '2024-01-15', color: 'red' },
                     { title: 'Pending', start: '2024-01-20', color: 'orange' }
                 ],
                 select: function(info) {
-                    // Add selected dates
-                    selectedDates.push({
-                        start: info.startStr,
-                        end: info.endStr,
-                        room: currentRoom
+    const startDate = info.startStr;
+    // Don't use endDate at all - it's always the next day
+
+    // Clear previous selections
+    calendar.getEvents().forEach(event => {
+        if (event.title === 'Selected') {
+            event.remove();
+        }
+    });
+
+    if (!firstSelectedDate) {
+        // First date selected
+        firstSelectedDate = startDate;
+        // Add a new selection for the first date
+        calendar.addEvent({
+            title: 'Selected',
+            start: startDate,
+            end: startDate,
+            color: 'orange'
+        });
+    } else {
+       // Second date selected, create range using only startDate
+        const date1 = firstSelectedDate;
+        const date2 = startDate;
+
+        // Determine which date comes first
+        const rangeStart = date1 <= date2 ? date1 : date2;
+        const rangeEnd = date1 <= date2 ? date2 : date1;
+
+        // For ranges, FullCalendar needs end to be the day AFTER the last included day
+        const nextDay = new Date(rangeEnd);
+        nextDay.setDate(nextDay.getDate() + 1);
+        const rangeEndForCalendar = nextDay.toISOString().split('T')[0];
+
+        // Add a new selection for the range
+        calendar.addEvent({
+            title: 'Selected',
+            start: rangeStart,
+            end: rangeEndForCalendar, // This was the missing change!
+            color: 'orange'
+        });
+
+        // Reset firstSelectedDate
+        firstSelectedDate = null;
+    }
+
+    document.getElementById('proceedToBooking').style.display = 'inline-block';
+},
+                eventClick: function(info) {
+                    const clickedDate = info.event.start;
+
+                    // Check if the clicked date is part of an existing selection
+                    const eventsToRemove = calendar.getEvents().filter(event => {
+                        return event.start >= clickedDate && event.title === 'Selected';
                     });
 
-                    // Show selected dates as pending
-                    calendar.addEvent({
-                        title: 'Selected',
-                        start: info.startStr,
-                        end: info.endStr,
-                        color: 'orange'
-                    });
-
-                    document.getElementById('proceedToBooking').style.display = 'inline-block';
+                    if (eventsToRemove.length > 0) {
+                        // If there are events to remove, remove them
+                        eventsToRemove.forEach(event => event.remove());
+                    } else {
+                        // If no events to remove, add a new selection for the clicked date
+                        calendar.addEvent({
+                            title: 'Selected',
+                            start: clickedDate,
+                            end: clickedDate,
+                            color: 'orange'
+                        });
+                    }
                 }
             });
-            calendar.render();
+            calendar.render(); // Don't forget to render the calendar
         }
 
         function proceedToBooking() {
+            // Get selected rooms
+            const selectedRooms = Array.from(document.querySelectorAll('.room-checkbox input:checked'))
+                .map(checkbox => checkbox.value);
+
+            // Get selected dates (your existing logic)
+            const selectedEvents = calendar.getEvents().filter(event => event.title === 'Selected');
+
+            if (selectedEvents.length > 0 && selectedRooms.length > 0) {
+                // Store in sessionStorage or pass to your booking form
+                sessionStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
+                // Your existing booking logic here
+
+                console.log('Selected rooms:', selectedRooms);
+                console.log('Selected dates:', selectedEvents[0].startStr, 'to', selectedEvents[0].endStr);
+            } else {
+                alert('Please select at least one room and date range.');
+            }
             document.getElementById('calendarModal').style.display = 'none';
             document.getElementById('bookingForm').style.display = 'block';
             document.getElementById('bookingForm').scrollIntoView({ behavior: 'smooth' });
