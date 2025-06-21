@@ -455,6 +455,30 @@
             font-weight: 600;
         }
 
+        .multi-room-btn {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 12px;
+            border: 1px solid var(--light-border);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            color: white;
+            background: transparent;
+            font-size: 1rem;
+            margin-left: 0; /* Remove if you want spacing between buttons */
+            margin-right: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .multi-room-btn:hover,
+        .multi-room-btn.active {
+            background: var(--cta);
+            color: white;
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
             .form-row {
                 grid-template-columns: 1fr;
@@ -581,7 +605,7 @@
                 <div class="room-card-content">
                     <h3>Room 1</h3>
                     <p>Double bed. 1-2 Guests, large window, morning sun and view of front yard.</p>
-                    <button class="cta-button" onclick="openCalendar('Select')">Select Your Days</button>
+                    <button class="cta-button" onclick="openCalendar('Room 1')">Select Your Days</button>
                 </div>
             </div>
             <div class="room-card">
@@ -589,7 +613,7 @@
                 <div class="room-card-content">
                     <h3>Room 2</h3>
                     <p>2 stacked twin beds. 1-2 Guests. Large window overlooking a green side yard.</p>
-                    <button class="cta-button" onclick="openCalendar('Select')">Select Your Days</button>
+                    <button class="cta-button" onclick="openCalendar('Room 2')">Select Your Days</button>
                 </div>
             </div>
             <div class="room-card">
@@ -597,7 +621,7 @@
                 <div class="room-card-content">
                     <h3>Room 3 - Party</h3>
                     <p>Sleeps up to 4, can also be used for louder music, parties and gatherings.</p>
-                    <button class="cta-button" onclick="openCalendar('Select')">Select Your Days</button>
+                    <button class="cta-button" onclick="openCalendar('Room 3')">Select Your Days</button>
                 </div>
             </div>
         </div>
@@ -620,21 +644,22 @@
                 <h4>Select Your Room Choices:</h4>
                 <div class="room-checkboxes">
                     <label class="room-checkbox">
-                        <input type="checkbox" value="bedroom-1" checked>
+                        <input type="checkbox" class="room-select" value="Room 1" checked>
                         <span>Room 1</span>
                     </label>
                     <label class="room-checkbox">
-                        <input type="checkbox" value="bedroom-2">
+                        <input type="checkbox" class="room-select" value="Room 2">
                         <span>Room 2</span>
                     </label>
                     <label class="room-checkbox">
-                        <input type="checkbox" value="bedroom-3">
+                        <input type="checkbox" class="room-select" value="Room 3">
                         <span>Room 3</span>
                     </label>
+                    <!-- Multi-room buttons -->
+                    <button type="button" class="multi-room-btn" data-rooms="Room 1,Room 2">Rooms 1+2</button>
+                    <button type="button" class="multi-room-btn" data-rooms="Room 1,Room 2,Room 3">Rooms 1+2+3</button>
                 </div>
             </div>
-        </div>
-    </div>
 
     <!-- Booking Request Form -->
     <div id="bookingForm" class="booking-form">
@@ -840,8 +865,19 @@
         // Calendar functions
         function openCalendar(roomId) {
             currentRoom = roomId;
+            // Uncheck all room checkboxes first
+            document.querySelectorAll('.room-checkboxes input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+            });
+
+            // Check the one matching the roomId
+            const targetCheckbox = document.querySelector(`.room-checkboxes input[type="checkbox"][value="${roomId}"]`);
+            if (targetCheckbox) {
+                targetCheckbox.checked = true;
+            }
+
             document.getElementById('calendarModal').style.display = 'flex';
-            document.getElementById('calendarTitle').textContent = `${roomId.replace('room', 'Select ')} Your Days`;
+            document.getElementById('calendarTitle').textContent = formatRoomTitle(roomId);
 
             // Initialize calendar if not already done
             if (!calendar) {
@@ -850,6 +886,18 @@
 
         }
 
+        function formatRoomTitle(roomId) {
+            // Handles single or multiple room IDs like "bedroom-1", "bedroom-2", "bedroom-1,bedroom-2"
+            if (roomId.includes(',')) {
+                // Multi-room: split and get numbers
+                const numbers = roomId.split(',').map(id => id.match(/\d+/)?.[0]).filter(Boolean);
+                return `Room${numbers.length > 1 ? 's' : ''} ${numbers.join(' & ')} - Select Your Days`;
+            } else {
+                // Single room
+                const number = roomId.match(/\d+/)?.[0] || '';
+                return `Room ${number} - Select Your Days`;
+            }
+        }
 
         function closeCalendar() {
             document.getElementById('calendarModal').style.display = 'none';
@@ -1005,6 +1053,57 @@
             document.getElementById('bookingForm').style.display = 'block';
             document.getElementById('bookingForm').scrollIntoView({ behavior: 'smooth' });
         }
+
+        // Multi-room selection logic
+        document.querySelectorAll('.multi-room-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // If this button is already active, de-select it (toggle off)
+            if (this.classList.contains('active')) {
+            this.classList.remove('active');
+
+            // Otherwise, activate this button and set checkboxes as before
+            document.querySelectorAll('.room-checkboxes input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+            cb.disabled = false;
+            });
+            // Optionally, update calendar or other UI here
+            // loadRoomAvailability([]);
+            return;
+            }
+            // Get the rooms for this button
+            const rooms = this.getAttribute('data-rooms').split(',');
+
+            // Check and disable the relevant checkboxes
+            rooms.forEach(roomName => {
+            const cb = Array.from(document.querySelectorAll('.room-checkboxes input[type="checkbox"]'))
+                .find(cb => cb.value.trim() === roomName.trim());
+            if (cb) {
+                cb.checked = true;
+                cb.disabled = true;
+            }
+            });
+
+            // Visually indicate the button is active
+            document.querySelectorAll('.multi-room-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            // Optionally, update calendar or other UI here
+            // loadRoomAvailability(rooms);
+        });
+        });
+
+        // When any single room checkbox is changed, remove multi-room disables
+        document.querySelectorAll('.room-checkboxes input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', function() {
+            // Remove active state from multi-room buttons
+            document.querySelectorAll('.multi-room-btn').forEach(b => b.classList.remove('active'));
+            // Enable all checkboxes
+            document.querySelectorAll('.room-checkboxes input[type="checkbox"]').forEach(cb2 => cb2.disabled = false);
+            // Optionally, update calendar or other UI here
+            // const checkedRooms = Array.from(document.querySelectorAll('.room-checkboxes input[type="checkbox"]:checked')).map(cb => cb.value);
+            // loadRoomAvailability(checkedRooms);
+        });
+    });
 
         // Form functions
         function updateGuestDetails() {
