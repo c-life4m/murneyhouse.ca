@@ -848,49 +848,14 @@
                 initializeCalendar();
             }
 
-            // Add mobile touch support after calendar opens
-            setTimeout(addMobileTouchSupport, 500);
         }
+
 
         function closeCalendar() {
             document.getElementById('calendarModal').style.display = 'none';
         }
 
         let firstSelectedDate = null; // Variable to track the first selected date
-
-        // Define mobile touch support function OUTSIDE of other functions
-        function addMobileTouchSupport() {
-            // Only add touch support if we're on a touch device
-            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-
-                // Wait for calendar to be fully rendered
-                setTimeout(() => {
-                    const calendarDays = document.querySelectorAll('.fc-daygrid-day');
-
-                    calendarDays.forEach(day => {
-                        // Add touch event listener
-                        day.addEventListener('touchend', function(e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-
-                            // Trigger the same logic as a click
-                            const clickEvent = new MouseEvent('click', {
-                                bubbles: true,
-                                cancelable: true,
-                                view: window
-                            });
-
-                            this.dispatchEvent(clickEvent);
-                        });
-
-                        // Prevent default touch behavior that might interfere
-                day.addEventListener('touchstart', function(e) {
-                    e.stopPropagation();
-                });
-            });
-        }, 1000); // Give calendar time to render
-    }
-}
 
         function initializeCalendar() {
             const calendarEl = document.getElementById('calendar');
@@ -905,55 +870,94 @@
                     { title: 'Booked / Unavailable', start: '2024-01-15', color: 'red' },
                     { title: 'Pending', start: '2024-01-20', color: 'orange' }
                 ],
+                // --- MOBILE TOUCH SUPPORT ---
+                dateClick: function(info) {
+                    // Only handle on touch devices
+                    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                        const clickedDate = info.dateStr;
+
+                        // Clear previous selections
+                        calendar.getEvents().forEach(event => {
+                            if (event.title === 'Selected') {
+                                event.remove();
+                            }
+                        });
+
+                        if (!firstSelectedDate) {
+                            // First date selected
+                            firstSelectedDate = clickedDate;
+                            calendar.addEvent({
+                                title: 'Selected',
+                                start: clickedDate,
+                                end: clickedDate,
+                                color: 'orange'
+                            });
+                        } else {
+                            // Second date selected, create range
+                            const date1 = firstSelectedDate;
+                            const date2 = clickedDate;
+                            const rangeStart = date1 <= date2 ? date1 : date2;
+                            const rangeEnd = date1 <= date2 ? date2 : date1;
+                            const nextDay = new Date(rangeEnd);
+                            nextDay.setDate(nextDay.getDate() + 1);
+                            const rangeEndForCalendar = nextDay.toISOString().split('T')[0];
+
+                            calendar.addEvent({
+                                title: 'Selected',
+                                start: rangeStart,
+                                end: rangeEndForCalendar,
+                                color: 'orange'
+                            });
+
+                            firstSelectedDate = null;
+                        }
+
+                        document.getElementById('proceedToBooking').style.display = 'inline-block';
+                    }
+                },
+                // --- END MOBILE TOUCH SUPPORT ---
                 select: function(info) {
-        const startDate = info.startStr;
-        // Don't use endDate at all - it's always the next day
+                    const startDate = info.startStr;
+                    // Don't use endDate at all - it's always the next day
 
-        // Clear previous selections
-        calendar.getEvents().forEach(event => {
-            if (event.title === 'Selected') {
-                event.remove();
-            }
-        });
+                    // Clear previous selections
+                    calendar.getEvents().forEach(event => {
+                        if (event.title === 'Selected') {
+                            event.remove();
+                        }
+                    });
 
-        if (!firstSelectedDate) {
-            // First date selected
-            firstSelectedDate = startDate;
-            // Add a new selection for the first date
-            calendar.addEvent({
-                title: 'Selected',
-                start: startDate,
-                end: startDate,
-                color: 'orange'
-            });
-        } else {
-        // Second date selected, create range using only startDate
-            const date1 = firstSelectedDate;
-            const date2 = startDate;
+                    if (!firstSelectedDate) {
+                        // First date selected
+                        firstSelectedDate = startDate;
+                        calendar.addEvent({
+                            title: 'Selected',
+                            start: startDate,
+                            end: startDate,
+                            color: 'orange'
+                        });
+                    } else {
+                        // Second date selected, create range using only startDate
+                        const date1 = firstSelectedDate;
+                        const date2 = startDate;
+                        const rangeStart = date1 <= date2 ? date1 : date2;
+                        const rangeEnd = date1 <= date2 ? date2 : date1;
+                        const nextDay = new Date(rangeEnd);
+                        nextDay.setDate(nextDay.getDate() + 1);
+                        const rangeEndForCalendar = nextDay.toISOString().split('T')[0];
 
-            // Determine which date comes first
-            const rangeStart = date1 <= date2 ? date1 : date2;
-            const rangeEnd = date1 <= date2 ? date2 : date1;
+                        calendar.addEvent({
+                            title: 'Selected',
+                            start: rangeStart,
+                            end: rangeEndForCalendar,
+                            color: 'orange'
+                        });
 
-            // For ranges, FullCalendar needs end to be the day AFTER the last included day
-            const nextDay = new Date(rangeEnd);
-            nextDay.setDate(nextDay.getDate() + 1);
-            const rangeEndForCalendar = nextDay.toISOString().split('T')[0];
+                        firstSelectedDate = null;
+                    }
 
-            // Add a new selection for the range
-            calendar.addEvent({
-                title: 'Selected',
-                start: rangeStart,
-                end: rangeEndForCalendar, // This was the missing change!
-                color: 'orange'
-            });
-
-            // Reset firstSelectedDate
-            firstSelectedDate = null;
-        }
-
-    document.getElementById('proceedToBooking').style.display = 'inline-block';
-},
+                    document.getElementById('proceedToBooking').style.display = 'inline-block';
+                },
                 eventClick: function(info) {
                     const clickedDate = info.event.start;
 
