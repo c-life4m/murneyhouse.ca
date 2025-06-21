@@ -644,7 +644,7 @@
                 <h4>Select Your Room Choices:</h4>
                 <div class="room-checkboxes">
                     <label class="room-checkbox">
-                        <input type="checkbox" class="room-select" value="Room 1" checked>
+                        <input type="checkbox" class="room-select" value="Room 1">
                         <span>Room 1</span>
                     </label>
                     <label class="room-checkbox">
@@ -845,6 +845,13 @@
         let currentRoom = '';
         let addons = { eggs: 0, tomatoes: 0 };
 
+         // --- Room availability data (add here) ---
+        const roomAvailability = {
+            "Room 1": ["2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23", "2025-06-24", "2025-06-25", "2025-06-26", "2025-06-27", "2025-06-28", "2025-06-29", "2025-06-30", "2025-07-01" ],
+            "Room 2": ["2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23", "2025-06-24", "2025-06-27", "2025-06-28", "2025-06-29", "2025-06-30", "2025-07-01", "2025-07-02", "2025-07-03"],
+            "Room 3": ["2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23", "2025-06-24", "2025-06-26", "2025-06-27", "2025-06-28", "2025-06-29", "2025-06-30", "2025-07-01", "2025-07-02", "2025-07-03"]
+        };
+
         // Set responsive background image for booking hero
         function setBookingHeroBackground() {
             const heroBackground = document.querySelector('.booking-hero-background');
@@ -860,6 +867,38 @@
             }
 
             heroBackground.style.backgroundImage = `url('${imagePath}')`;
+        }
+
+        // --- Calendar availability update function (add here) ---
+        function updateCalendarAvailability(selectedRooms) {
+            // Remove previous "Available" events
+            if (calendar) {
+                calendar.getEvents().forEach(event => {
+                    if (event.title === 'Available') event.remove();
+                });
+            }
+
+            if (!selectedRooms.length) return;
+
+            // Get arrays of available dates for each selected room
+            const availArrays = selectedRooms.map(room => roomAvailability[room] || []);
+
+            // Find intersection (dates available in all selected rooms)
+            let availableDates = availArrays[0] || [];
+            for (let i = 1; i < availArrays.length; i++) {
+                availableDates = availableDates.filter(date => availArrays[i].includes(date));
+            }
+
+            // Add new "Available" events
+            availableDates.forEach(date => {
+                calendar.addEvent({
+                    title: 'Available',
+                    start: date,
+                    end: date,
+                    color: 'green',
+                    display: 'background'
+                });
+            });
         }
 
         // Calendar functions
@@ -895,9 +934,34 @@
             } else {
                 // Single room
                 const number = roomId.match(/\d+/)?.[0] || '';
-                return `Room ${number} - Select Your Days`;
+                return `Select Your Days`;
             }
         }
+
+        // 1. Handle checkbox changes (single/multi room selection)
+        document.querySelectorAll('.room-select').forEach(cb => {
+            cb.addEventListener('change', function() {
+                // Gather selected rooms
+                const selectedRooms = [];
+                document.querySelectorAll('.room-select:checked').forEach(cb => {
+                    selectedRooms.push(cb.value);
+                });
+                updateCalendarAvailability(selectedRooms);
+            });
+        });
+
+        // 2. Handle multi-room button clicks
+        document.querySelectorAll('.multi-room-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Parse rooms from data-rooms attribute
+                const rooms = btn.getAttribute('data-rooms').split(',');
+                // Set checkboxes to match button selection
+                document.querySelectorAll('.room-select').forEach(cb => {
+                    cb.checked = rooms.includes(cb.value);
+                });
+                updateCalendarAvailability(rooms);
+            });
+        });
 
         function closeCalendar() {
             document.getElementById('calendarModal').style.display = 'none';
