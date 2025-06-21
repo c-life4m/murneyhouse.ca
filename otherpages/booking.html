@@ -420,7 +420,7 @@
         }
 
         .room-selection-container h4 {
-            color: white; /* Make the "Select Room(s):" title white */
+            color: white; /* Make the "Select Your Room Choices:" title white */
             margin-bottom: 15px;
         }
 
@@ -552,8 +552,8 @@
         <ul class="requirements-list">
             <li><i class="fas fa-credit-card"></i> Primary renter must have a current credit score of 800+, or provide a recent credit card bill showing a $30,000+ credit limit, or (if neither is available) a refundable security deposit of at least $1,000 (amount may increase with the number of guests/days).</li>
             <li><i class="fas fa-money-check"></i> 50% of rental fee required to confirm booking (Interac transfer only at this time).</li>
-            <li><i class="fas fa-undo"></i> <strong>Refund policy:</strong>
-                <ul style="margin-top: 10px; padding-left: 20px;">
+            <li><i class="fas fa-undo"></i> <strong>Cancellations & Refunds:</strong>
+                <ul style="padding-left: 20px;">
                     <li>100% if cancelled ≥24hrs before check-in (12pm)</li>
                     <li>50% if cancelled ≥12hrs before</li>
                     <li>25% if cancelled ≥6hrs before</li>
@@ -568,7 +568,7 @@
         <h2>Disclaimers & Warnings</h2>
         <ul class="disclaimers-list">
             <li><i class="fas fa-exclamation-triangle"></i> Use of gadgets, appliances, cookware, and utensils is at your own risk.</li>
-            <li><i class="fas fa-exclamation-triangle"></i> Some common area floors are polished porcelain tile — can be slippery when wet or if wearing socks.</li>
+            <li><i class="fas fa-exclamation-triangle"></i> Some common area floors are polished porcelain tile - can be slippery when wet or if wearing socks.</li>
         </ul>
     </section>
 
@@ -581,7 +581,7 @@
                 <div class="room-card-content">
                     <h3>Room 1</h3>
                     <p>Double bed. 1-2 Guests, large window, morning sun and view of front yard.</p>
-                    <button class="cta-button" onclick="openCalendar('room1')">Check Availability</button>
+                    <button class="cta-button" onclick="openCalendar('Select')">Select Your Days</button>
                 </div>
             </div>
             <div class="room-card">
@@ -589,7 +589,7 @@
                 <div class="room-card-content">
                     <h3>Room 2</h3>
                     <p>2 stacked twin beds. 1-2 Guests. Large window overlooking a green side yard.</p>
-                    <button class="cta-button" onclick="openCalendar('room1')">Check Availability</button>
+                    <button class="cta-button" onclick="openCalendar('Select')">Select Your Days</button>
                 </div>
             </div>
             <div class="room-card">
@@ -597,7 +597,7 @@
                 <div class="room-card-content">
                     <h3>Room 3 - Party</h3>
                     <p>Sleeps up to 4, can also be used for louder music, parties and gatherings.</p>
-                    <button class="cta-button" onclick="openCalendar('room1')">Check Availability</button>
+                    <button class="cta-button" onclick="openCalendar('Select')">Select Your Days</button>
                 </div>
             </div>
         </div>
@@ -607,29 +607,29 @@
     <div id="calendarModal" class="calendar-modal">
         <div class="calendar-content">
             <span class="close-modal" onclick="closeCalendar()">&times;</span>
-            <h3 id="calendarTitle">Room Availability</h3>
+            <h3 id="calendarTitle">Select Your Days</h3>
             <div id="calendar"></div>
             <div style="margin-top: 20px;">
-                <p><span style="color: green;">■</span> Available <span style="color: orange;">■</span> Pending <span style="color: red;">■</span> Booked</p>
+                <p><span style="color: green;">■</span> Available <span style="color: orange;">■</span> Pending <span style="color: red;">■</span> Booked / Unavailable</p>
                 <div class="booking-button-container">
                 <button id="proceedToBooking" onclick="proceedToBooking()" style="display: none;" class="cta-button large">Proceed to Booking Form</button>
             </div>
         </div>
             <!-- Room Selection -->
             <div class="room-selection-container" style="margin-bottom: 20px;">
-                <h4>Select Room(s):</h4>
+                <h4>Select Your Room Choices:</h4>
                 <div class="room-checkboxes">
                     <label class="room-checkbox">
-                        <input type="checkbox" value="garden-suite" checked>
-                        <span>Garden Suite</span>
+                        <input type="checkbox" value="bedroom-1" checked>
+                        <span>Room 1</span>
                     </label>
                     <label class="room-checkbox">
                         <input type="checkbox" value="bedroom-2">
-                        <span>Bedroom 2</span>
+                        <span>Room 2</span>
                     </label>
                     <label class="room-checkbox">
-                        <input type="checkbox" value="lakeside-loft">
-                        <span>Lakeside Loft</span>
+                        <input type="checkbox" value="bedroom-3">
+                        <span>Room 3</span>
                     </label>
                 </div>
             </div>
@@ -841,7 +841,7 @@
         function openCalendar(roomId) {
             currentRoom = roomId;
             document.getElementById('calendarModal').style.display = 'flex';
-            document.getElementById('calendarTitle').textContent = `${roomId.replace('room', 'Room ')} Availability`;
+            document.getElementById('calendarTitle').textContent = `${roomId.replace('room', 'Select ')} Your Days`;
 
             // Initialize calendar if not already done
             if (!calendar) {
@@ -865,7 +865,7 @@
                 },
                 events: [
                     // Sample events - replace with real data
-                    { title: 'Booked', start: '2024-01-15', color: 'red' },
+                    { title: 'Booked / Unavailable', start: '2024-01-15', color: 'red' },
                     { title: 'Pending', start: '2024-01-20', color: 'orange' }
                 ],
                 select: function(info) {
