@@ -847,9 +847,20 @@
 
          // --- Room availability data (add here) ---
         const roomAvailability = {
-            "Room 1": ["2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23", "2025-06-24", "2025-06-25", "2025-06-26", "2025-06-27", "2025-06-28", "2025-06-29", "2025-06-30", "2025-07-01" ],
-            "Room 2": ["2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23", "2025-06-24", "2025-06-27", "2025-06-28", "2025-06-29", "2025-06-30", "2025-07-01", "2025-07-02", "2025-07-03"],
-            "Room 3": ["2025-06-20", "2025-06-21", "2025-06-22", "2025-06-23", "2025-06-24", "2025-06-26", "2025-06-27", "2025-06-28", "2025-06-29", "2025-06-30", "2025-07-01", "2025-07-02", "2025-07-03"]
+            "Room 1": {
+            booked: ["2025-06-30", "2025-07-01" ],
+            pending: ["2025-07-03", "2025-07-04"]
+            },
+
+            "Room 2": {
+            booked: ["2025-07-03"],
+            pending: [ "2025-07-06"]
+            },
+
+            "Room 3": {
+            booked: ["2025-07-03"],
+            pending:[ "2025-07-04"]
+            }
         };
 
         // Set responsive background image for booking hero
@@ -1002,6 +1013,25 @@
                 ],
                 // --- MOBILE TOUCH SUPPORT ---
                 dateClick: function(info) {
+                    const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
+                    const selectedDate = info.dateStr;
+
+                // Block if selectedDate is booked or pending for any selected room
+                    let isBlocked = false;
+                    selectedRooms.forEach(room => {
+                        if (
+                            (roomAvailability[room]?.booked || []).includes(selectedDate) ||
+                            (roomAvailability[room]?.pending || []).includes(selectedDate)
+                        ) {
+                            isBlocked = true;
+                        }
+                    });
+
+                    if (isBlocked) {
+                        alert("This date is already booked or pending for the selected room(s). Please choose another date.");
+                        return;
+                    }
+
                     // Only handle on touch devices
                     if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
                         const clickedDate = info.dateStr;
@@ -1028,6 +1058,31 @@
                             const date2 = clickedDate;
                             const rangeStart = date1 <= date2 ? date1 : date2;
                             const rangeEnd = date1 <= date2 ? date2 : date1;
+
+                                // --- Add overlap check here ---
+                                let isBlocked = false;
+                                let current = new Date(rangeStart);
+                                const end = new Date(rangeEnd);
+                                const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
+                                while (current <= end) {
+                                    const dateStr = current.toISOString().split('T')[0];
+                                    selectedRooms.forEach(room => {
+                                        if (
+                                            (roomAvailability[room]?.booked || []).includes(dateStr) ||
+                                            (roomAvailability[room]?.pending || []).includes(dateStr)
+                                        ) {
+                                            isBlocked = true;
+                                        }
+                                    });
+                                    current.setDate(current.getDate() + 1);
+                                }
+                                if (isBlocked) {
+                                    alert("One or more selected dates are already booked or pending for the selected room(s). Please choose another range.");
+                                    firstSelectedDate = null;
+                                    return;
+                                }
+                                // --- End overlap check ---
+
                             const nextDay = new Date(rangeEnd);
                             nextDay.setDate(nextDay.getDate() + 1);
                             const rangeEndForCalendar = nextDay.toISOString().split('T')[0];
@@ -1046,7 +1101,15 @@
                     }
                 },
                 // --- END MOBILE TOUCH SUPPORT ---
+
+                datesSet: function(info) {
+                    // This runs whenever the visible date range changes (e.g., next/prev month)
+                    const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
+                    updateCalendarAvailability(selectedRooms);
+                },
+
                 select: function(info) {
+                    const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
                     const startDate = info.startStr;
                     // Don't use endDate at all - it's always the next day
 
@@ -1072,9 +1135,33 @@
                         const date2 = startDate;
                         const rangeStart = date1 <= date2 ? date1 : date2;
                         const rangeEnd = date1 <= date2 ? date2 : date1;
-                        const nextDay = new Date(rangeEnd);
-                        nextDay.setDate(nextDay.getDate() + 1);
-                        const rangeEndForCalendar = nextDay.toISOString().split('T')[0];
+
+                                // Check for overlap
+                                let isBlocked = false;
+                                let current = new Date(rangeStart);
+                                const end = new Date(rangeEnd);
+                                while (current <= end) {
+                                    const dateStr = current.toISOString().split('T')[0];
+                                    selectedRooms.forEach(room => {
+                                        if (
+                                            (roomAvailability[room]?.booked || []).includes(dateStr) ||
+                                            (roomAvailability[room]?.pending || []).includes(dateStr)
+                                        ) {
+                                            isBlocked = true;
+                                        }
+                                    });
+                                    current.setDate(current.getDate() + 1);
+                                }
+
+                                if (isBlocked) {
+                                    alert("One or more selected dates are already booked or pending for the selected room(s). Please choose another range.");
+                                    firstSelectedDate = null;
+                                    return;
+                                }
+
+                                const nextDay = new Date(rangeEnd);
+                                nextDay.setDate(nextDay.getDate() + 1);
+                                const rangeEndForCalendar = nextDay.toISOString().split('T')[0];
 
                         calendar.addEvent({
                             title: 'Selected',
