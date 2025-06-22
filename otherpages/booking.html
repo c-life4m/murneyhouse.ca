@@ -871,34 +871,52 @@
 
         // --- Calendar availability update function (add here) ---
         function updateCalendarAvailability(selectedRooms) {
-            // Remove previous "Available" events
+            // Remove all previous background events (green), booked (red), and pending (orange)
             if (calendar) {
-                calendar.getEvents().forEach(event => {
-                    if (event.title === 'Available') event.remove();
-                });
+                calendar.getEvents().forEach(event => event.remove());
             }
 
             if (!selectedRooms.length) return;
 
-            // Get arrays of available dates for each selected room
-            const availArrays = selectedRooms.map(room => roomAvailability[room] || []);
+            // Gather all booked and pending dates for selected rooms
+            const bookedDates = new Set();
+            const pendingDates = new Set();
 
-            // Find intersection (dates available in all selected rooms)
-            let availableDates = availArrays[0] || [];
-            for (let i = 1; i < availArrays.length; i++) {
-                availableDates = availableDates.filter(date => availArrays[i].includes(date));
-            }
-
-            // Add new "Available" events
-            availableDates.forEach(date => {
-                calendar.addEvent({
-                    title: 'Available',
-                    start: date,
-                    end: date,
-                    color: 'green',
-                    display: 'background'
-                });
+            selectedRooms.forEach(room => {
+                const roomData = roomAvailability[room] || {};
+                (roomData.booked || []).forEach(date => bookedDates.add(date));
+                (roomData.pending || []).forEach(date => pendingDates.add(date));
             });
+
+            // Get all visible days in the current calendar view
+            const view = calendar.view;
+            const start = new Date(view.currentStart);
+            const end = new Date(view.currentEnd);
+            for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+                const dateStr = d.toISOString().split('T')[0];
+                if (bookedDates.has(dateStr)) {
+                    calendar.addEvent({
+                        title: 'Booked',
+                        start: dateStr,
+                        color: 'red',
+                        display: 'background'
+                    });
+                } else if (pendingDates.has(dateStr)) {
+                    calendar.addEvent({
+                        title: 'Pending',
+                        start: dateStr,
+                        color: 'orange',
+                        display: 'background'
+                    });
+                } else {
+                    calendar.addEvent({
+                        title: '',
+                        start: dateStr,
+                        color: 'green',
+                        display: 'background'
+                    });
+                }
+            }
         }
 
         // Calendar functions
@@ -979,8 +997,8 @@
                 },
                 events: [
                     // Sample events - replace with real data
-                    { title: 'Booked / Unavailable', start: '2024-01-15', color: 'red' },
-                    { title: 'Pending', start: '2024-01-20', color: 'orange' }
+                    { title: 'Booked', start: '2025-07-15', color: 'red' },
+                    { title: 'Pending', start: '2025-07-20', color: 'orange' }
                 ],
                 // --- MOBILE TOUCH SUPPORT ---
                 dateClick: function(info) {
@@ -1093,6 +1111,10 @@
                 }
             });
             calendar.render(); // Don't forget to render the calendar
+
+            // Call updateCalendarAvailability to show default available dates
+             const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
+            updateCalendarAvailability(selectedRooms);
         }
 
         function proceedToBooking() {
