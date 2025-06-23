@@ -153,13 +153,37 @@
             margin: 0 auto;
         }
 
-        .rules-list li, .requirements-list li, .disclaimers-list li {
+        .rules-list li, .disclaimers-list li {
             background: var(--card-background);
             margin: 15px 0;
             padding: 20px;
             border-radius: 10px;
             border-left: 4px solid var(--accent-color);
             box-shadow: var(--shadow-light);
+        }
+
+        .requirements-list li {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* Align icons with headings */
+        .requirement-item {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .cancellation-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .cancellation-info ul {
+            padding-left: 20px;
+            margin-top: 10px;
+            margin-left: 30px;
         }
 
         .room-cards {
@@ -245,6 +269,11 @@
             border-radius: 15px;
             margin-top: 40px;
             box-shadow: var(--shadow-medium);
+        }
+
+        .booking-form h2 {
+            text-align: center;
+            margin-bottom: 20px; /* Optional: Add some space below the title */
         }
 
         .form-group {
@@ -580,15 +609,28 @@
     <section class="booking-section rules-card">
         <h2>Booking Requirements</h2>
         <ul class="requirements-list">
-            <li><i class="fas fa-credit-card"></i> Primary renter must have a current credit score of 800+, or provide a recent credit card bill showing a $30,000+ credit limit, or (if neither is available) a refundable security deposit of at least $1,000 (amount may increase with the number of guests/days).</li>
-            <li><i class="fas fa-money-check"></i> 50% of rental fee required to confirm booking (Interac transfer only at this time).</li>
-            <li><i class="fas fa-undo"></i> <strong>Cancellations & Refunds:</strong>
-                <ul style="padding-left: 20px;">
-                    <li>100% if cancelled ≥24hrs before check-in (12pm)</li>
-                    <li>50% if cancelled ≥12hrs before</li>
-                    <li>25% if cancelled ≥6hrs before</li>
-                    <li>No refund <6hrs or for no-shows</li>
-                </ul>
+            <li>
+                <div class="requirement-item">
+                    <i class="fas fa-credit-card"></i> Primary renter must have a current credit score of 800+, or provide a recent credit card bill showing a $30,000+ credit limit, or (if neither is available) a refundable security deposit of at least $1,000 (amount may increase with the number of guests/days).
+                </div>
+            </li>
+            <li>
+                <div class="requirement-item">
+                    <i class="fas fa-money-check"></i> 50% of rental fee required to confirm booking (Interac transfer only at this time).
+                </div>
+            </li>
+            <li>
+                <div class="requirement-item">
+                    <i class="fas fa-undo"></i> <strong>Cancellations & Refunds:</strong>
+                </div>
+                <div class="cancellation-info">
+                    <ul style="padding-left: 20px;">
+                        <li>100% if cancelled ≥24hrs before check-in (12pm)</li>
+                        <li>50% if cancelled ≥12hrs before</li>
+                        <li>25% if cancelled ≥6hrs before</li>
+                        <li>No refund <6hrs or for no-shows</li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </section>
@@ -719,19 +761,19 @@
                     <div class="room-option" onclick="toggleRoom('room1')">
                         <img src="../public/images/assets/PX/Brm-1A-800.webp" alt="Room 1" onerror="this.src='../public/images/assets/PX/Brm-1A-800.webp'">
                         <h4>Room 1</h4>
-                        <p>$120/night</p>
+                        <p>$129/night</p>
                         <input type="checkbox" id="room1" name="rooms" value="room1" style="display: none;">
                     </div>
                     <div class="room-option" onclick="toggleRoom('room2')">
                         <img src="../public/images/assets/PX/Brm-2A-800.webp" alt="Room 2" onerror="this.src='../public/images/assets/PX/Brm-2A-800.webp'">
                         <h4>Room 2</h4>
-                        <p>$140/night</p>
+                        <p>$99/night</p>
                         <input type="checkbox" id="room2" name="rooms" value="room2" style="display: none;">
                     </div>
                     <div class="room-option" onclick="toggleRoom('room3')">
                         <img src="../public/images/assets/PX/Brm-3A-800.webp" alt="Room 3" onerror="this.src='../public/images/assets/PX/Brm-3A-800.webp'">
                         <h4>Room 3 - Party Room</h4>
-                        <p>$160/night</p>
+                        <p>$169/night</p>
                         <input type="checkbox" id="room3" name="rooms" value="room3" style="display: none;">
                     </div>
                 </div>
@@ -747,6 +789,7 @@
             <div class="addon-services">
                 <h3>Add-on Services</h3>
                 <div class="addon-item">
+                   <!-- Remove this to re-activate Add-on Section
                     <div>
                         <strong>Stock the Fridge</strong>
                         <div style="margin-top: 10px;">
@@ -768,6 +811,7 @@
                             </div>
                         </div>
                     </div>
+                    Remove this to activate ADD-Ons-->
                 </div>
                 <div class="addon-item">
                     <div>
@@ -1222,9 +1266,6 @@
                 // Store in sessionStorage or pass to your booking form
                 sessionStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
 
-                console.log('Selected rooms:', selectedRooms);
-                console.log('Selected dates:', selectedEvents[0].startStr, 'to', selectedEvents[0].endStr);
-
                 // Hide the calendar modal
                 const calendarModal = document.getElementById('calendarModal');
                 if (calendarModal) {
@@ -1243,7 +1284,6 @@
                     document.body.appendChild(bookingForm);
                     bookingForm.style.display = 'block';
                     bookingForm.scrollIntoView({ behavior: 'smooth' });
-                    console.log('Booking form displayed');
                 } else {
                     console.error('Booking form not found');
                 }
@@ -1363,11 +1403,13 @@
             if (document.getElementById('pickup').checked) total += 20;
 
             const bookingFee = total * 0.5;
+            const totalPayableAtBooking = bookingFee; // same as 50%
+            const balancePayableBeforeCheckin = total - bookingFee; // remaining 50%
 
             summary.innerHTML = `
                 <p>Subtotal: $${total}</p>
-                <p>Booking Fee (50%): $${bookingFee}</p>
-                <p><strong>Total: $${total + bookingFee}</strong></p>
+                <p><strong>Total Payable At Booking (50%): $${totalPayableAtBooking}</strong></p>
+                <p>Balance Payable Before Check-in (50%): $${balancePayableBeforeCheckin}</p>
             `;
         }
 
