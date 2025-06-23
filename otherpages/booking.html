@@ -479,6 +479,12 @@
             font-weight: 600;
         }
 
+        .multi-room-btn.active {
+            background: orange; /* Or use your orange variable */
+            color: white;
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
             .form-row {
                 grid-template-columns: 1fr;
@@ -636,7 +642,7 @@
             <div style="margin-top: 20px;">
                 <p><span style="color: green;">■</span> Available <span style="color: orange;">■</span> Pending <span style="color: red;">■</span> Booked / Unavailable</p>
                 <div class="booking-button-container">
-                <button id="proceedToBooking" onclick="proceedToBooking()" style="display: none;" class="cta-button large">Proceed to Booking Form</button>
+                <button id="proceedToBooking" type="button" onclick="proceedToBooking()" style="display: none;" class="cta-button large">Proceed to Booking Form</button>
             </div>
         </div>
             <!-- Room Selection -->
@@ -1215,16 +1221,35 @@
             if (selectedEvents.length > 0 && selectedRooms.length > 0) {
                 // Store in sessionStorage or pass to your booking form
                 sessionStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
-                // Your existing booking logic here
 
                 console.log('Selected rooms:', selectedRooms);
                 console.log('Selected dates:', selectedEvents[0].startStr, 'to', selectedEvents[0].endStr);
+
+                // Hide the calendar modal
+                const calendarModal = document.getElementById('calendarModal');
+                if (calendarModal) {
+                    calendarModal.style.display = 'none';
+                    console.log('Calendar modal hidden');
+                } else {
+                    console.error('Calendar modal not found');
+                }
+
+                // Detach and show the booking form
+                const bookingForm = document.getElementById('bookingForm');
+                if (bookingForm) {
+                    // Detach the booking form from the calendar modal
+                    bookingForm.parentNode.removeChild(bookingForm);
+                    // Append the booking form to the body
+                    document.body.appendChild(bookingForm);
+                    bookingForm.style.display = 'block';
+                    bookingForm.scrollIntoView({ behavior: 'smooth' });
+                    console.log('Booking form displayed');
+                } else {
+                    console.error('Booking form not found');
+                }
             } else {
                 alert('Please select at least one room and date range.');
             }
-            document.getElementById('calendarModal').style.display = 'none';
-            document.getElementById('bookingForm').style.display = 'block';
-            document.getElementById('bookingForm').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Multi-room selection logic
