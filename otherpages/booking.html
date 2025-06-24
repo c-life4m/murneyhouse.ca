@@ -325,10 +325,24 @@
             color: white !important;
         }
 
+        .fc-bg-event.booked {
+            background-color: red !important;
+            opacity: 1
+        }
+        .fc-bg-event.pending {
+            background-color: orange !important;
+            opacity: 1
+        }
+        .fc-bg-event.available {
+            background-color: green !important;
+            opacity: 1
+        }
+
         /* FullCalendar date numbers */
         .fc-daygrid-day-number {
             color: white !important;
             font-weight: 500;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5);
         }
 
         /* FullCalendar headers (day names) */
@@ -858,8 +872,10 @@
                                     <div class="room-selection-overlay">
                                         <input type="checkbox" id="room1" name="rooms" value="room1" onchange="updatePriceSummary()">
                                         <label for="room1">x</label>
-                                        <input type="number" id="room1Days" name="room1Days" min="1" value="1" onchange="updatePriceSummary()">
+                                        <input type="number" id="room1Days" name="room1Days" min="1" max="99" value="1" onchange="updatePriceSummary(); onDaysChange(this);" oninput="limitDaysInput(this)" >
                                         <label for="room1Days">days</label>
+                                        <!-- Hidden input for Room 1's start date -->
+                                        <input type="hidden" id="room1StartDate" name="room1StartDate" value="">
                                     </div>
                                 </div>
                                 <div class="room-details">
@@ -873,8 +889,9 @@
                                     <div class="room-selection-overlay">
                                         <input type="checkbox" id="room2" name="rooms" value="room2" onchange="updatePriceSummary()">
                                         <label for="room2">x</label>
-                                        <input type="number" id="room2Days" name="room2Days" min="1" value="1" onchange="updatePriceSummary()">
+                                        <input type="number" id="room2Days" name="room2Days" min="1" max="99" value="1" onchange="updatePriceSummary(); onDaysChange(this);" oninput="limitDaysInput(this)" >
                                         <label for="room2Days">days</label>
+                                        <input type="hidden" id="room2StartDate" name="room2StartDate" value="">
                                     </div>
                                 </div>
                                 <div class="room-details">
@@ -888,8 +905,9 @@
                                     <div class="room-selection-overlay">
                                         <input type="checkbox" id="room3" name="rooms" value="room3" onchange="updatePriceSummary()">
                                         <label for="room3">x</label>
-                                        <input type="number" id="room3Days" name="room3Days" min="1" value="1" onchange="updatePriceSummary()">
+                                        <input type="number" id="room3Days" name="room3Days" min="1" max="99" value="1" onchange="updatePriceSummary(); onDaysChange(this);" oninput="limitDaysInput(this)" >
                                         <label for="room3Days">days</label>
+                                        <input type="hidden" id="room3StartDate" name="room3StartDate" value="">
                                     </div>
                                 </div>
                                 <div class="room-details">
@@ -940,7 +958,7 @@
                         <strong>Pick Up At Via Rail Station</strong>
                         <p>$20 for up to 4 guests</p>
                     </div>
-                    <input type="checkbox" id="pickup" name="pickup" value="20">
+                    <input type="checkbox" id="pickup" name="pickup" value="20" onchange="updatePriceSummary()">
                 </div>
             </div>
 
@@ -954,7 +972,7 @@
                 <strong>Privacy Notice:</strong> Personal information collected is used exclusively for renting our rooms and resolving disputes, not shared except as required by law. All info is encrypted and transmitted via secure HTTPS.
             </div>
 
-            <button type="submit" class="submit-btn">Submit Booking Request</button>
+            <button type="submit" class="cta-button large">Submit Booking Request</button>
         </form>
     </div>
 
@@ -1079,24 +1097,21 @@
                 const dateStr = d.toISOString().split('T')[0];
                 if (bookedDates.has(dateStr)) {
                     calendar.addEvent({
-                        title: 'Booked',
                         start: dateStr,
-                        color: 'red',
-                        display: 'background'
+                        display: 'background',
+                        classNames: ['booked']
                     });
                 } else if (pendingDates.has(dateStr)) {
                     calendar.addEvent({
-                        title: 'Pending',
                         start: dateStr,
-                        color: 'orange',
-                        display: 'background'
+                        display: 'background',
+                        classNames: ['pending']
                     });
                 } else {
                     calendar.addEvent({
-                        title: '',
                         start: dateStr,
-                        color: 'green',
-                        display: 'background'
+                        display: 'background',
+                        classNames: ['available']
                     });
                 }
             }
@@ -1440,6 +1455,39 @@
                         }
                     });
 
+                    function getUnavailableDates(roomName) {
+                        const room = roomAvailability[roomName];
+                        if (!room) return [];
+                        return [...(room.booked || []), ...(room.pending || [])];
+                    }
+
+                    // --- Booking validation ---
+                    function onDaysChange(input) {
+                        const roomId = input.id.replace('Days', '');
+                        const startDateStr = document.getElementById(`${roomId}StartDate`).value;
+                        const numDays = parseInt(input.value, 10);
+
+                        if (!startDateStr || isNaN(numDays)) return;
+
+                        const startDate = new Date(startDateStr);
+                        const unavailableDates = getUnavailableDates(roomId);
+
+                        let conflict = false;
+                        for (let i = 0; i < numDays; i++) {
+                            const checkDate = new Date(startDate);
+                            checkDate.setDate(startDate.getDate() + i);
+                            const checkDateStr = checkDate.toISOString().split('T')[0];
+                            if (unavailableDates.includes(checkDateStr)) {
+                                conflict = true;
+                                break;
+                            }
+                        }
+
+                        if (conflict) {
+                            alert('Selected days include unavailable (booked or pending) dates. Please choose a different range.');
+                            input.value = 1; // Or reset to previous valid value
+                        }
+                    }
                     // Calculate number of days
                     let numDays = 1;
                     if (selectedDates.start && selectedDates.end) {
@@ -1453,6 +1501,11 @@
                         const daysInput = document.querySelector(`#bookingForm input[name="${roomId}Days"]`);
                         if (daysInput) {
                             daysInput.value = numDays;
+                        }
+                        // Set the hidden start date input for this room
+                        const startDateInput = document.getElementById(`${roomId}StartDate`);
+                        if (startDateInput && selectedDates.start) {
+                            startDateInput.value = selectedDates.start; // e.g., "2025-07-02"
                         }
                     });
                     updatePriceSummary();
@@ -1554,6 +1607,21 @@
             updatePriceSummary();
         }
 
+        function limitDaysInput(input) {
+        // Remove non-digit characters
+        input.value = input.value.replace(/\D/g, '');
+        // Limit to 2 digits
+        if (input.value.length > 2) {
+            input.value = input.value.slice(0, 2);
+        }
+        // Enforce min/max
+        if (input.value !== '') {
+            let val = parseInt(input.value, 10);
+            if (val < 1) input.value = 1;
+            if (val > 99) input.value = 99;
+        }
+    }
+
         function changeQuantity(item, change) {
             addons[item] = Math.max(0, addons[item] + change);
             document.getElementById(`${item}-qty`).textContent = addons[item];
@@ -1580,6 +1648,10 @@
             // Add addon costs
             total += addons.eggs * 1 + addons.tomatoes * 2;
             if (document.getElementById('pickup').checked) total += 20;
+            const pickupCheckbox = document.getElementById('pickup');
+            if (pickupCheckbox && pickupCheckbox.checked) {
+                total += parseFloat(pickupCheckbox.value);
+            }
 
             const bookingFee = total * 0.5;
             const totalPayableAtBooking = bookingFee; // same as 50%
