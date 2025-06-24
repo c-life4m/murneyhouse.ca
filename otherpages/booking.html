@@ -852,7 +852,7 @@
                     <div class="form-group">
                         <label>Room Selection *</label>
                         <div class="room-selection">
-                            <div class="room-option" onclick="toggleRoom('room1')">
+                            <div class="room-option">
                                 <div class="room-image">
                                     <img src="../public/images/assets/PX/Brm-1A-800.webp" alt="Room 1" onerror="this.src='../public/images/assets/PX/Brm-1A-800.webp'">
                                     <div class="room-selection-overlay">
@@ -867,7 +867,7 @@
                                     <p>$129/night</p>
                                 </div>
                             </div>
-                            <div class="room-option" onclick="toggleRoom('room2')">
+                            <div class="room-option">
                                 <div class="room-image">
                                     <img src="../public/images/assets/PX/Brm-2A-800.webp" alt="Room 2" onerror="this.src='../public/images/assets/PX/Brm-2A-800.webp'">
                                     <div class="room-selection-overlay">
@@ -882,7 +882,7 @@
                                     <p>$99/night</p>
                                 </div>
                             </div>
-                            <div class="room-option" onclick="toggleRoom('room3')">
+                            <div class="room-option">
                                 <div class="room-image">
                                     <img src="../public/images/assets/PX/Brm-3A-800.webp" alt="Room 3" onerror="this.src='../public/images/assets/PX/Brm-3A-800.webp'">
                                     <div class="room-selection-overlay">
@@ -1387,6 +1387,19 @@
             if (selectedEvents.length > 0 && selectedRooms.length > 0) {
                 // Store in sessionStorage or pass to your booking form
                 sessionStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
+                // Get selected date range from calendar events
+                const selectedEvents = calendar.getEvents().filter(event => event.title === 'Selected');
+                if (selectedEvents.length > 0) {
+                    // For range selection, FullCalendar stores start and end (end is exclusive)
+                    const startDate = selectedEvents[0].startStr;
+                    // Subtract one day from end (since FullCalendar's end is exclusive)
+                    let endDate = selectedEvents[0].end;
+                    endDate = new Date(endDate);
+                    endDate.setDate(endDate.getDate() - 1);
+                    const endDateStr = endDate.toISOString().split('T')[0];
+
+                    sessionStorage.setItem('selectedDates', JSON.stringify({ start: startDate, end: endDateStr }));
+                }
 
                 // Hide the calendar modal
                 const calendarModal = document.getElementById('calendarModal');
@@ -1404,6 +1417,45 @@
                     bookingForm.parentNode.removeChild(bookingForm);
                     // Append the booking form to the body
                     document.body.appendChild(bookingForm);
+                    // --- Reset all checkboxes and days ---
+                    const allRoomCheckboxes = document.querySelectorAll('#bookingForm input[type="checkbox"][name="rooms"]');
+                    allRoomCheckboxes.forEach(cb => {
+                        cb.checked = false;
+                    });
+                    const allDaysInputs = document.querySelectorAll('#bookingForm input[type="number"][id$="Days"]');
+                    allDaysInputs.forEach(input => {
+                        input.value = 1;
+                    });
+                    const selectedRoomsRaw = JSON.parse(sessionStorage.getItem('selectedRooms') || '[]');
+                    const selectedDates = JSON.parse(sessionStorage.getItem('selectedDates') || '{}');
+
+                    // Map "Room 1" → "room1"
+                    const selectedRooms = selectedRoomsRaw.map(r => r.replace(/\s+/g, '').toLowerCase());
+
+                    // Check the checkboxes for selected rooms
+                    selectedRooms.forEach(roomId => {
+                        const checkbox = document.querySelector(`#bookingForm input[type="checkbox"][id="${roomId}"]`);
+                        if (checkbox) {
+                            checkbox.checked = true;
+                        }
+                    });
+
+                    // Calculate number of days
+                    let numDays = 1;
+                    if (selectedDates.start && selectedDates.end) {
+                        const start = new Date(selectedDates.start);
+                        const end = new Date(selectedDates.end);
+                        numDays = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
+                    }
+
+                    // Set the number of days for each selected room
+                    selectedRooms.forEach(roomId => {
+                        const daysInput = document.querySelector(`#bookingForm input[name="${roomId}Days"]`);
+                        if (daysInput) {
+                            daysInput.value = numDays;
+                        }
+                    });
+                    updatePriceSummary();
                     bookingForm.style.display = 'block';
                     bookingForm.scrollIntoView({ behavior: 'smooth' });
                 } else {
