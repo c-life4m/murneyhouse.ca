@@ -17,31 +17,33 @@
     <link rel="stylesheet" href="../src/styles/style.css">
 
     <style>
+
         #hero.booking-hero {
             position: relative;
             width: 100%;
-            height: 50vh;
+            height: 50vh;      /* only half the viewport tall */
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .booking-hero-content {
+         .booking-hero-content {
             position: absolute;
             top: 40%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 800px;
-            display: flex;
+            width: 90%;           /* your responsive padding */
+            max-width: 800px;     /* stop it growing too wide */
+            display: flex;        /* stack children vertically */
             flex-direction: column;
-            align-items: center;
+            align-items: center;  /* center text & children */
             text-align: center;
             box-sizing: border-box;
         }
 
-        .booking-hero-content h1 {
+
+            .booking-hero-content h1 {
             margin: 0 0 var(--spacing-md);
             animation: flyInFromLeft 1s ease-out forwards;
         }
@@ -73,52 +75,54 @@
             }
         }
 
-        .rules-card {
+        /* ─── Card & Animation (Houses Rules, Requirements & Disclaimers) ─── */
+            .rules-card {
             background-color: var(--light-card);
-            padding: 3rem;
+            padding: 3rem;                    /* adjust as needed */
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             max-width: 800px;
-            margin: 3rem auto;
+            margin: 3rem auto;                /* center + spacing from other sections */
             animation: fadeInUp 1s ease-out both;
-        }
+            }
 
-        body.dark-mode .rules-card {
+            body.dark-mode .rules-card {
             background-color: var(--dark-card);
-        }
+            }
 
-        .rules-list,
-        .requirements-list,
-        .disclaimers-list {
+            .rules-list,
+            .requirements-list,
+            .disclaimers-list {
             list-style: none;
             padding: 0;
             margin: 0;
-        }
+            }
 
-        .rules-list li,
-        .requirements-list li,
-        .disclaimers-list li {
+            .rules-list li,
+            .requirements-list li,
+            .disclaimers-list li {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 1rem;
-        }
+            margin-bottom: 1rem;              /* one blank line between bullets */
+            }
 
-        .rules-list li:last-child,
-        .requirements-list li:last-child,
-        .disclaimers-list li:last-child {
+            .rules-list li:last-child,
+            .requirements-list li:last-child,
+            .disclaimers-list li:last-child {
             margin-bottom: 0;
-        }
+            }
 
-        .rules-list li i,
-        .requirements-list li i,
-        .disclaimers-list li i {
+            .rules-list li i,
+            .requirements-list li i,
+            .disclaimers-list li i {
             flex-shrink: 0;
             font-size: 1.25rem;
-            color: var(--cta);
-            margin-right: 2ch;
-        }
+            color: var(--cta);                      /* or your primary color */
+            margin-right: 2ch;                /* two character spaces */
+            }
 
-        @keyframes fadeInUp {
+            /* Fade-in from below */
+            @keyframes fadeInUp {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -164,6 +168,7 @@
             align-items: flex-start;
         }
 
+        /* Align icons with headings */
         .requirement-item {
             display: flex;
             align-items: flex-start;
@@ -194,7 +199,7 @@
             overflow: hidden;
             box-shadow: var(--shadow-medium);
             transition: transform 0.3s ease;
-            position: relative;
+            position: relative; /* Ensure the overlay is positioned correctly */
         }
 
         .room-card:hover {
@@ -211,6 +216,7 @@
             padding: 20px;
         }
 
+        /* New Room Selection Overlay */
         .room-selection-overlay {
             position: absolute;
             top: 10px;
@@ -221,54 +227,56 @@
             background: rgba(255, 255, 255, 0.0);
             padding: 5px;
             border-radius: 5px;
-            z-index: 10;
+            z-index: 10; /* Ensure it's above the image */
         }
 
         .room-selection-overlay input[type="checkbox"] {
-            margin-right: 8.5px;
-            width: 25px;
-            height: 25px;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5);
+            margin-right: 8.5px; /* Reduced space by 50% */
+            width: 25px; /* Increased size */
+            height: 25px; /* Increased size */
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5); /* Add black drop shadow */
         }
 
         .room-selection-overlay input[type="number"] {
             width: 50px;
-            margin: 0 2.5px;
-            -moz-appearance: textfield;
-            appearance: textfield;
-            color: red !important;
-            font-size: 1.5rem;
+            margin: 0 2.5px; /* Reduced space by 50% */
+            -moz-appearance: textfield; /* Remove up/down arrows in Firefox */
+            appearance: textfield; /* Remove up/down arrows in other browsers */
+            color: red !important; /* Make text red and ensure it overrides other styles */
+            font-size: 1.5rem; /* Increase font size */
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5); /* Add black drop shadow */
         }
 
         .room-selection-overlay input[type="number"]::-webkit-outer-spin-button,
         .room-selection-overlay input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+            -webkit-appearance: none; /* Remove up/down arrows in Chrome, Safari, Edge, Opera */
+            margin: 0; /* Remove default margin */
         }
 
         .room-selection-overlay label {
-            margin-right: 1.5px;
+            margin-right: 1.5px; /* Reduced space by 50% */
             color: red !important;
             font-size: 1.6rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5); /* Add black drop shadow */
         }
 
+        /* Adjust the room details to be closer to the image */
         .room-details {
-            padding: 10px;
+            padding: 10px; /* Reduced padding */
         }
 
         .room-details h4 {
-            margin-top: 10px;
-            font-size: 1.4rem;
+            margin-top: 10px; /* Reduced margin */
+            font-size: 1.4rem; /* Slightly reduced font size */
         }
 
         .room-details p {
-            margin-top: 5px;
+            margin-top: 5px; /* Reduced margin */
             font-size: 1.2rem;
         }
 
+        /* Ensure the room image container is positioned correctly */
         .room-image {
             position: relative;
             height: 100px;
@@ -310,6 +318,7 @@
             color: white;
         }
 
+        /* Calendar specific text styling */
         .calendar-content h2,
         .calendar-content h3,
         .calendar-content h4 {
@@ -329,16 +338,19 @@
             opacity: 1
         }
 
+        /* FullCalendar date numbers */
         .fc-daygrid-day-number {
             color: white !important;
             font-weight: 500;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5);
         }
 
+        /* FullCalendar headers (day names) */
         .fc-col-header-cell {
             color: white !important;
         }
 
+        /* FullCalendar toolbar (month/year title and navigation) */
         .fc-toolbar-title {
             color: white !important;
         }
@@ -354,7 +366,7 @@
 
         .booking-form h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* Optional: Add some space below the title */
         }
 
         .form-group {
@@ -368,7 +380,6 @@
             color: var(--text-primary);
         }
 
-        /* Enhanced text input styling */
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -377,30 +388,8 @@
             border: 2px solid var(--border-color);
             border-radius: 8px;
             font-size: 1rem;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--input-background);
             color: var(--text-primary);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        /* Special styling for text inputs to make them stand out */
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group input[type="tel"],
-        .form-group textarea {
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .form-group input[type="text"]:focus,
-        .form-group input[type="email"]:focus,
-        .form-group input[type="tel"]:focus,
-        .form-group textarea:focus {
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
-            border-color: var(--accent-color);
-            outline: none;
         }
 
         .form-row {
@@ -460,37 +449,6 @@
             margin: 20px 0;
         }
 
-        /* Enhanced price summary styling */
-        .price-summary-enhanced {
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid var(--accent-color);
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px 0;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-        }
-
-        .price-summary-enhanced h3 {
-            color: var(--accent-color);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            margin: 10px 0;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .summary-item:last-child {
-            border-bottom: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--accent-color);
-        }
-
         .addon-services {
             border: 2px solid var(--border-color);
             border-radius: 10px;
@@ -539,51 +497,16 @@
             color: var(--text-primary);
         }
 
-        /* submit-btn with CTA styling */
         .submit-btn {
-            background: var(--cta);
+            background: var(--accent-color);
             color: white;
             border: none;
-            padding: 20px 40px;
-            border-radius: 12px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.1rem;
             cursor: pointer;
-            width: auto;
-            display: block;
-            margin: 20px auto 0 auto; /* Center the button */
-            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .submit-btn:hover {
-            background: linear-gradient(135deg, var(--accent-hover, #e65100), var(--accent-color));
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(255, 87, 34, 0.6);
-        }
-
-        .submit-btn:hover::before {
-            left: 100%;
-        }
-
-        .submit-btn:active {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+            margin-top: 20px;
         }
 
         .privacy-notice {
@@ -613,25 +536,11 @@
             background: var(--card-background);
             padding: 40px;
             border-radius: 15px;
-            max-width: 600px;
+            max-width: 500px;
             width: 90%;
             text-align: center;
-            max-height: 80vh;
-            overflow-y: auto;
         }
 
-        .popup-content h2 {
-            color: var(--accent-color);
-            margin-bottom: 20px;
-        }
-
-        .booking-summary-detailed {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: left;
-        }
 
         .booking-button-container {
             text-align: center;
@@ -648,7 +557,7 @@
         }
 
         .room-selection-container h4 {
-            color: white;
+            color: white; /* Make the "Select Your Room Choices:" title white */
             margin-bottom: 15px;
         }
 
@@ -694,7 +603,7 @@
             color: white;
             background: transparent;
             font-size: 1rem;
-            margin-left: 0;
+            margin-left: 0; /* Remove if you want spacing between buttons */
             margin-right: 0;
             margin-top: 0;
             margin-bottom: 0;
@@ -708,57 +617,9 @@
         }
 
         .multi-room-btn.active {
-            background: orange;
+            background: orange; /* Or use your orange variable */
             color: white;
             font-weight: 600;
-        }
-
-        /* Return to home button styling */
-        .return-home-btn {
-            background: var(--secondary-color, #4CAF50);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .return-home-btn:hover {
-            background: var(--secondary-hover, #45a049);
-            transform: translateY(-1px);
-        }
-
-        /* Promo code input styling */
-        .promo-input {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin: 15px 0;
-        }
-
-        .promo-input input {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .promo-apply-btn {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .promo-apply-btn:hover {
-            background: var(--accent-hover);
         }
 
         @media (max-width: 768px) {
@@ -772,11 +633,6 @@
 
             .booking-section {
                 padding: 40px 15px;
-            }
-
-            .popup-content {
-                width: 95%;
-                padding: 30px 20px;
             }
         }
     </style>
@@ -927,43 +783,6 @@
         </div>
     </section>
 
-     <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h3>Contact</h3>
-                    <address>
-                        <p>123 Main Street<br>Belleville, ON, Canada K8P 3N6</p>
-                        <p><a href="tel:+15551234567">(555) 123-4567</a></p>
-                        <p><a href="mailto:info@murneyhouse.ca">info@murneyhouse.ca</a></p>
-                    </address>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="guest-hub.html">Guest Hub</a></li>
-                        <li><a href="amenities.html">Amenities</a></li>
-                        <li><a href="rooms.html">Rooms</a></li>
-                        <li><a href="booking.html">Policies</a></li>
-                        <li><a href="contact.html">FAQs</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 Murney House. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="booking.html">Privacy Policy</a>
-                    <a href="booking.html">Terms of Service</a>
-                    <a href="contact.html">Sitemap</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <!-- Calendar Modal -->
     <div id="calendarModal" class="calendar-modal">
         <div class="calendar-content">
@@ -973,10 +792,9 @@
             <div style="margin-top: 20px;">
                 <p><span style="color: green;">■</span> Available <span style="color: orange;">■</span> Pending <span style="color: red;">■</span> Booked / Unavailable</p>
                 <div class="booking-button-container">
-                    <button id="proceedToBooking" type="button" onclick="proceedToBooking()" style="display: none;" class="cta-button large">Proceed to Booking Form</button>
-                </div>
+                <button id="proceedToBooking" type="button" onclick="proceedToBooking()" style="display: none;" class="cta-button large">Proceed to Booking Form</button>
             </div>
-
+        </div>
             <!-- Room Selection -->
             <div class="room-selection-container" style="margin-bottom: 20px;">
                 <h4>Select Your Room Choices:</h4>
@@ -998,144 +816,143 @@
                     <button type="button" class="multi-room-btn" data-rooms="Room 1,Room 2,Room 3">Rooms 1+2+3</button>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Booking Request Form -->
-    <div id="bookingForm" class="booking-form">
-        <h2>Booking Request Form</h2>
-        <form id="bookingRequestForm">
-            <!-- Primary Guest Section -->
-            <div style="border: 2px solid var(--accent-color); border-radius: 8px; padding: 20px; margin-bottom: 25px;">
-                <h3 style="color: var(--accent-color); margin-bottom: 15px;">Primary Guest Information</h3>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="firstName">Primary Guest - First Name *</label>
-                        <input type="text" id="firstName" name="firstName" required>
+            <!-- Booking Request Form -->
+            <div id="bookingForm" class="booking-form">
+                <h2>Booking Request Form</h2>
+                <form id="bookingRequestForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="lastName">Primary Guest - Last Name *</label>
-                        <input type="text" id="lastName" name="lastName" required>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-row">
                     <div class="form-group">
-                        <label for="primaryGuestAge">Primary Guest - Age *</label>
-                        <input type="number" id="primaryGuestAge" name="primaryGuestAge" min="18" max="120" required>
+                        <label for="creditScore">Current Credit Score (Optional)</label>
+                        <input type="number" id="creditScore" name="creditScore" min="300" max="950">
                     </div>
+
                     <div class="form-group">
-                        <label for="totalGuests">Total Guests (Auto-Updated) *</label>
-                        <input type="number" id="totalGuests" name="totalGuests" min="1" max="9" value="1" readonly style="background-color: rgba(100, 100, 100, 0.3);">
+                        <label for="guestCount">Number of additional Guests (up to 6) *</label>
+                        <select id="guestCount" name="guestCount" required onchange="updateGuestDetails()">
+                            <option value="">Select number of additional guests</option>
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5">5 Guests</option>
+                            <option value="6">6 Guests</option>
+                        </select>
                     </div>
-                </div>
 
-                <div class="form-row">
+                    <div id="guestDetails"></div>
+
                     <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone *</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="creditScore">Current Credit Score (Optional)</label>
-                    <input type="number" id="creditScore" name="creditScore" min="300" max="950">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="guestCount">Number of Additional Guests (up to 8 additional) *</label>
-                <select id="guestCount" name="guestCount" required onchange="updateGuestDetails()">
-                    <option value="0">No additional guests</option>
-                    <option value="1">1 Additional Guest</option>
-                    <option value="2">2 Additional Guests</option>
-                    <option value="3">3 Additional Guests</option>
-                    <option value="4">4 Additional Guests</option>
-                    <option value="5">5 Additional Guests</option>
-                    <option value="6">6 Additional Guests</option>
-                    <option value="7">7 Additional Guests</option>
-                    <option value="8">8 Additional Guests</option>
-                </select>
-            </div>
-
-            <div id="guestDetails"></div>
-
-            <div class="form-group">
-                <label>Room Selection *</label>
-                <div class="room-selection">
-                    <div class="room-option">
-                        <div class="room-image">
-                            <img src="../public/images/assets/PX/Brm-1A-800.webp" alt="Room 1" onerror="this.src='../public/images/assets/PX/Brm-1A-800.webp'">
-                            <div class="room-selection-overlay">
-                                <input type="checkbox" id="room1" name="rooms" value="room1" onchange="updatePriceSummary()">
-                                <label for="room1">x</label>
-                                <input type="number" id="room1Days" name="room1Days" min="1" max="99" value="1" onchange="updatePriceSummary(); validateDaysAgainstAvailability(this);" oninput="limitDaysInput(this)">
-                                <label for="room1Days">days</label>
-                                <input type="hidden" id="room1StartDate" name="room1StartDate" value="">
+                        <label>Room Selection *</label>
+                        <div class="room-selection">
+                            <div class="room-option">
+                                <div class="room-image">
+                                    <img src="../public/images/assets/PX/Brm-1A-800.webp" alt="Room 1" onerror="this.src='../public/images/assets/PX/Brm-1A-800.webp'">
+                                    <div class="room-selection-overlay">
+                                        <input type="checkbox" id="room1" name="rooms" value="room1" onchange="updatePriceSummary()">
+                                        <label for="room1">x</label>
+                                        <input type="number" id="room1Days" name="room1Days" min="1" max="99" value="1" onchange="updatePriceSummary(); onDaysChange(this);" oninput="limitDaysInput(this)" >
+                                        <label for="room1Days">days</label>
+                                        <!-- Hidden input for Room 1's start date -->
+                                        <input type="hidden" id="room1StartDate" name="room1StartDate" value="">
+                                    </div>
+                                </div>
+                                <div class="room-details">
+                                    <h4>Room 1</h4>
+                                    <p>$129/night</p>
+                                </div>
+                            </div>
+                            <div class="room-option">
+                                <div class="room-image">
+                                    <img src="../public/images/assets/PX/Brm-2A-800.webp" alt="Room 2" onerror="this.src='../public/images/assets/PX/Brm-2A-800.webp'">
+                                    <div class="room-selection-overlay">
+                                        <input type="checkbox" id="room2" name="rooms" value="room2" onchange="updatePriceSummary()">
+                                        <label for="room2">x</label>
+                                        <input type="number" id="room2Days" name="room2Days" min="1" max="99" value="1" onchange="updatePriceSummary(); onDaysChange(this);" oninput="limitDaysInput(this)" >
+                                        <label for="room2Days">days</label>
+                                        <input type="hidden" id="room2StartDate" name="room2StartDate" value="">
+                                    </div>
+                                </div>
+                                <div class="room-details">
+                                    <h4>Room 2</h4>
+                                    <p>$99/night</p>
+                                </div>
+                            </div>
+                            <div class="room-option">
+                                <div class="room-image">
+                                    <img src="../public/images/assets/PX/Brm-3A-800.webp" alt="Room 3" onerror="this.src='../public/images/assets/PX/Brm-3A-800.webp'">
+                                    <div class="room-selection-overlay">
+                                        <input type="checkbox" id="room3" name="rooms" value="room3" onchange="updatePriceSummary()">
+                                        <label for="room3">x</label>
+                                        <input type="number" id="room3Days" name="room3Days" min="1" max="99" value="1" onchange="updatePriceSummary(); onDaysChange(this);" oninput="limitDaysInput(this)" >
+                                        <label for="room3Days">days</label>
+                                        <input type="hidden" id="room3StartDate" name="room3StartDate" value="">
+                                    </div>
+                                </div>
+                                <div class="room-details">
+                                    <h4>Room 3</h4>
+                                    <p>$169/night</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="room-details">
-                            <h4>Room 1</h4>
-                            <p>$129/night</p>
-                        </div>
                     </div>
-                    <div class="room-option">
-                        <div class="room-image">
-                            <img src="../public/images/assets/PX/Brm-2A-800.webp" alt="Room 2" onerror="this.src='../public/images/assets/PX/Brm-2A-800.webp'">
-                            <div class="room-selection-overlay">
-                                <input type="checkbox" id="room2" name="rooms" value="room2" onchange="updatePriceSummary()">
-                                <label for="room2">x</label>
-                                <input type="number" id="room2Days" name="room2Days" min="1" max="99" value="1" onchange="updatePriceSummary(); validateDaysAgainstAvailability(this);" oninput="limitDaysInput(this)">
-                                <label for="room2Days">days</label>
-                                <input type="hidden" id="room2StartDate" name="room2StartDate" value="">
-                            </div>
-                        </div>
-                        <div class="room-details">
-                            <h4>Room 2</h4>
-                            <p>$99/night</p>
-                        </div>
-                    </div>
-                    <div class="room-option">
-                        <div class="room-image">
-                            <img src="../public/images/assets/PX/Brm-3A-800.webp" alt="Room 3" onerror="this.src='../public/images/assets/PX/Brm-3A-800.webp'">
-                            <div class="room-selection-overlay">
-                                <input type="checkbox" id="room3" name="rooms" value="room3" onchange="updatePriceSummary()">
-                                <label for="room3">x</label>
-                                <input type="number" id="room3Days" name="room3Days" min="1" max="99" value="1" onchange="updatePriceSummary(); validateDaysAgainstAvailability(this);" oninput="limitDaysInput(this)">
-                                <label for="room3Days">days</label>
-                                <input type="hidden" id="room3StartDate" name="room3StartDate" value="">
-                            </div>
-                        </div>
-                        <div class="room-details">
-                            <h4>Room 3</h4>
-                            <p>$169/night</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Enhanced Price Summary Section -->
-            <div class="price-summary-enhanced">
-                <h3>Price Summary</h3>
-                <div id="priceSummary">
-                    <p>Select rooms and dates to see pricing</p>
-                </div>
-
-                <!-- Discounts & Promotions -->
-                <div class="promo-input">
-                    <input type="text" id="promoCode" name="promoCode" placeholder="Enter promo code">
-                    <button type="button" class="promo-apply-btn" onclick="applyPromoCode()">Apply</button>
-                </div>
-                <div id="promoMessage" style="color: var(--accent-color); font-size: 0.9rem; margin-top: 5px;"></div>
-            </div>
+                    <div class="price-summary">
+                        <h3>Price Summary</h3>
+                        <div id="priceSummary">
+                            <p>Select rooms and dates to see pricing</p>
+                        </div>
+                    </div>
+                </form>
 
             <div class="addon-services">
                 <h3>Add-on Services</h3>
+                <div class="addon-item">
+                   <!-- Remove this to re-activate Add-on Section
+                    <div>
+                        <strong>Stock the Fridge</strong>
+                        <div style="margin-top: 10px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin: 5px 0;">
+                                <span>White Eggs ($1 each)</span>
+                                <div class="quantity-control">
+                                    <button type="button" class="quantity-btn" onclick="changeQuantity('eggs', -1)">-</button>
+                                    <span id="eggs-qty">0</span>
+                                    <button type="button" class="quantity-btn" onclick="changeQuantity('eggs', 1)">+</button>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin: 5px 0;">
+                                <span>Field Tomatoes ($2 each)</span>
+                                <div class="quantity-control">
+                                    <button type="button" class="quantity-btn" onclick="changeQuantity('tomatoes', -1)">-</button>
+                                    <span id="tomatoes-qty">0</span>
+                                    <button type="button" class="quantity-btn" onclick="changeQuantity('tomatoes', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    Remove this to activate ADD-Ons-->
+                </div>
                 <div class="addon-item">
                     <div>
                         <strong>Pick Up At Via Rail Station</strong>
@@ -1151,11 +968,11 @@
                 <small id="charCount">0/500 characters</small>
             </div>
 
-            <button type="submit" class="submit-btn">Submit Booking Request</button>
-
             <div class="privacy-notice">
                 <strong>Privacy Notice:</strong> Personal information collected is used exclusively for renting our rooms and resolving disputes, not shared except as required by law. All info is encrypted and transmitted via secure HTTPS.
             </div>
+
+            <button type="submit" class="cta-button large">Submit Booking Request</button>
         </form>
     </div>
 
@@ -1164,22 +981,49 @@
         <div class="popup-content">
             <h2>Request Received!</h2>
             <p>Thank you for your booking request.</p>
-
-            <div class="booking-summary-detailed">
-                <p><strong>Booking Request ID: <span id="uniqueId" style="color: var(--accent-color); font-size: 1.3rem;"></span></strong></p>
-                <div id="bookingSummary"></div>
-                <div id="fullPriceBreakdown"></div>
-            </div>
-
-            <p style="margin: 20px 0; padding: 15px; background: rgba(255, 255, 200, 0.1); border-radius: 8px; border-left: 4px solid var(--accent-color);">
-                <strong>Important:</strong> A confirmation email has been sent to your email address. If you don't hear from us within 24 hours, please follow up with our site admin with your <strong>Booking Request ID</strong> in the subject line.
-            </p>
-
-            <button onclick="returnToHome()" class="return-home-btn">Return to Home</button>
+            <div id="bookingSummary"></div>
+            <p><strong>Your Unique ID: <span id="uniqueId"></span></strong></p>
+            <p>A confirmation email has been sent to your email address. If you don't receive confirmation within 24 hours, please follow up with our site admin using your unique ID in the subject line.</p>
+            <button onclick="closeThankYou()" class="submit-btn">Close</button>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <address>
+                        <p>123 Main Street<br>Belleville, ON, Canada K8P 3N6
+                        <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+                        <p><a href="mailto:info@murneyhouse.ca">info@murneyhouse.ca</a></p>
+                    </address>
+                </div>
 
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="guest-hub.html">Guest Hub</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                       <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="booking.html">Policies</a></li>
+                        <li><a href="contact.html">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Murney House. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="booking.html">Privacy Policy</a>
+                    <a href="booking.html">Terms of Service</a>
+                    <a href="contact.html">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Scripts -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
@@ -1191,19 +1035,21 @@
         let currentRoom = '';
         let addons = { eggs: 0, tomatoes: 0 };
 
-        // Room availability data
+         // --- Room availability data (add here) ---
         const roomAvailability = {
             "Room 1": {
-                booked: ["2025-06-30", "2025-07-01"],
-                pending: ["2025-07-03", "2025-07-04"]
+            booked: ["2025-06-30", "2025-07-01" ],
+            pending: ["2025-07-03", "2025-07-04"]
             },
+
             "Room 2": {
-                booked: ["2025-07-03"],
-                pending: ["2025-07-06"]
+            booked: ["2025-07-03"],
+            pending: [ "2025-07-06"]
             },
+
             "Room 3": {
-                booked: ["2025-07-03"],
-                pending: ["2025-07-04"]
+            booked: ["2025-07-03"],
+            pending:[ "2025-07-04"]
             }
         };
 
@@ -1224,14 +1070,16 @@
             heroBackground.style.backgroundImage = `url('${imagePath}')`;
         }
 
-        // Update calendar availability
+        // --- Calendar availability update function (add here) ---
         function updateCalendarAvailability(selectedRooms) {
+            // Remove all previous background events (green), booked (red), and pending (orange)
             if (calendar) {
                 calendar.getEvents().forEach(event => event.remove());
             }
 
             if (!selectedRooms.length) return;
 
+            // Gather all booked and pending dates for selected rooms
             const bookedDates = new Set();
             const pendingDates = new Set();
 
@@ -1241,6 +1089,7 @@
                 (roomData.pending || []).forEach(date => pendingDates.add(date));
             });
 
+            // Get all visible days in the current calendar view
             const view = calendar.view;
             const start = new Date(view.currentStart);
             const end = new Date(view.currentEnd);
@@ -1271,10 +1120,12 @@
         // Calendar functions
         function openCalendar(roomId) {
             currentRoom = roomId;
+            // Uncheck all room checkboxes first
             document.querySelectorAll('.room-checkboxes input[type="checkbox"]').forEach(cb => {
                 cb.checked = false;
             });
 
+            // Check the one matching the roomId
             const targetCheckbox = document.querySelector(`.room-checkboxes input[type="checkbox"][value="${roomId}"]`);
             if (targetCheckbox) {
                 targetCheckbox.checked = true;
@@ -1283,23 +1134,30 @@
             document.getElementById('calendarModal').style.display = 'flex';
             document.getElementById('calendarTitle').textContent = formatRoomTitle(roomId);
 
+            // Initialize calendar if not already done
             if (!calendar) {
                 initializeCalendar();
             }
+
         }
 
         function formatRoomTitle(roomId) {
+            // Handles single or multiple room IDs like "bedroom-1", "bedroom-2", "bedroom-1,bedroom-2"
             if (roomId.includes(',')) {
+                // Multi-room: split and get numbers
                 const numbers = roomId.split(',').map(id => id.match(/\d+/)?.[0]).filter(Boolean);
                 return `Room${numbers.length > 1 ? 's' : ''} ${numbers.join(' & ')} - Select Your Days`;
             } else {
+                // Single room
+                const number = roomId.match(/\d+/)?.[0] || '';
                 return `Select Your Days`;
             }
         }
 
-        // Handle checkbox changes
+        // 1. Handle checkbox changes (single/multi room selection)
         document.querySelectorAll('.room-select').forEach(cb => {
             cb.addEventListener('change', function() {
+                // Gather selected rooms
                 const selectedRooms = [];
                 document.querySelectorAll('.room-select:checked').forEach(cb => {
                     selectedRooms.push(cb.value);
@@ -1308,10 +1166,12 @@
             });
         });
 
-        // Handle multi-room button clicks
+        // 2. Handle multi-room button clicks
         document.querySelectorAll('.multi-room-btn').forEach(btn => {
             btn.addEventListener('click', function() {
+                // Parse rooms from data-rooms attribute
                 const rooms = btn.getAttribute('data-rooms').split(',');
+                // Set checkboxes to match button selection
                 document.querySelectorAll('.room-select').forEach(cb => {
                     cb.checked = rooms.includes(cb.value);
                 });
@@ -1323,7 +1183,7 @@
             document.getElementById('calendarModal').style.display = 'none';
         }
 
-        let firstSelectedDate = null;
+        let firstSelectedDate = null; // Variable to track the first selected date
 
         function initializeCalendar() {
             const calendarEl = document.getElementById('calendar');
@@ -1331,16 +1191,19 @@
                 initialView: 'dayGridMonth',
                 selectable: true,
                 validRange: {
-                    start: new Date()
+                    start: new Date() // Disable past days
                 },
                 events: [
+                    // Sample events - replace with real data
                     { title: 'Booked', start: '2025-07-15', color: 'red' },
                     { title: 'Pending', start: '2025-07-20', color: 'orange' }
                 ],
+                // --- MOBILE TOUCH SUPPORT ---
                 dateClick: function(info) {
                     const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
                     const selectedDate = info.dateStr;
 
+                // Block if selectedDate is booked or pending for any selected room
                     let isBlocked = false;
                     selectedRooms.forEach(room => {
                         if (
@@ -1356,9 +1219,11 @@
                         return;
                     }
 
+                    // Only handle on touch devices
                     if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
                         const clickedDate = info.dateStr;
 
+                        // Clear previous selections
                         calendar.getEvents().forEach(event => {
                             if (event.title === 'Selected') {
                                 event.remove();
@@ -1366,6 +1231,7 @@
                         });
 
                         if (!firstSelectedDate) {
+                            // First date selected
                             firstSelectedDate = clickedDate;
                             calendar.addEvent({
                                 title: 'Selected',
@@ -1374,32 +1240,35 @@
                                 color: 'orange'
                             });
                         } else {
+                            // Second date selected, create range
                             const date1 = firstSelectedDate;
                             const date2 = clickedDate;
                             const rangeStart = date1 <= date2 ? date1 : date2;
                             const rangeEnd = date1 <= date2 ? date2 : date1;
 
-                            let isBlocked = false;
-                            let current = new Date(rangeStart);
-                            const end = new Date(rangeEnd);
-                            const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
-                            while (current <= end) {
-                                const dateStr = current.toISOString().split('T')[0];
-                                selectedRooms.forEach(room => {
-                                    if (
-                                        (roomAvailability[room]?.booked || []).includes(dateStr) ||
-                                        (roomAvailability[room]?.pending || []).includes(dateStr)
-                                    ) {
-                                        isBlocked = true;
-                                    }
-                                });
-                                current.setDate(current.getDate() + 1);
-                            }
-                            if (isBlocked) {
-                                alert("One or more selected dates are already booked or pending for the selected room(s). Please choose another range.");
-                                firstSelectedDate = null;
-                                return;
-                            }
+                                // --- Add overlap check here ---
+                                let isBlocked = false;
+                                let current = new Date(rangeStart);
+                                const end = new Date(rangeEnd);
+                                const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
+                                while (current <= end) {
+                                    const dateStr = current.toISOString().split('T')[0];
+                                    selectedRooms.forEach(room => {
+                                        if (
+                                            (roomAvailability[room]?.booked || []).includes(dateStr) ||
+                                            (roomAvailability[room]?.pending || []).includes(dateStr)
+                                        ) {
+                                            isBlocked = true;
+                                        }
+                                    });
+                                    current.setDate(current.getDate() + 1);
+                                }
+                                if (isBlocked) {
+                                    alert("One or more selected dates are already booked or pending for the selected room(s). Please choose another range.");
+                                    firstSelectedDate = null;
+                                    return;
+                                }
+                                // --- End overlap check ---
 
                             const nextDay = new Date(rangeEnd);
                             nextDay.setDate(nextDay.getDate() + 1);
@@ -1418,14 +1287,20 @@
                         document.getElementById('proceedToBooking').style.display = 'inline-block';
                     }
                 },
+                // --- END MOBILE TOUCH SUPPORT ---
+
                 datesSet: function(info) {
+                    // This runs whenever the visible date range changes (e.g., next/prev month)
                     const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
                     updateCalendarAvailability(selectedRooms);
                 },
+
                 select: function(info) {
                     const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
                     const startDate = info.startStr;
+                    // Don't use endDate at all - it's always the next day
 
+                    // Clear previous selections
                     calendar.getEvents().forEach(event => {
                         if (event.title === 'Selected') {
                             event.remove();
@@ -1433,6 +1308,7 @@
                     });
 
                     if (!firstSelectedDate) {
+                        // First date selected
                         firstSelectedDate = startDate;
                         calendar.addEvent({
                             title: 'Selected',
@@ -1441,42 +1317,53 @@
                             color: 'orange'
                         });
                     } else {
+                        // Second date selected, create range using only startDate
                         const date1 = firstSelectedDate;
                         const date2 = startDate;
                         const rangeStart = date1 <= date2 ? date1 : date2;
                         const rangeEnd = date1 <= date2 ? date2 : date1;
 
-                        let isBlocked = false;
-                        let current = new Date(rangeStart);
-                        const end = new Date(rangeEnd);
-                        while (current <= end) {
-                            const dateStr = current.toISOString().split('T')[0];
-                            selectedRooms.forEach(room => {
-                                if (
-                                    (roomAvailability[room]?.booked || []).includes(dateStr) ||
-                                    (roomAvailability[room]?.pending || []).includes(dateStr)
-                                ) {
-                                    isBlocked = true;
+                                // Check for overlap
+                                let isBlocked = false;
+                                let current = new Date(rangeStart);
+                                const end = new Date(rangeEnd);
+                                while (current <= end) {
+                                    const dateStr = current.toISOString().split('T')[0];
+                                    selectedRooms.forEach(room => {
+                                        if (
+                                            (roomAvailability[room]?.booked || []).includes(dateStr) ||
+                                            (roomAvailability[room]?.pending || []).includes(dateStr)
+                                        ) {
+                                            isBlocked = true;
+                                        }
+                                    });
+                                    current.setDate(current.getDate() + 1);
                                 }
-                            });
-                            current.setDate(current.getDate() + 1);
-                        }
 
-                        if (isBlocked) {
-                            alert("One or more selected dates are already booked or pending for the selected room(s). Please choose another range.");
-                            firstSelectedDate = null;
-                            return;
-                        }
+                                if (isBlocked) {
+                                    alert("One or more selected dates are already booked or pending for the selected room(s). Please choose another range.");
+                                    firstSelectedDate = null;
+                                    return;
+                                }
 
-                        const nextDay = new Date(rangeEnd);
-                        nextDay.setDate(nextDay.getDate() + 1);
-                        const rangeEndForCalendar = nextDay.toISOString().split('T')[0];
+                                const nextDay = new Date(rangeEnd);
+                                nextDay.setDate(nextDay.getDate() + 1);
+                                const rangeEndForCalendar = nextDay.toISOString().split('T')[0];
 
                         calendar.addEvent({
                             title: 'Selected',
                             start: rangeStart,
                             end: rangeEndForCalendar,
                             color: 'orange'
+                        });
+
+                        // Add the select event handler
+                        calendar.on('select', function(info) {
+                            const startDate = info.start; // This is a Date object
+                            const endDate = info.end; // This is a Date object
+
+                            // Set the hidden input for the start date
+                            document.getElementById(`${roomId}StartDate`).value = startDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
                         });
 
                         firstSelectedDate = null;
@@ -1487,13 +1374,16 @@
                 eventClick: function(info) {
                     const clickedDate = info.event.start;
 
+                    // Check if the clicked date is part of an existing selection
                     const eventsToRemove = calendar.getEvents().filter(event => {
                         return event.start >= clickedDate && event.title === 'Selected';
                     });
 
                     if (eventsToRemove.length > 0) {
+                        // If there are events to remove, remove them
                         eventsToRemove.forEach(event => event.remove());
                     } else {
+                        // If no events to remove, add a new selection for the clicked date
                         calendar.addEvent({
                             title: 'Selected',
                             start: clickedDate,
@@ -1503,23 +1393,30 @@
                     }
                 }
             });
-            calendar.render();
+            calendar.render(); // Don't forget to render the calendar
 
-            const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
+            // Call updateCalendarAvailability to show default available dates
+             const selectedRooms = Array.from(document.querySelectorAll('.room-select:checked')).map(cb => cb.value);
             updateCalendarAvailability(selectedRooms);
         }
 
         function proceedToBooking() {
+            // Get selected rooms
             const selectedRooms = Array.from(document.querySelectorAll('.room-checkbox input:checked'))
                 .map(checkbox => checkbox.value);
 
+            // Get selected dates (your existing logic)
             const selectedEvents = calendar.getEvents().filter(event => event.title === 'Selected');
 
             if (selectedEvents.length > 0 && selectedRooms.length > 0) {
+                // Store in sessionStorage or pass to your booking form
                 sessionStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
-
+                // Get selected date range from calendar events
+                const selectedEvents = calendar.getEvents().filter(event => event.title === 'Selected');
                 if (selectedEvents.length > 0) {
+                    // For range selection, FullCalendar stores start and end (end is exclusive)
                     const startDate = selectedEvents[0].startStr;
+                    // Subtract one day from end (since FullCalendar's end is exclusive)
                     let endDate = selectedEvents[0].end;
                     endDate = new Date(endDate);
                     endDate.setDate(endDate.getDate() - 1);
@@ -1528,60 +1425,142 @@
                     sessionStorage.setItem('selectedDates', JSON.stringify({ start: startDate, end: endDateStr }));
                 }
 
+                // Hide the calendar modal
                 const calendarModal = document.getElementById('calendarModal');
                 if (calendarModal) {
                     calendarModal.style.display = 'none';
+                    console.log('Calendar modal hidden');
+                } else {
+                    console.error('Calendar modal not found');
                 }
 
+                // Detach and show the booking form
                 const bookingForm = document.getElementById('bookingForm');
-                if (bookingForm) {
-                    bookingForm.parentNode.removeChild(bookingForm);
-                    document.body.appendChild(bookingForm);
+            if (bookingForm) {
+                // Detach the booking form from the calendar modal
+                bookingForm.parentNode.removeChild(bookingForm);
+                // Append the booking form to the body
+                document.body.appendChild(bookingForm);
 
-                    const allRoomCheckboxes = document.querySelectorAll('#bookingForm input[type="checkbox"][name="rooms"]');
-                    allRoomCheckboxes.forEach(cb => {
-                        cb.checked = false;
-                    });
+                // --- Reset all checkboxes and days ---
+                const allRoomCheckboxes = document.querySelectorAll('#bookingForm input[type="checkbox"][name="rooms"]');
+                allRoomCheckboxes.forEach(cb => {
+                    cb.checked = false;
+                });
 
-                    const allDaysInputs = document.querySelectorAll('#bookingForm input[type="number"][id$="Days"]');
-                    allDaysInputs.forEach(input => {
-                        input.value = 1;
-                    });
+                const allDaysInputs = document.querySelectorAll('#bookingForm input[type="number"][id$="Days"]');
+                allDaysInputs.forEach(input => {
+                    input.value = 1; // Reset to default value
+                });
 
-                    const selectedRoomsRaw = JSON.parse(sessionStorage.getItem('selectedRooms') || '[]');
-                    const selectedDates = JSON.parse(sessionStorage.getItem('selectedDates') || '{}');
+                const selectedRoomsRaw = JSON.parse(sessionStorage.getItem('selectedRooms') || '[]');
+                const selectedDates = JSON.parse(sessionStorage.getItem('selectedDates') || '{}');
 
-                    const selectedRooms = selectedRoomsRaw.map(r => r.replace(/\s+/g, '').toLowerCase());
+                // Map "Room 1" → "room1"
+                const selectedRooms = selectedRoomsRaw.map(r => r.replace(/\s+/g, '').toLowerCase());
 
-                    selectedRooms.forEach(roomId => {
-                        const checkbox = document.querySelector(`#bookingForm input[type="checkbox"][id="${roomId}"]`);
-                        if (checkbox) {
-                            checkbox.checked = true;
+                // Check the checkboxes for selected rooms
+                selectedRooms.forEach(roomId => {
+                    const checkbox = document.querySelector(`#bookingForm input[type="checkbox"][id="${roomId}"]`);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+
+                // Validate the number of days against unavailable dates
+                allDaysInputs.forEach(input => {
+                    input.addEventListener('change', function() {
+                        const roomId = this.id.replace('Days', ''); // Get the room ID
+                        const startDateStr = document.getElementById(`${roomId}StartDate`).value; // Get the start date from the hidden input
+                        const numDays = parseInt(this.value, 10); // Get the number of days entered
+
+                        if (!startDateStr || isNaN(numDays)) return; // Exit if no start date or invalid number of days
+
+                        const startDate = new Date(startDateStr);
+                        const unavailableDates = getUnavailableDates(roomId); // Function to get unavailable dates for the room
+
+                        let conflict = false;
+                        for (let i = 0; i < numDays; i++) {
+                            const checkDate = new Date(startDate);
+                            checkDate.setDate(startDate.getDate() + i);
+                            const checkDateStr = checkDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+                            if (unavailableDates.includes(checkDateStr)) {
+                                conflict = true;
+                                break;
+                            }
+                        }
+
+                        if (conflict) {
+                            alert('Selected days include unavailable (booked or pending) dates. Please choose a different range.');
+                            this.value = 1; // Reset to a default value or previous valid value
                         }
                     });
+                });
 
-                    let numDays = 1;
-                    if (selectedDates.start && selectedDates.end) {
-                        const start = new Date(selectedDates.start);
-                        const end = new Date(selectedDates.end);
-                        numDays = Math.max(1, Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1);
+                // Function to get unavailable dates
+                function getUnavailableDates(roomName) {
+                    const room = roomAvailability[roomName];
+                    if (!room) return [];
+                    const unavailableDates = [...(room.booked || []), ...(room.pending || [])];
+                    console.log(`Unavailable dates for ${roomName}:`, unavailableDates);
+                    return unavailableDates;
+                }
+
+                // --- Booking validation ---
+                function onDaysChange(input) {
+                    const roomId = input.id.replace('Days', '');
+                    const startDateStr = document.getElementById(`${roomId}StartDate`).value;
+                    const numDays = parseInt(input.value, 10);
+
+                    if (!startDateStr || isNaN(numDays)) return;
+
+                    const startDate = new Date(startDateStr);
+                    const unavailableDates = getUnavailableDates(roomId);
+
+                    let conflict = false;
+                    for (let i = 0; i < numDays; i++) {
+                        const checkDate = new Date(startDate);
+                        checkDate.setDate(startDate.getDate() + i);
+                        const checkDateStr = checkDate.toISOString().split('T')[0];
+                        if (unavailableDates.includes(checkDateStr)) {
+                            conflict = true;
+                            break;
+                        }
                     }
 
-                    selectedRooms.forEach(roomId => {
-                        const daysInput = document.querySelector(`#bookingForm input[name="${roomId}Days"]`);
-                        if (daysInput) {
-                            daysInput.value = numDays;
-                        }
-                        const startDateInput = document.getElementById(`${roomId}StartDate`);
-                        if (startDateInput && selectedDates.start) {
-                            startDateInput.value = selectedDates.start;
-                        }
-                    });
-
-                    updatePriceSummary();
-                    bookingForm.style.display = 'block';
-                    bookingForm.scrollIntoView({ behavior: 'smooth' });
+                    if (conflict) {
+                        alert('Selected days include unavailable (booked or pending) dates. Please choose a different range.');
+                        input.value = 1; // Or reset to previous valid value
+                    }
                 }
+
+                // Calculate number of days
+                let numDays = 1;
+                if (selectedDates.start && selectedDates.end) {
+                    const start = new Date(selectedDates.start);
+                    const end = new Date(selectedDates.end);
+                    numDays = Math.max(1, Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1);
+                }
+
+                // Set the number of days for each selected room
+                selectedRooms.forEach(roomId => {
+                    const daysInput = document.querySelector(`#bookingForm input[name="${roomId}Days"]`);
+                    if (daysInput) {
+                        daysInput.value = numDays;
+                    }
+                    // Set the hidden start date input for this room
+                    const startDateInput = document.getElementById(`${roomId}StartDate`);
+                    if (startDateInput && selectedDates.start) {
+                        startDateInput.value = selectedDates.start; // e.g., "2025-07-02"
+                    }
+                });
+
+                updatePriceSummary();
+                bookingForm.style.display = 'block';
+                bookingForm.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                console.error('Booking form not found');
+            }
             } else {
                 alert('Please select at least one room and date range.');
             }
@@ -1589,346 +1568,177 @@
 
         // Multi-room selection logic
         document.querySelectorAll('.multi-room-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (this.classList.contains('active')) {
-                    this.classList.remove('active');
-                    document.querySelectorAll('.room-checkboxes input[type="checkbox"]').forEach(cb => {
-                        cb.checked = false;
-                        cb.disabled = false;
-                    });
-                    return;
-                }
+        btn.addEventListener('click', function() {
+            // If this button is already active, de-select it (toggle off)
+            if (this.classList.contains('active')) {
+            this.classList.remove('active');
 
-                const rooms = this.getAttribute('data-rooms').split(',');
-
-                rooms.forEach(roomName => {
-                    const cb = Array.from(document.querySelectorAll('.room-checkboxes input[type="checkbox"]'))
-                        .find(cb => cb.value.trim() === roomName.trim());
-                    if (cb) {
-                        cb.checked = true;
-                        cb.disabled = true;
-                    }
-                });
-
-                document.querySelectorAll('.multi-room-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+            // Otherwise, activate this button and set checkboxes as before
+            document.querySelectorAll('.room-checkboxes input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+            cb.disabled = false;
             });
+            // Optionally, update calendar or other UI here
+            // loadRoomAvailability([]);
+            return;
+            }
+            // Get the rooms for this button
+            const rooms = this.getAttribute('data-rooms').split(',');
+
+            // Check and disable the relevant checkboxes
+            rooms.forEach(roomName => {
+            const cb = Array.from(document.querySelectorAll('.room-checkboxes input[type="checkbox"]'))
+                .find(cb => cb.value.trim() === roomName.trim());
+            if (cb) {
+                cb.checked = true;
+                cb.disabled = true;
+            }
+            });
+
+            // Visually indicate the button is active
+            document.querySelectorAll('.multi-room-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            // Optionally, update calendar or other UI here
+            // loadRoomAvailability(rooms);
+        });
         });
 
+        // When any single room checkbox is changed, remove multi-room disables
         document.querySelectorAll('.room-checkboxes input[type="checkbox"]').forEach(cb => {
-            cb.addEventListener('change', function() {
-                document.querySelectorAll('.multi-room-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.room-checkboxes input[type="checkbox"]').forEach(cb2 => cb2.disabled = false);
-            });
+        cb.addEventListener('change', function() {
+            // Remove active state from multi-room buttons
+            document.querySelectorAll('.multi-room-btn').forEach(b => b.classList.remove('active'));
+            // Enable all checkboxes
+            document.querySelectorAll('.room-checkboxes input[type="checkbox"]').forEach(cb2 => cb2.disabled = false);
+            // Optionally, update calendar or other UI here
+            // const checkedRooms = Array.from(document.querySelectorAll('.room-checkboxes input[type="checkbox"]:checked')).map(cb => cb.value);
+            // loadRoomAvailability(checkedRooms);
         });
+    });
 
         // Form functions
         function updateGuestDetails() {
-            const guestCount = parseInt(document.getElementById('guestCount').value) || 0;
+            const guestCount = document.getElementById('guestCount').value;
             const guestDetailsDiv = document.getElementById('guestDetails');
 
-            // Update total guests count (primary guest + additional guests)
-            document.getElementById('totalGuests').value = guestCount + 1;
-
-            if (guestCount > 0) {
-                let html = '<div style="border: 2px dashed var(--accent-color); border-radius: 8px; padding: 20px; margin-bottom: 25px;"><h3 style="color: var(--accent-color); margin-bottom: 15px;">Additional Guest Information</h3>';
-                for (let i = 1; i <= guestCount; i++) {
+            if (guestCount) {
+                let html = '<h3>Guest Details</h3>';
+                for (let i = 1; i <= parseInt(guestCount); i++) {
                     html += `
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="guest${i}Name">Additional Guest ${i} - Name *</label>
-                                <input type="text" id="guest${i}Name" name="guest${i}Name" required>
+                                <label for="guest${i}Name">Guest ${i} Name ${i === 1 ? '*' : ''}</label>
+                                <input type="text" id="guest${i}Name" name="guest${i}Name" ${i === 1 ? 'required' : ''}>
                             </div>
                             <div class="form-group">
-                                <label for="guest${i}Age">Additional Guest ${i} - Age *</label>
-                                <input type="number" id="guest${i}Age" name="guest${i}Age" min="1" max="120" required>
+                                <label for="guest${i}Age">Guest ${i} Age</label>
+                                <input type="number" id="guest${i}Age" name="guest${i}Age" min="1" max="120">
                             </div>
                         </div>
                     `;
                 }
-                html += '</div>';
                 guestDetailsDiv.innerHTML = html;
             } else {
                 guestDetailsDiv.innerHTML = '';
             }
+        }
 
-            // Update price summary to reflect guest surcharge
+        function toggleRoom(roomId) {
+            const roomOption = event.currentTarget;
+            const checkbox = document.getElementById(roomId);
+
+            roomOption.classList.toggle('selected');
+            checkbox.checked = !checkbox.checked;
+
             updatePriceSummary();
         }
 
-        // Validation function for days against availability
-        function validateDaysAgainstAvailability(input) {
-            const roomId = input.id.replace('Days', '');
-            const startDateStr = document.getElementById(`${roomId}StartDate`).value;
-            const numDays = parseInt(input.value, 10);
-
-            if (!startDateStr || isNaN(numDays)) return;
-
-            const startDate = new Date(startDateStr);
-            const roomName = roomId.charAt(0).toUpperCase() + roomId.slice(1).replace(/(\d)/g, ' $1');
-            const unavailableDates = getUnavailableDates(roomName);
-
-            let conflict = false;
-            for (let i = 0; i < numDays; i++) {
-                const checkDate = new Date(startDate);
-                checkDate.setDate(startDate.getDate() + i);
-                const checkDateStr = checkDate.toISOString().split('T')[0];
-                if (unavailableDates.includes(checkDateStr)) {
-                    conflict = true;
-                    break;
-                }
-            }
-
-            if (conflict) {
-                alert('Selected days include unavailable (booked or pending) dates. Please choose a different range.');
-                input.value = 1;
-                updatePriceSummary();
-            }
-        }
-
-        function getUnavailableDates(roomName) {
-            const room = roomAvailability[roomName];
-            if (!room) return [];
-            return [...(room.booked || []), ...(room.pending || [])];
-        }
-
         function limitDaysInput(input) {
-            input.value = input.value.replace(/\D/g, '');
-            if (input.value.length > 2) {
-                input.value = input.value.slice(0, 2);
-            }
-            if (input.value !== '') {
-                let val = Math.abs(parseInt(input.value, 10));
-                if (isNaN(val) || val < 1) val = 1;
-                if (val > 99) val = 99;
-                input.value = val;
-            }
+        // Remove non-digit characters
+        input.value = input.value.replace(/\D/g, '');
+        // Limit to 2 digits
+        if (input.value.length > 2) {
+            input.value = input.value.slice(0, 2);
+        }
+        // Enforce min/max and positive numbers
+        if (input.value !== '') {
+            let val = Math.abs(parseInt(input.value, 10)); // Always positive
+            if (isNaN(val) || val < 1) val = 1;
+            if (val > 99) val = 99;
+            input.value = val;
+        }
+    }
+
+        function changeQuantity(item, change) {
+            addons[item] = Math.max(0, addons[item] + change);
+            document.getElementById(`${item}-qty`).textContent = addons[item];
+            updatePriceSummary();
         }
 
-        // Enhanced price summary with guest surcharge
         function updatePriceSummary() {
             const summary = document.getElementById('priceSummary');
+            let total = 0;
+
             const roomPrices = {
                 room1: 129,
                 room2: 99,
                 room3: 169
             };
 
-            let roomTotal = 0;
-            let selectedRoomsDisplay = '';
-            let dateInfo = '';
-            let numDaysTotal = 0;
-
-            // Calculate room totals and build display
-            const selectedRooms = document.querySelectorAll('#bookingForm input[type="checkbox"][name="rooms"]:checked');
-            const roomSelections = [];
-
+            const selectedRooms = document.querySelectorAll('.room-option input[type="checkbox"]:checked');
             selectedRooms.forEach(room => {
                 const roomId = room.id;
-                const days = parseInt(document.getElementById(`${roomId}Days`).value) || 1;
-                const roomCost = roomPrices[roomId] * days;
-                roomTotal += roomCost;
-                numDaysTotal = Math.max(numDaysTotal, days);
-
-                const roomNum = roomId.replace('room', '');
-                roomSelections.push(roomNum);
+                const days = document.getElementById(`${roomId}Days`).value;
+                total += roomPrices[roomId] * days;
             });
 
-            // Room selection display
-            if (roomSelections.length > 0) {
-                selectedRoomsDisplay = roomSelections.length === 1 ?
-                    `Room ${roomSelections[0]}` :
-                    `Rooms ${roomSelections.join('+')}`
-            }
-
-            // Date information from session storage
-            const selectedDates = JSON.parse(sessionStorage.getItem('selectedDates') || '{}');
-            if (selectedDates.start && selectedDates.end) {
-                const startDate = new Date(selectedDates.start);
-                const endDate = new Date(selectedDates.end);
-
-                // Calculate days more reliably
-                const timeDiff = endDate.getTime() - startDate.getTime();
-                const dayCount = Math.max(1, Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1);
-
-                dateInfo = `
-                    <div class="summary-item">
-                        <span>Start Date:</span>
-                        <span>${startDate.toLocaleDateString()}</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>End Date:</span>
-                        <span>${endDate.toLocaleDateString()}</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Number of Days:</span>
-                        <span>${dayCount}</span>
-                    </div>
-                `;
-            }
-
-            // Guest surcharge calculation (6% per additional guest on room total only)
-            const totalGuests = parseInt(document.getElementById('totalGuests').value) || 1;
-            const additionalGuests = totalGuests - 1;
-            const guestSurcharge = roomTotal * 0.06 * additionalGuests;
-
-            // Add-on services (not subject to guest surcharge)
-            let addonTotal = 0;
+            // Add addon costs
+            total += addons.eggs * 1 + addons.tomatoes * 2;
+            if (document.getElementById('pickup').checked) total += 20;
             const pickupCheckbox = document.getElementById('pickup');
             if (pickupCheckbox && pickupCheckbox.checked) {
-                addonTotal += parseFloat(pickupCheckbox.value);
+                total += parseFloat(pickupCheckbox.value);
             }
 
-            const subtotal = roomTotal + guestSurcharge + addonTotal;
-            const bookingFee = subtotal * 0.5;
-            const balance = subtotal - bookingFee;
+            const bookingFee = total * 0.5;
+            const totalPayableAtBooking = bookingFee; // same as 50%
+            const balancePayableBeforeCheckin = total - bookingFee; // remaining 50%
 
             summary.innerHTML = `
-                ${selectedRoomsDisplay ? `<div class="summary-item"><span>Room Selection:</span><span>${selectedRoomsDisplay}</span></div>` : ''}
-                ${dateInfo}
-                <div class="summary-item">
-                    <span>Number of Guests:</span>
-                    <span>${totalGuests}</span>
-                </div>
-                <div class="summary-item">
-                    <span>Room Total:</span>
-                    <span>$${roomTotal.toFixed(2)}</span>
-                </div>
-                ${additionalGuests > 0 ? `<div class="summary-item"><span>Guest Surcharge (${additionalGuests} × 6%):</span><span>$${guestSurcharge.toFixed(2)}</span></div>` : ''}
-                ${addonTotal > 0 ? `<div class="summary-item"><span>Add-on Services:</span><span>$${addonTotal.toFixed(2)}</span></div>` : ''}
-                <hr style="border: 1px solid rgba(255,255,255,0.2); margin: 15px 0;">
-                <div class="summary-item">
-                    <span><strong>Subtotal:</strong></span>
-                    <span><strong>$${subtotal.toFixed(2)}</strong></span>
-                </div>
-                <div class="summary-item">
-                    <span><strong>Total Payable at Booking (50%):</strong></span>
-                    <span><strong>$${bookingFee.toFixed(2)}</strong></span>
-                </div>
-                <div class="summary-item">
-                    <span>Balance Payable Before Check-in:</span>
-                    <span>$${balance.toFixed(2)}</span>
-                </div>
+                <p>Subtotal: $${total}</p>
+                <p><strong>Total Payable At Booking (50%): $${totalPayableAtBooking}</strong></p>
+                <p>Balance Payable Before Check-in (50%): $${balancePayableBeforeCheckin}</p>
             `;
         }
 
-        // Promo code functionality
-        function applyPromoCode() {
-            const promoCode = document.getElementById('promoCode').value.trim().toLowerCase();
-            const promoMessage = document.getElementById('promoMessage');
-
-            // Sample promo codes - replace with your actual logic
-            const validPromoCodes = {
-                'welcome10': 0.10,
-                'summer15': 0.15,
-                'early20': 0.20
-            };
-
-            if (validPromoCodes[promoCode]) {
-                promoMessage.textContent = `Promo code applied! ${(validPromoCodes[promoCode] * 100)}% discount`;
-                promoMessage.style.color = 'green';
-                // You would implement the actual discount logic here
-                updatePriceSummary();
-            } else if (promoCode) {
-                promoMessage.textContent = 'Invalid promo code';
-                promoMessage.style.color = 'red';
-            } else {
-                promoMessage.textContent = 'Please enter a promo code';
-                promoMessage.style.color = 'orange';
-            }
-        }
-
-        // Form submission with enhanced popup
+        // Form submission
         document.getElementById('bookingRequestForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             // Generate unique 4-digit ID
             const uniqueId = Math.floor(1000 + Math.random() * 9000);
 
-            // Gather booking details for summary
-            const selectedRooms = Array.from(document.querySelectorAll('#bookingForm input[type="checkbox"][name="rooms"]:checked'))
-                .map(cb => cb.id.replace('room', 'Room '));
-            const totalGuests = document.getElementById('totalGuests').value;
-            const selectedDates = JSON.parse(sessionStorage.getItem('selectedDates') || '{}');
-            const primaryGuestName = `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`;
-
-            // Calculate totals for full breakdown
-            const roomPrices = { room1: 129, room2: 99, room3: 169 };
-            let roomTotal = 0;
-            let numDays = 0;
-
-            document.querySelectorAll('#bookingForm input[type="checkbox"][name="rooms"]:checked').forEach(room => {
-                const roomId = room.id;
-                const days = parseInt(document.getElementById(`${roomId}Days`).value) || 1;
-                roomTotal += roomPrices[roomId] * days;
-                numDays = Math.max(numDays, days);
-            });
-
-            const additionalGuests = parseInt(totalGuests) - 1;
-            const guestSurcharge = roomTotal * 0.06 * additionalGuests;
-            const addonTotal = document.getElementById('pickup').checked ? 20 : 0;
-            const subtotal = roomTotal + guestSurcharge + addonTotal;
-
-            // Show enhanced popup
+            // Show thank you popup
             document.getElementById('uniqueId').textContent = uniqueId;
-
             document.getElementById('bookingSummary').innerHTML = `
-                <div style="text-align: left; margin-bottom: 15px;">
-                    <strong>Primary Guest:</strong> ${primaryGuestName}<br>
-                    <strong>Selected Rooms:</strong> ${selectedRooms.join(', ')}<br>
-                    <strong>Dates:</strong> ${selectedDates.start ? new Date(selectedDates.start).toLocaleDateString() : 'N/A'} - ${selectedDates.end ? new Date(selectedDates.end).toLocaleDateString() : 'N/A'}<br>
-                    <strong>Total Guests:</strong> ${totalGuests}<br>
-                    <strong>Number of Days:</strong> ${numDays}
-                </div>
+                <p>Booking request submitted for ${selectedDates.length} dates</p>
+                <p>Selected rooms: ${Array.from(document.querySelectorAll('.room-option.selected')).map(r => r.querySelector('h4').textContent).join(', ')}</p>
+                <p>Total guests: ${document.getElementById('guestCount').value}</p>
             `;
-
-            document.getElementById('fullPriceBreakdown').innerHTML = `
-                <div style="text-align: left; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
-                    <h4 style="margin-top: 0; color: var(--accent-color);">Price Breakdown:</h4>
-                    <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                        <span>Room Total:</span>
-                        <span>$${roomTotal.toFixed(2)}</span>
-                    </div>
-                    ${additionalGuests > 0 ? `
-                    <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                        <span>Guest Surcharge (${additionalGuests} × 6%):</span>
-                        <span>$${guestSurcharge.toFixed(2)}</span>
-                    </div>
-                    ` : ''}
-                    ${addonTotal > 0 ? `
-                    <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                        <span>Add-on Services:</span>
-                        <span>$${addonTotal.toFixed(2)}</span>
-                    </div>
-                    ` : ''}
-                    <hr style="border: 1px solid rgba(255,255,255,0.2); margin: 10px 0;">
-                    <div style="display: flex; justify-content: space-between; margin: 5px 0; font-weight: bold;">
-                        <span>Subtotal:</span>
-                        <span>$${subtotal.toFixed(2)}</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin: 5px 0; font-weight: bold; color: var(--accent-color);">
-                        <span>Payable at Booking (50%):</span>
-                        <span>$${(subtotal * 0.5).toFixed(2)}</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin: 5px 0;">
-                        <span>Balance Due Before Check-in:</span>
-                        <span>$${(subtotal * 0.5).toFixed(2)}</span>
-                    </div>
-                </div>
-            `;
-
             document.getElementById('thankYouPopup').style.display = 'flex';
 
-            // Here you would send the actual booking request to your backend and emails
+            // Here you would send the actual booking request to your backend
             console.log('Booking request submitted with ID:', uniqueId);
-
-            // Simulate sending emails
-            console.log('Sending confirmation email to:', document.getElementById('email').value);
-            console.log('Sending notification to admin and CC to x@xx.ca');
         });
 
-        function returnToHome() {
-            window.location.href = '../index.html';
+        function closeThankYou() {
+            document.getElementById('thankYouPopup').style.display = 'none';
+            // Reset form
+            document.getElementById('bookingRequestForm').reset();
+            document.getElementById('bookingForm').style.display = 'none';
+            selectedDates = [];
+            addons = { eggs: 0, tomatoes: 0 };
         }
 
         // Character counter for special requests
