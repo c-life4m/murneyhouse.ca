@@ -539,20 +539,20 @@
             color: var(--text-primary);
         }
 
-        /* submit-btn with CTA styling */
+        /* Enhanced submit button */
         .submit-btn {
             background: var(--cta);
             color: white;
             border: none;
             padding: 20px 40px;
             border-radius: 12px;
-            font-size: 1.4rem;
+            font-size: 1.54rem; /* 40% larger than 1.1rem */
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
             cursor: pointer;
-            width: auto;
-            display: block;
+            width: auto; /* Changed from 100% to auto to fit text */
             margin: 20px auto 0 auto; /* Center the button */
+            display: block; /* Make it a block element so margin auto works */
             box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
             transition: all 0.3s ease;
             letter-spacing: 1px;
@@ -567,7 +567,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             transition: left 0.5s;
         }
 
@@ -607,17 +607,20 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(3px);
         }
 
         .popup-content {
-            background: var(--card-background);
+            background: gray;
             padding: 40px;
-            border-radius: 15px;
+            border-radius: 10px;
             max-width: 600px;
             width: 90%;
             text-align: center;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
+            position: relative; /* Add this to ensure proper stacking */
+            z-index: 4000;
         }
 
         .popup-content h2 {
@@ -721,6 +724,7 @@
             padding: 15px 30px;
             border-radius: 8px;
             font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
             margin-top: 15px;
             transition: all 0.3s ease;
@@ -926,43 +930,6 @@
             </div>
         </div>
     </section>
-
-     <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h3>Contact</h3>
-                    <address>
-                        <p>123 Main Street<br>Belleville, ON, Canada K8P 3N6</p>
-                        <p><a href="tel:+15551234567">(555) 123-4567</a></p>
-                        <p><a href="mailto:info@murneyhouse.ca">info@murneyhouse.ca</a></p>
-                    </address>
-                </div>
-
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="guest-hub.html">Guest Hub</a></li>
-                        <li><a href="amenities.html">Amenities</a></li>
-                        <li><a href="rooms.html">Rooms</a></li>
-                        <li><a href="booking.html">Policies</a></li>
-                        <li><a href="contact.html">FAQs</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 Murney House. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="booking.html">Privacy Policy</a>
-                    <a href="booking.html">Terms of Service</a>
-                    <a href="contact.html">Sitemap</a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- Calendar Modal -->
     <div id="calendarModal" class="calendar-modal">
@@ -1172,14 +1139,49 @@
             </div>
 
             <p style="margin: 20px 0; padding: 15px; background: rgba(255, 255, 200, 0.1); border-radius: 8px; border-left: 4px solid var(--accent-color);">
-                <strong>Important:</strong> A confirmation email has been sent to your email address. If you don't hear from us within 24 hours, please follow up with our site admin with your <strong>Booking Request ID</strong> in the subject line.
+                <strong>Important:</strong> A  request confirmation notice has been sent to your email address. If you don't hear from us within 24 hours, please follow up with booking@murneyhouse.ca with your <strong>Booking Request ID</strong> in the subject line.
             </p>
 
             <button onclick="returnToHome()" class="return-home-btn">Return to Home</button>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <address>
+                        <p>123 Main Street<br>Belleville, ON, Canada K8P 3N6</p>
+                        <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+                        <p><a href="mailto:info@murneyhouse.ca">info@murneyhouse.ca</a></p>
+                    </address>
+                </div>
 
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="guest-hub.html">Guest Hub</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="booking.html">Policies</a></li>
+                        <li><a href="contact.html">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Murney House. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="booking.html">Privacy Policy</a>
+                    <a href="booking.html">Terms of Service</a>
+                    <a href="contact.html">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Scripts -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
@@ -1744,21 +1746,61 @@
             // Date information from session storage
             const selectedDates = JSON.parse(sessionStorage.getItem('selectedDates') || '{}');
             if (selectedDates.start && selectedDates.end) {
-                const startDate = new Date(selectedDates.start);
-                const endDate = new Date(selectedDates.end);
+                // More robust date parsing
+                let startDate, endDate;
+
+                try {
+                    // Handle different date formats
+                    if (typeof selectedDates.start === 'string') {
+                        startDate = new Date(selectedDates.start);
+                    } else {
+                        startDate = new Date(selectedDates.start);
+                    }
+
+                    if (typeof selectedDates.end === 'string') {
+                        endDate = new Date(selectedDates.end);
+                    } else {
+                        endDate = new Date(selectedDates.end);
+                    }
+
+                    // Validate dates
+                    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                        console.error('Invalid dates:', selectedDates);
+                        return;
+                    }
+
+                    // For single day selection, ensure end date equals start date
+                    if (selectedDates.start === selectedDates.end || endDate < startDate) {
+                        endDate = new Date(startDate);
+                    }
+
+                } catch (error) {
+                    console.error('Date parsing error:', error, selectedDates);
+                    return;
+                }
 
                 // Calculate days more reliably
                 const timeDiff = endDate.getTime() - startDate.getTime();
-                const dayCount = Math.max(1, Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1);
+                const dayCount = Math.max(1, Math.floor(timeDiff / (1000 * 60 * 60 * 24)) + 1);
+
+                // Custom date formatting function
+                function formatDate(date) {
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    const day = date.getDate();
+                    const month = months[date.getMonth()];
+                    const year = date.getFullYear();
+                    return `${day} ${month}, ${year}`;
+                }
 
                 dateInfo = `
                     <div class="summary-item">
                         <span>Start Date:</span>
-                        <span>${startDate.toLocaleDateString()}</span>
+                        <span>${formatDate(startDate)}</span>
                     </div>
                     <div class="summary-item">
                         <span>End Date:</span>
-                        <span>${endDate.toLocaleDateString()}</span>
+                        <span>${formatDate(endDate)}</span>
                     </div>
                     <div class="summary-item">
                         <span>Number of Days:</span>
@@ -1876,7 +1918,7 @@
                 <div style="text-align: left; margin-bottom: 15px;">
                     <strong>Primary Guest:</strong> ${primaryGuestName}<br>
                     <strong>Selected Rooms:</strong> ${selectedRooms.join(', ')}<br>
-                    <strong>Dates:</strong> ${selectedDates.start ? new Date(selectedDates.start).toLocaleDateString() : 'N/A'} - ${selectedDates.end ? new Date(selectedDates.end).toLocaleDateString() : 'N/A'}<br>
+                    <strong>Dates (M/D/Yr):</strong> ${selectedDates.start ? new Date(selectedDates.start).toLocaleDateString() : 'N/A'} - ${selectedDates.end ? new Date(selectedDates.end).toLocaleDateString() : 'N/A'}<br>
                     <strong>Total Guests:</strong> ${totalGuests}<br>
                     <strong>Number of Days:</strong> ${numDays}
                 </div>
