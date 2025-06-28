@@ -1339,7 +1339,7 @@
         });
     });
 
-    // Room synchronization function
+    // Room synchronization function - UPDATED
     function synchronizeRoomDays() {
         const checkedRooms = Array.from(document.querySelectorAll('#bookingForm input[type="checkbox"][name="rooms"]:checked'));
 
@@ -1362,6 +1362,25 @@
                     daysInput.value = maxDays;
                 }
             });
+
+            // UPDATE SESSION STORAGE DATES TO REFLECT NEW DAY COUNT
+            const selectedDates = JSON.parse(sessionStorage.getItem('selectedDates') || '{}');
+            if (selectedDates.start && maxDays > 1) {
+                const startDate = new Date(selectedDates.start);
+                const endDate = new Date(startDate);
+                endDate.setDate(startDate.getDate() + maxDays - 1);
+
+                sessionStorage.setItem('selectedDates', JSON.stringify({
+                    start: selectedDates.start,
+                    end: endDate.toISOString().split('T')[0]
+                }));
+            } else if (selectedDates.start && maxDays === 1) {
+                // Single day selection
+                sessionStorage.setItem('selectedDates', JSON.stringify({
+                    start: selectedDates.start,
+                    end: selectedDates.start
+                }));
+            }
         }
 
         // Reset unchecked rooms to 1 day
