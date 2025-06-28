@@ -1,7 +1,11 @@
 [
     {
-        "date": "2025-06-09",
-        "message": "While the work on the website continues, we're opening our doors to welcome our first guest(s). All of our latest updates will appear here."
+        "date": "2025-06-27",
+        "message": "The booking page is now up and running and and I invite anyone who visits here to test it out by clicking the Book Now buttons and mock select rooms and dates in the calendar, use made up names/emails - no actual email confirmations are sent out yet. This is for testing the logic and functionality on the site."
+    },
+    {
+        "date": "2025-06-24",
+        "message": "The Rooms page is now up and running - feel free to poke around and let me know if you find any glitches, G."
     },
     {
         "date": "2025-06-08",
