@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../public/images/assets/icons/favicon.svg?v=1">
+    <title>Breville Coffee Maker - Carafe Mode</title>
+    <link rel="stylesheet" href="../../public/images/assets/FONTS/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles - Adapted from murneyhouse.ca */
+        :root {
+            /* Light Mode Colors */
+            --light-primary: #f8e9e5;
+            --light-secondary: #e6f1f8;
+            --light-accent: #d8f1e6;
+            --light-text: #333333;
+            --light-muted: #666666;
+            --light-background: #ffffff;
+            --light-card: #ffffff;
+            --light-border: #e0e0e0;
+
+            /* Dark Mode Colors */
+            --dark-primary: #4a3e3c;
+            --dark-secondary: #2e3c4a;
+            --dark-accent: #344a3e;
+            --dark-text: #f5f5f5;
+            --dark-muted: #b0b0b0;
+            --dark-background: #121212;
+            --dark-card: #1e1e1e;
+            --dark-border: #333333;
+
+            /* Common Colors */
+            --cta: #e57373;
+            --cta-hover: #c62828;
+
+            /* Typography */
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Raleway', sans-serif;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 5rem;
+
+            /* Animations */
+            --transition-fast: 0.3s;
+            --transition-medium: 0.5s;
+            --transition-slow: 0.8s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+            transition: background-color var(--transition-medium), color var(--transition-medium);
+            background-color: var(--light-background);
+            color: var(--light-text);
+        }
+
+        body.dark-mode {
+            background-color: var(--dark-background);
+            color: var(--dark-text);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--transition-fast);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        p {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        .section-padding {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--light-muted);
+        }
+
+        .dark-mode .section-subtitle {
+            color: var(--dark-muted);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            background-color: var(--cta);
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background-color: var(--cta-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .text-button {
+            background: none;
+            border: none;
+            color: var(--cta);
+            cursor: pointer;
+            font-weight: 600;
+            padding: 0;
+            transition: color var(--transition-fast);
+            display: inline-block;
+        }
+
+        .text-button:hover {
+            color: var(--cta-hover);
+            text-decoration: underline;
+        }
+
+        /* Header */
+        header {
+            padding: var(--spacing-sm) 0;
+            z-index: 1000;
+            transition: background-color var(--transition-medium);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--light-border);
+        }
+
+        .dark-mode header {
+            background-color: rgba(18, 18, 18, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-left: var(--spacing-md);
+        }
+
+        .logo a {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: color var(--transition-fast);
+        }
+
+        .logo a:hover {
+            color: var(--cta);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            width: 100%; /* Ensure nav takes full width */
+            justify-content: space-between; /* Distribute space */
+        }
+
+        .desktop-nav ul {
+            display: flex;
+        }
+
+        .desktop-nav li {
+            margin: 0 var(--spacing-sm);
+        }
+
+        .desktop-nav a {
+            font-weight: 500;
+            position: relative;
+        }
+
+        .desktop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: currentColor;
+            transition: width var(--transition-fast);
+        }
+
+        .desktop-nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            margin-right: var(--spacing-md);
+            cursor: pointer;
+        }
+
+        .mobile-nav-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--light-text);
+            transition: all var(--transition-fast);
+        }
+
+        /* Custom Styles for this page */
+        .how-to-steps {
+            margin-top: var(--spacing-md);
+        }
+
+        .how-to-steps ol {
+            list-style: decimal;
+            padding-left: var(--spacing-md);
+        }
+
+        .how-to-steps li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .how-to-steps img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .dark-mode .how-to-steps li {
+            color: var(--dark-text);
+        }
+
+        .dark-mode .how-to-steps h2 {
+            color: var(--dark-text);
+        }
+
+        .dark-mode .how-to-steps p {
+            color: var(--dark-text);
+        }
+
+        .dark-mode .back-button {
+            color: var(--dark-text);
+            border-color: var(--dark-text);
+        }
+
+        .back-button {
+            display: inline-block;
+            background: var(--cta);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 1rem; /* 40% larger than 1.1rem */
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            cursor: pointer;
+            width: auto; /* Changed from 100% to auto to fit text */
+            margin: 20px auto 0 auto; /* Center the button */
+            display: block; /* Make it a block element so margin auto works */
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button:hover {
+            background-color: var(--cta-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: buttonWobble 0.6s ease-in-out;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin-right: var(--spacing-md);
+            color: var(--light-text);
+            transition: transform var(--transition-fast);
+            align-items: center; /* Center icons vertically */
+            position: relative;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: block;
+        }
+
+        .dark-mode .theme-toggle {
+            color: var(--dark-text);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem; /* Increased size for consistency */
+            transition: opacity var(--transition-fast), transform var(--transition-fast);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle .fa-moon {
+            opacity: 1;
+        }
+
+        .theme-toggle .fa-sun {
+            opacity: 0;
+        }
+
+        .dark-mode .theme-toggle .fa-moon {
+            opacity: 0;
+        }
+
+        .dark-mode .theme-toggle .fa-sun {
+            opacity: 1;
+        }
+
+        .theme-toggle:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 0 var(--spacing-sm);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            .desktop-nav, .header-controls {
+                display: none;
+            }
+
+            .mobile-nav-toggle {
+                display: flex;
+            }
+        }
+
+        /* Additional Styles for Alignment */
+        header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            margin-left: var(--spacing-lg); /* Adjust spacing as needed */
+        }
+
+        .back-button-container {
+            display: flex;
+            justify-content: center; /* Centers the button */
+            width: 100%; /* Takes full width */
+            margin: 0 auto; /* Centers the container itself if needed */
+        }
+
+        /* Card Container Styles */
+        .card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: var(--spacing-md) auto;
+            animation: floatIn 0.5s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--light-card);
+        }
+
+        .dark-mode .card {
+            background-color: var(--dark-card);
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 0;
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Wobble Effect */
+        @keyframes buttonWobble {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="../../index.html">Murney House</a>
+                </div>
+                <div class="header-controls">
+                    <button class="theme-toggle" aria-label="Toggle light/dark mode">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Breville Coffee Maker</h1>
+
+        <section class="how-to-steps">
+            <h2>1. Adding Beans</h2>
+            <p>Lift lid (1), add beans to hopper (2), close lid. Select grind size with adjuster knob (4).</p>
+            <div class="card">
+                <img src="px/Breville-All-Parts.png" alt="Water Tank Illustration" width="800">
+            </div>
+
+            <h2>2. Brewing Coffee</h2>
+            <div class="card">
+                <ol>
+                    <li>
+                        <strong>Fill Water Tank:</strong> Fill the water tank by pressing and releasing on lid (7) with fresh, cold water to the desired level as indicated on tank display.
+                        <div class="card">
+                            <img src="px/Breville-Display.png" alt="Water Tank Illustration" width="400">
+                        </div>
+                    </li>
+                    <li>
+                        <strong>Select Brew Mode:</strong> Press the "Carafe" button (21) to toggle between carafe and cup modes on the control panel.
+                        <div class="card">
+                            <img src="px/Breville-Controls.png" alt="Water Tank Illustration" width="600">
+                        </div>
+                    </li>
+                    <li>
+                        <strong>Choose Number of Cups:</strong> Turn the "Cups" button (21) to select the number of cups you want to brew.
+                    </li>
+                    <li>
+                        <strong>Select Coffee Strength:</strong> Choose your desired coffee strength using the "Strength" button (23) (e.g., Mild, Medium, Strong).
+                    </li>
+                    <li>
+                        <strong>Start Brewing:</strong> Press the "Start" button (24) to begin brewing.
+                    </li>
+                    <li>
+                        <strong>Pause Feature (Optional):</strong> During brewing, you can pause the process by removing the carafe for a short time to pour a cup. Replace the carafe to resume brewing.
+                    </li>
+                    <li>
+                        <strong>Finish & Serve:</strong> Once brewing is complete, the coffee maker will beep. Carefully remove the carafe and serve.
+                    </li>
+                    <li>
+                        <strong>If You Want To Brew Again:</strong> You will need to clean the basket (13) by pressing the open button (19), lifting the basket cover and removing the basket for rinsing out old grinds.
+                    </li>
+                    <li>
+                        <strong>Auto Start:</strong> You can set a grind/brew start time after adding beans and water by pressing the Auto Start Button (23), this will display the current Auto Start Time flashing, you can adjust the time by turning the Strength Knob (23), then press it (23) to set the Start Time, the machine will beep to confirm.
+                    </li>
+                    <li>
+                        <strong>Cleaning the Carafe:</strong> To Clean the Carafe, rotate lid counter clockwise to open, rinse and repeat in reverse to close.
+                        <div class="card">
+                            <img src="px/Breville-Carafe.png" alt="Carafe Cleaning" width="400">
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <div class="back-button-container">
+            <a href="../guest-hub.html" class="back-button">Back To Guest Hub</a>
+        </div>
+
+        <div style="margin-bottom: var(--spacing-lg);"></div> <!-- Added space after CTA button -->
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="text-center">&copy; 2025 Murney House. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle with persistence
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+
+        // Function to set theme
+        function setTheme(isDark) {
+            if (isDark) {
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+            }
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', isDark);
+        }
+
+        // Check if coming from QR code (no referrer)
+        function isDirectAccess() {
+            return !document.referrer || document.referrer.indexOf(window.location.hostname) === -1;
+        }
+
+        // On page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check localStorage first
+            const savedPreference = localStorage.getItem('darkMode');
+
+            if (savedPreference !== null) {
+                // Use saved preference
+                setTheme(savedPreference === 'true');
+            } else if (isDirectAccess()) {
+                // Default to dark mode for QR code access or direct URL entry
+                setTheme(true);
+            } else {
+                // Try to match referring page, default to light mode
+                setTheme(false);
+            }
+        });
+
+        // Toggle button click handler
+        themeToggle.addEventListener('click', () => {
+            const isDarkMode = body.classList.contains('dark-mode');
+            setTheme(!isDarkMode);
+        });
+    </script>
+</body>
+</html>

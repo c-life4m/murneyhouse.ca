@@ -3,10 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../public/images/assets/icons/favicon.svg?v=1">
     <title>Guest Hub - Murney House</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/styles/style.css">
+    <style>
+        /* Additional styles for the guest hub page */
+        h1.page-title {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(var(--accent-color-rgb), 0.8);
+        }
+
+        .appliance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .appliance-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .appliance-item img {
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .appliance-item a {
+            color: var(--text-color);
+            text-decoration: none;
+            position: relative;
+            padding: 0.25rem 0;
+            transition: color var(--transition-fast);
+        }
+
+        .appliance-item a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cta), var(--cta-hover));
+            transition: width var(--transition-fast);
+            box-shadow: 0 0 4px rgba(229, 115, 115, 0.3);
+        }
+
+        .appliance-item a:hover {
+            color: var(--cta);
+            transform: translateY(-1px);
+        }
+
+        .appliance-item a:hover::after {
+            width: 100%;
+        }
+
+        .accordion {
+            margin-top: 1rem;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .accordion-header {
+            padding: 1rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            color: var(--accent-color);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1rem;
+        }
+
+        .accordion-content.active {
+            max-height: 300px;
+            padding: 1rem;
+        }
+
+        .review-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .review-form h2 {
+            margin-bottom: 1rem;
+        }
+
+        .review-form > p {
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-family: var(--body-font);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .form-group input,
+        .dark-mode .form-group textarea {
+            border-color: var(--dark-border);
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--cta);
+            box-shadow: 0 0 0 4px rgba(var(--cta-rgb), 0.6);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .char-counter {
+            font-size: 0.8rem;
+            color: var(--muted-color);
+            text-align: right;
+            margin-top: 0.25rem;
+        }
+
+        /* Contact form modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        body:not(.dark-mode) .modal-content {
+            background-color: rgba(255, 255, 255, 0.85); /* Less transparent in light mode */
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--muted-color);
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .modal-content {
+            background-color: rgba(30, 30, 40, 0.75); /* Less transparent in dark mode */
+            border: 1px solid var(--dark-border);
+        }
+
+        .close-modal:hover {
+            color: var(--text-color);
+        }
+
+        .success-message,
+        .error-message {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+
+        .error-message {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: #F44336;
+            border: 1px solid #F44336;
+        }
+
+        @media (max-width: 768px) {
+            .appliance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header with navigation -->
@@ -20,7 +285,6 @@
                     <li><a href="../index.html#rooms">Rooms</a></li>
                     <li><a href="../index.html#amenities">Amenities</a></li>
                     <li><a href="../index.html#local-area">Local Area</a></li>
-                    <li><a href="guest-hub.html">Guest Hub</a></li>
                     <li><a href="../index.html#contact">Contact</a></li>
                 </ul>
             </div>
@@ -34,7 +298,6 @@
                     <li><a href="../index.html#rooms">Rooms</a></li>
                     <li><a href="../index.html#amenities">Amenities</a></li>
                     <li><a href="../index.html#local-area">Local Area</a></li>
-                    <li><a href="guest-hub.html">Guest Hub</a></li>
                     <li><a href="../index.html#contact">Contact</a></li>
                 </ul>
             </div>
@@ -56,28 +319,249 @@
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
                 </svg>
             </button>
-            <a href="../index.html#book-now" class="cta-button">Book Now</a>
         </div>
     </header>
 
     <!-- Main Content -->
     <main style="margin-top: 100px; padding: 2rem 0;">
         <div class="container">
-            <h1>Guest Hub</h1>
-            <p>Share your experience with us and help other guests discover what makes Murney House special.</p>
+            <h1 class="page-title">Guest Hub</h1>
 
-            <!-- Review Submission Form -->
-            <div class="guest-form">
+            <!-- How To Use Section -->
+            <div class="card">
+                <h2>How To Use</h2>
+                <input type="text" class="search-box" id="appliance-search" placeholder="Search appliances...">
+
+                <div class="appliance-grid" id="appliance-list">
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="AC/Heat Pump Remote Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">AC/Heat Pump Remote</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Coffee Maker Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Coffee Maker</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Ceiling Fan Remote LR Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Ceiling Fan Remote LR</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Ceiling Fan Remote Brm 2 & 3 Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Ceiling Fan Remote Brm 2 & 3</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Central Vac Sweep Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Central Vac Sweep</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Digital Entry Lock Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Digital Entry Lock</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Digital Room Lock Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Digital Room Lock</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Dish Washer Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Dish Washer</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Dryer Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Dryer</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Gas Stove Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Gas Stove</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Fire Extinguisher Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Fire Extinguisher</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Floor Heat Thermostat Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Floor Heat Thermostat</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Fridge Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Fridge</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="In Sink Food Disposal Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">In Sink Food Disposal</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Kitchen Faucet Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Kitchen Faucet</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Kettle With Steeper Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Kettle With Steeper</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Large Screen PC Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Large Screen PC</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Microwave / Exhaust Hood Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Microwave / Exhaust Hood</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Smart Toilet (Powder Room) Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Smart Toilet (Powder Room)</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Smart Toilet (Main Bath) Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Smart Toilet (Main Bath)</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Video Doorbell Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Video Doorbell</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Washing Machine Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Washing Machine</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Wired Internet Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Wired Internet</a>
+                    </div>
+                    <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="WIFI Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">WIFI</a>
+                    </div>
+                    <!-- Commented out placeholder -->
+                    <!-- <div class="appliance-item">
+                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Placeholder Thumbnail" width="50">
+                        <a href="guides/coffeemaker.html">Placeholder</a>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- Check In / Check Out Procedure -->
+            <div class="card">
+                <h2>Check In / Check Out Procedure</h2>
+                <p>Welcome to Murney House! Here's everything you need to know about checking in and out:</p>
+                <h3>Check-In</h3>
+                <p>Check-in time is after 3:00 PM. The digital entry lock code will be sent to you on the day of arrival.</p>
+                <h3>Check-Out</h3>
+                <p>Check-out time is by 11:00 AM. Please ensure all windows are closed, lights are turned off, and the door is locked when you leave.</p>
+            </div>
+
+            <!-- Full House Rules -->
+            <div class="card">
+                <h2>Full House Rules</h2>
+                <p>Please take a moment to familiarize yourself with our house rules to ensure a pleasant stay for everyone:</p>
+                <ul>
+                    <li>No smoking inside the house</li>
+                    <li>Quiet hours from 10:00 PM to 8:00 AM</li>
+                    <li>Please remove shoes when entering</li>
+                    <li>Pets are not allowed</li>
+                    <li>No parties or events without prior approval</li>
+                    <li>Please conserve energy by turning off lights and appliances when not in use</li>
+                </ul>
+            </div>
+
+            <!-- Emergency Contacts and Services -->
+            <div class="card">
+                <h2>Emergency Contacts and Services</h2>
+                <p>In case of emergency, please contact the following:</p>
+                <ul>
+                    <li><strong>Emergency Services:</strong> 911</li>
+                    <li><strong>Property Manager:</strong> 555-123-4567</li>
+                    <li><strong>Nearest Hospital:</strong> Kingston General Hospital - 76 Stuart St, Kingston, ON</li>
+                    <li><strong>Pharmacy:</strong> Shoppers Drug Mart - 455 Princess St, Kingston, ON</li>
+                    <li><strong>After-Hours Maintenance:</strong> 555-765-4321</li>
+                </ul>
+            </div>
+
+            <!-- Helpful Tips -->
+            <div class="card">
+                <h2>Helpful Tips</h2>
+                <p>Make the most of your stay with these helpful tips:</p>
+                <ul>
+                    <li>The best coffee shop nearby is Coffee & Company, just a 5-minute walk</li>
+                    <li>Grocery delivery is available through Instacart or Grocery Gateway</li>
+                    <li>Free street parking is available after 5:30 PM and on weekends</li>
+                    <li>The smart TV is equipped with Netflix, Amazon Prime, and Disney+</li>
+                    <li>For the best view of the lake, check out the rooftop patio</li>
+                </ul>
+            </div>
+
+            <!-- FAQ -->
+            <div class="card">
+                <h2>Frequently Asked Questions</h2>
+                <div class="accordion" id="faq-accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Is parking available? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Yes, there is one dedicated parking spot behind the house. Additional street parking is available with certain time restrictions.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            How do I connect to the WiFi? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>The WiFi network name is "MurneyHouse_Guest" and the password is provided in your welcome email as well as in the welcome binder in the house.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Can I have additional guests? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>The house is designed to accommodate the number of guests specified in your booking. Additional overnight guests are not permitted without prior approval.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            Is the house air-conditioned? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Yes, the house has central air conditioning controlled by the thermostat in the living room. Each bedroom also has ceiling fans for additional comfort.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            How do I operate the gas fireplace? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p>The gas fireplace can be operated using the remote control located on the mantel. Simply press the power button to turn it on, and use the up/down buttons to adjust the flame height.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Share Your Review Section -->
+            <div class="review-form">
                 <h2>Share Your Review</h2>
-                <form id="guest-form">
+                <p>Share your experience with us and help other guests discover what makes Murney House special.</p>
+
+                <div id="review-success" class="success-message">
+                    Thank you for your review! It has been submitted successfully.
+                </div>
+
+                <div id="review-error" class="error-message">
+                    There was an error submitting your review. Please try again.
+                </div>
+
+                <form id="review-form">
                     <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <label for="review-name">Your Name</label>
+                        <input type="text" id="review-name" name="name" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="review">Your Review</label>
-                        <textarea id="review" name="review" placeholder="Tell us about your experience at Murney House..." required></textarea>
+                        <label for="review-date">Date of Stay</label>
+                        <input type="date" id="review-date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-text">Your Review</label>
+                        <textarea id="review-text" name="review" placeholder="Tell us about your experience at Murney House..." rows="4" maxlength="600" required></textarea>
+                        <div class="char-counter"><span id="review-char-count">0</span>/600 characters</div>
                     </div>
 
                     <button type="submit" class="cta-button">Submit Review</button>
@@ -86,6 +570,234 @@
         </div>
     </main>
 
+    <!-- Contact Form Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Contact Us</h2>
+
+            <div id="contact-success" class="success-message">
+                Your message has been sent successfully! We'll get back to you soon.
+            </div>
+
+            <div id="contact-error" class="error-message">
+                There was an error sending your message. Please try again.
+            </div>
+
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="contact-date">Date</label>
+                    <input type="date" id="contact-date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact-name">Your Name</label>
+                    <input type="text" id="contact-name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact-email">Email</label>
+                    <input type="email" id="contact-email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact-subject">Subject</label>
+                    <input type="text" id="contact-subject" name="subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact-message">Message</label>
+                    <textarea id="contact-message" name="message" maxlength="500" required></textarea>
+                    <div class="char-counter"><span id="contact-char-count">0</span>/500 characters</div>
+                </div>
+
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Murney House. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script src="../src/script.js"></script>
+    <script>
+        // Appliance search functionality
+        const searchBox = document.getElementById('appliance-search');
+        const applianceItems = document.querySelectorAll('.appliance-item');
+
+        searchBox.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            applianceItems.forEach(item => {
+                const applianceName = item.querySelector('a').textContent.toLowerCase();
+                if (applianceName.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Accordion functionality
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                content.classList.toggle('active');
+
+                // Toggle icon
+                const icon = this.querySelector('i');
+                if (content.classList.contains('active')) {
+                    icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+                } else {
+                    icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                }
+            });
+        });
+
+        // Character counter for review form
+        const reviewText = document.getElementById('review-text');
+        const reviewCharCount = document.getElementById('review-char-count');
+
+        reviewText.addEventListener('input', function() {
+            const count = this.value.length;
+            reviewCharCount.textContent = count;
+        });
+
+        // Character counter for contact form
+        const contactMessage = document.getElementById('contact-message');
+        const contactCharCount = document.getElementById('contact-char-count');
+
+        contactMessage.addEventListener('input', function() {
+            const count = this.value.length;
+            contactCharCount.textContent = count;
+        });
+
+        // Contact modal functionality
+        const contactLinks = document.querySelectorAll('a[href="../index.html#contact"]');
+        const contactModal = document.getElementById('contact-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const contactForm = document.getElementById('contact-form');
+        const contactDate = document.getElementById('contact-date');
+
+        // Set default date to today
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+        contactDate.value = formattedDate;
+
+        contactLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                contactModal.style.display = 'flex';
+            });
+        });
+
+        closeModal.addEventListener('click', function() {
+            contactModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function(e) {
+            if (e.target === contactModal) {
+                contactModal.style.display = 'none';
+            }
+        });
+
+        // Form submission logic
+        reviewForm = document.getElementById('review-form');
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Here you would typically send the data to your server
+            // For demonstration, we'll just show a success message
+
+            const reviewSuccess = document.getElementById('review-success');
+            reviewSuccess.style.display = 'block';
+
+            // Reset form
+            this.reset();
+            reviewCharCount.textContent = '0';
+
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                reviewSuccess.style.display = 'none';
+            }, 3000);
+        });
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Form validation
+            const email = document.getElementById('contact-email').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            // Here you would typically send the data to your server
+            // For demonstration, we'll just show a success message
+
+            const contactSuccess = document.getElementById('contact-success');
+            contactSuccess.style.display = 'block';
+
+            // Reset form
+            this.reset();
+            contactCharCount.textContent = '0';
+            contactDate.value = formattedDate;
+
+            // Hide success message after 3 seconds and close modal
+            setTimeout(() => {
+                contactSuccess.style.display = 'none';
+                contactModal.style.display = 'none';
+            }, 3000);
+        });
+
+        // Add this to the existing script at the bottom of the page
+
+        // Animation for cards on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to check if an element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+                    rect.bottom >= 0
+                );
+            }
+
+            // Get all cards that should animate
+            const cards = document.querySelectorAll('.card, .review-form');
+
+            // Add initial class for animation
+            cards.forEach(card => {
+                card.style.opacity = "0";
+                card.style.transform = "translateY(50px)";
+                card.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+            });
+
+            // Function to handle scroll animation
+            function handleScroll() {
+                cards.forEach(card => {
+                    if (isInViewport(card) && card.style.opacity === "0") {
+                        setTimeout(() => {
+                            card.style.opacity = "1";
+                            card.style.transform = "translateY(0)";
+                        }, 100);
+                    }
+                });
+            }
+
+            // Initial check on page load
+            handleScroll();
+
+            // Listen for scroll events
+            window.addEventListener('scroll', handleScroll);
+        });
+    </script>
 </body>
 </html>
