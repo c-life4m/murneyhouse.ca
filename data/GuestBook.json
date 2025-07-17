@@ -1,22 +1,25 @@
 [
     {
-        "name": "Sarah Johnson (test review)",
-        "review": "Absolutely wonderful stay! The house is beautifully maintained and the location is perfect for exploring the historic downtown. The kitchen was fully equipped and the living room was so cozy. We'll definitely be back!",
-        "date": "2024-01-12"
+        "name": "There are no reviews yet",
+        "review": "You can be the first one to review your stay",
+        "date": "2025-08-12"
     },
-    {
-        "name": "Michael Chen (test review)",
-        "review": "Perfect getaway spot for our family weekend. The rooms were spacious and comfortable, and the kids loved the games in the living room. Great value for such a peaceful retreat in a charming town.",
+    {   "_commented_out": {
+        "name": "John",
+        "review": "Good",
         "date": "2024-01-08"
+        }
     },
-    {
+    {   "_commented_out": {
         "name": "Emma Rodriguez (test review)",
         "review": "Murney House exceeded our expectations in every way. Spotlessly clean, beautifully decorated, and the hosts were incredibly helpful with local recommendations. The lakeside trails are a must-do!",
         "date": "2024-01-05"
+        }
     },
-    {
+    {   "_commented_out": {
         "name": "David Thompson (test review)",
         "review": "Stayed here for a business trip and was pleasantly surprised by the comfort and amenities. The WiFi was excellent for work, and the peaceful environment was perfect for unwinding after long days.",
         "date": "2024-01-03"
+        }
     }
 ]

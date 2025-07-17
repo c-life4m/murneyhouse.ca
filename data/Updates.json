@@ -1,34 +1,12 @@
 [
     {
-        "date": "2025-06-27",
-        "message": "The booking page is now up and running and and I invite anyone who visits here to test it out by clicking the Book Now buttons and mock select rooms and dates in the calendar, use made up names/emails - no actual email confirmations are sent out yet. This is for testing the logic and functionality on the site."
+        "date": "2025-07-18",
+        "message": "Murneyhouse.ca is now live in beta. We're still fine-tuning the functionality and content and will post the updates here."
     },
-    {
+    {   "_commented_out": {
         "date": "2025-06-24",
         "message": "The Rooms page is now up and running - feel free to poke around and let me know if you find any glitches, G."
-    },
-    {
-        "date": "2025-06-08",
-        "message": "Newly renovated gorgeous kitchen includes premium appliances, Brevile automatic coffee maker with a built-in grinder,  expanded cookware to satisfy most budding Chefs."
-    },
-    {
-        "date": "2025-06-07",
-        "message": "Both our main bathroom and the powder room feature a smart toilet - the ultimate in personal hygien and comfort."
-    },
-    {
-        "date": "2025-07-05",
-        "message": "Working hard (or at least pretending to) on building this website."
-    },
-    {
-        "date": "2024-01-10",
-        "message": "New kitchen amenities added including premium coffee maker and expanded cookware."
-    },
-    {
-        "date": "2024-01-05",
-        "message": "Winter special: Complimentary firewood and extended checkout time for weekend stays."
-    },
-    {
-        "date": "2024-01-01",
-        "message": "Happy New Year! Thank you for making 2023 wonderful. Looking forward to hosting you in 2024!"
+        }
     }
+
 ]
