@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Murney House - Your home away from home">
+    <title>Murney House - Under Construction</title>
+    <link rel="icon" type="image/svg+xml" href="../public/images/assets/icons/favicon.png?v=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../public/images/assets/FONTS/fontawesome/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../src/styles/style.css">
+
+    <!-- Google Fonts for handwritten style -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Under Construction Styles */
+       .construction-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 2rem;
+            margin-top: 100px; /* Add margin-top instead of padding-top */
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .construction-scene {
+            position: relative;
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 3rem;
+        }
+
+        .lego-builders {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .speech-bubble {
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            border: 3px solid #333;
+            border-radius: 20px;
+            padding: 20px 25px;
+            max-width: 350px;
+            font-family: 'Kalam', cursive;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: pulse 1.5s ease-in-out infinite;
+            transform-origin: center bottom;
+            z-index: 10;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid #333;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 12px solid #fff;
+        }
+
+        .construction-title {
+            font-family: 'Kalam', cursive;
+            font-size: 3rem;
+            color: #ff6b35;
+            margin-bottom: 6rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: wobble 3s ease-in-out infinite;
+        }
+
+        .take-me-back-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .take-me-back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .take-me-back-btn:active {
+            transform: translateY(0);
+        }
+
+        .construction-icon {
+            font-size: 2rem;
+            color: #ff6b35;
+            margin: 0 10px;
+            animation: rotate 2s linear infinite;
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                transform: translateX(-50%) scale(1.05);
+            }
+        }
+
+        @keyframes wobble {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(-2deg);
+            }
+            75% {
+                transform: rotate(2deg);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .construction-title {
+                font-size: 2rem;
+            }
+
+            .speech-bubble {
+                top: -100px;
+                padding: 15px 20px;
+                font-size: 1rem;
+                max-width: 280px;
+            }
+
+            .take-me-back-btn {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .construction-title {
+                font-size: 1.5rem;
+            }
+
+            .speech-bubble {
+                position: absolute;
+                top: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #fff;
+                border: 3px solid #333;
+                border-radius: 20px;
+                padding: 20px 25px;
+                max-width: 350px;
+                font-family: 'Kalam', cursive;
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: #333;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                animation: pulse 1.5s ease-in-out infinite;
+                transform-origin: center bottom;
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .construction-container {
+                    padding-top: 3rem;
+                }
+
+                .construction-scene {
+                    margin-top: 1.5rem;
+                }
+
+                .speech-bubble {
+                    top: -15px; /* Adjusted from -45px to match the new positioning */
+                    padding: 15px 20px;
+                    font-size: 1rem;
+                    max-width: 280px;
+                    z-index: 10; /* Add z-index here too */
+                }
+            }
+
+            @media (max-width: 480px) {
+                .construction-container {
+                    padding-top: 2.5rem;
+                }
+
+                .construction-scene {
+                    margin-top: 1rem;
+                }
+
+                .speech-bubble {
+                    top: -10px; /* Adjusted from -35px to match the new positioning */
+                    padding: 12px 15px;
+                    font-size: 0.9rem;
+                    max-width: 250px;
+                    z-index: 10; /* Add z-index here too */
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with navigation - UNCHANGED -->
+    <header>
+        <div class="logo">
+            <a href="../index.html">Murney House</a>
+        </div>
+        <nav>
+            <div class="desktop-nav">
+                <ul>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="amenities.html">Amenities</a></li>
+                    <li><a href="../index.html#local-area">Local Area</a></li>
+                    <li><a href="guest-hub.html">Guest Hub</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="mobile-nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="mobile-nav">
+                <ul>
+                    <li><a href="../index.html">Back to Home</a></li>
+                    <li class="nav-item"><a href="rooms.html">Rooms</a></li>
+                    <li class="nav-item"><a href="amenities.html">Amenities</a></li>
+                    <li class="nav-item"><a href="../index.html#local-area" class="nav-link">Local Area</a></li>
+                    <li class="nav-item"><a href="guest-hub.html" class="nav-link">Guest Hub</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="header-controls">
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/>
+                    <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/>
+                    <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Construction Section -->
+    <main class="construction-container">
+        <h1 class="construction-title">
+            <i class="fas fa-hard-hat construction-icon"></i>
+            Oops! Under Construction
+            <i class="fas fa-tools construction-icon"></i>
+        </h1>
+
+        <div class="construction-scene">
+            <div class="speech-bubble">
+                We're almost done building this page, check back soon to see the result...
+            </div>
+
+            <div class="lego-builders" style="width: 600px; height: 400px; position: relative;">
+                <img src="../public/images/assets/PX/lego boys 4.webp"
+                    alt="LEGO builders at work"
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+            </div>
+
+                <!-- Motion lines and impact effects -->
+                <g opacity="0.7">
+                    <path d="M 180 320 L 190 310 M 185 325 L 195 315" stroke="#FFD700" stroke-width="3"/>
+                    <path d="M 430 325 L 440 315 M 435 330 L 445 320" stroke="#FFD700" stroke-width="3"/>
+                </g>
+            </svg>
+        </div>
+
+        <a href="guest-hub.html" class="take-me-back-btn">
+            <i class="fas fa-arrow-left"></i> Take Me Back
+        </a>
+    </main>
+
+    <script src="../src/script.js"></script>
+
+    <script>
+        // Add some extra interactivity for the construction page
+        document.addEventListener('DOMContentLoaded', function() {
+            const speechBubble = document.querySelector('.speech-bubble');
+            const constructionIcons = document.querySelectorAll('.construction-icon');
+
+            // Add random rotation to construction icons
+            constructionIcons.forEach(icon => {
+                setInterval(() => {
+                    icon.style.transform = `rotate(${Math.random() * 360}deg)`;
+                }, 2000 + Math.random() * 1000);
+            });
+        });
+    </script>
+</body>
+</html>
