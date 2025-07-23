@@ -1,0 +1,25 @@
+{
+  "guests": [
+    {
+      "name": "John Smith",
+      "email": "gkillan@yahoo.ca",
+      "checkIn": "2025-01-15",
+      "checkOut": "2025-01-18",
+      "bookingRef": "MH2024001"
+    },
+    {
+      "name": "Sarah Johnson",
+      "email": "gkillan@yahoo.ca",
+      "checkIn": "2025-01-20",
+      "checkOut": "2025-01-23",
+      "bookingRef": "MH2024002"
+    },
+    {
+      "name": "Mike & Lisa Chen",
+      "email": "c_life4m@yahoo.com",
+      "checkIn": "2025-02-01",
+      "checkOut": "2025-02-05",
+      "bookingRef": "MH2024003"
+    }
+  ]
+}

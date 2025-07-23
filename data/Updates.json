@@ -1,12 +1,11 @@
 [
     {
         "date": "2025-07-18",
-        "message": "Murneyhouse.ca is now live in beta. We're still fine-tuning the functionality and content and will post the updates here."
+        "message": "Murneyhouse.ca is now live in beta. Working furiously to debug the review validation and submission logic. The Contact Us card seems to be working now, you can try sending us a message if you don't mind entering your email to check if auto-responder works."
     },
-    {   "_commented_out": {
+    {
         "date": "2025-06-24",
-        "message": "The Rooms page is now up and running - feel free to poke around and let me know if you find any glitches, G."
-        }
+        "message": "The Rooms and Booking pages are now up and running - feel free to poke around and let me know if you find any glitches. Also, testing the submission functionality for reviews and contact forms, G."
     }
 
 ]

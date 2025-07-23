@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Murney House - Your home away from home">
     <title>Murney House - Booking</title>
-    <link rel="icon" type="image/svg+xml" href="../public/images/assets/icons/favicon.png?v=1">
+    <link rel="icon" type="image/svg+xml" href="../public/images/assets/icons/favicon.svg?v=1">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../public/images/assets/FONTS/fontawesome/css/all.min.css">
@@ -15,6 +15,9 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="../src/styles/style.css">
+
+    <!-- Contact Form Styling -->
+    <link rel="stylesheet" href="../shared/contact-modal.css">
 
     <style>
         #hero.booking-hero {
@@ -799,7 +802,7 @@
                     <li><a href="amenities.html">Amenities</a></li>
                     <li><a href="../index.html#local-area">Local Area</a></li>
                     <li><a href="guest-hub.html">Guest Hub</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="?contact=1">Contact</a></li>
                 </ul>
             </div>
             <div class="mobile-nav-toggle">
@@ -814,7 +817,7 @@
                     <li class="nav-item"><a href="amenities.html">Amenities</a></li>
                     <li class="nav-item"><a href="../index.html#local-area" class="nav-link">Local Area</a></li>
                     <li class="nav-item"><a href="guest-hub.html" class="nav-link">Guest Hub</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="?contact=1" class="nav-link">Contact</a></li>
                 </ul>
             </div>
         </nav>
@@ -855,7 +858,7 @@
             <li><i class="fas fa-volume-down"></i> No loud noises after 10pm.</li>
             <li><i class="fas fa-clock"></i> Check-in after 3pm / checkout before 12pm (noon).</li>
             <li><i class="fas fa-shoe-prints"></i> Take shoes off at the door.</li>
-            <li><i class="fas fa-wifi"></i> You must agree not to use our internet for anything illegal.</li>
+            <li><i class="fas fa-wifi"></i> You agree not to use our internet for anything illegal.</li>
             <li><i class="fas fa-music"></i> Bedroom 3 ("Party Room") is the only room for louder music, partying, dancing, etc. The rest of the house is for quieter enjoyment.</li>
             <li><i class="fas fa-question-circle"></i> Special needs/requests? Check with us in advance.</li>
             <li><i class="fas fa-book"></i> Familiarize yourself with all appliances/gadgets (see Guest Hub page for instructions) before use — it's your responsibility.</li>
@@ -1191,6 +1194,7 @@
     <!-- Scripts -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
     <script src="../src/script.js"></script>
+    <script src="../shared/contact-modal.js"></script>
     <script>
     // Booking page specific JavaScript
     let calendar;
@@ -2204,5 +2208,6 @@
         }
     });
     </script>
+    <script src="../shared/contact-modal.js"></script>
 </body>
 </html>

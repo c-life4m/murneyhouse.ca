@@ -1,25 +1,28 @@
-[
+{
+  "entries": [
     {
-        "name": "There are no reviews yet",
-        "review": "You can be the first one to review your stay",
-        "date": "2025-08-12"
+      "name": "Test User",
+      "location": "Toronto",
+      "review": "This is a test review to verify the system is working correctly.",
+      "date": "2025-01-20"
     },
-    {   "_commented_out": {
-        "name": "John",
-        "review": "Good",
-        "date": "2024-01-08"
-        }
+    {
+      "name": "Another Test",
+      "location": "Ottawa",
+      "review": "Second test entry to check scrolling functionality.",
+      "date": "2025-01-19"
     },
-    {   "_commented_out": {
-        "name": "Emma Rodriguez (test review)",
-        "review": "Murney House exceeded our expectations in every way. Spotlessly clean, beautifully decorated, and the hosts were incredibly helpful with local recommendations. The lakeside trails are a must-do!",
-        "date": "2024-01-05"
-        }
+    {
+      "name": "Another Test",
+      "location": "Debug Mode",
+      "review": "Second test entry to check scrolling functionality.",
+      "date": "2025-01-19"
     },
-    {   "_commented_out": {
-        "name": "David Thompson (test review)",
-        "review": "Stayed here for a business trip and was pleasantly surprised by the comfort and amenities. The WiFi was excellent for work, and the peaceful environment was perfect for unwinding after long days.",
-        "date": "2024-01-03"
-        }
+    {
+      "name": "Another Test",
+      "location": "Debug Mode",
+      "review": "Second test entry to check scrolling functionality.",
+      "date": "2025-01-19"
     }
-]
+  ]
+}

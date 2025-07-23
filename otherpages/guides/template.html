@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../public/images/assets/icons/favicon.svg?v=1">
     <title>Breville Coffee Maker - Carafe Mode</title>
+    <link rel="stylesheet" href="../../public/images/assets/FONTS/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../src/styles/style.css">
     <style>
-        /* Base Styles -  Adapted from murneyhouse.ca */
+        /* Base Styles - Adapted from murneyhouse.ca */
         :root {
             /* Light Mode Colors */
             --light-primary: #f8e9e5;
@@ -152,37 +155,6 @@
             text-align: center;
         }
 
-        /* Buttons */
-        .button {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
-            background-color: transparent;
-            border: 1px solid currentColor;
-            color: var(--light-text);
-            font-weight: 600;
-            text-align: center;
-            transition: all var(--transition-fast);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dark-mode .button {
-            color: var(--dark-text);
-        }
-
-        .button:hover {
-            background-color: var(--light-text);
-            color: var(--light-background);
-            transform: translateY(-2px);
-        }
-
-        .dark-mode .button:hover {
-            background-color: var(--dark-text);
-            color: var(--dark-background);
-        }
-
         .cta-button {
             display: inline-block;
             padding: 0.8rem 1.5rem;
@@ -202,11 +174,6 @@
             background-color: var(--cta-hover);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .cta-button.large {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
         }
 
         .text-button {
@@ -250,15 +217,15 @@
             margin-left: var(--spacing-md);
         }
 
-        .logo img {
-            height: 40px;
-            margin-right: var(--spacing-xs);
-        }
-
         .logo a {
             font-family: var(--heading-font);
             font-size: 1.5rem;
             font-weight: 700;
+            transition: color var(--transition-fast);
+        }
+
+        .logo a:hover {
+            color: var(--cta);
         }
 
         nav {
@@ -353,21 +320,30 @@
 
         .back-button {
             display: inline-block;
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
-            background-color: transparent;
-            border: 1px solid var(--light-text);
-            color: var(--light-text);
-            font-weight: 600;
-            text-align: center;
-            transition: all var(--transition-fast);
+            background: var(--cta);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 1rem; /* 40% larger than 1.1rem */
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
             cursor: pointer;
-            margin-bottom: var(--spacing-md);
+            width: auto; /* Changed from 100% to auto to fit text */
+            margin: 20px auto 0 auto; /* Center the button */
+            display: block; /* Make it a block element so margin auto works */
+            box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
         }
 
         .back-button:hover {
-            background-color: var(--light-text);
-            color: var(--light-background);
+            background-color: var(--cta-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: buttonWobble 0.6s ease-in-out;
         }
 
         /* Dark Mode Toggle */
@@ -378,6 +354,12 @@
             padding: 0;
             margin-right: var(--spacing-md);
             color: var(--light-text);
+            transition: transform var(--transition-fast);
+            align-items: center; /* Center icons vertically */
+            position: relative;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: block;
         }
 
         .dark-mode .theme-toggle {
@@ -385,8 +367,16 @@
         }
 
         .theme-toggle i {
-            font-size: 1.2rem;
-            transition: opacity var(--transition-fast);
+            font-size: 1.2rem; /* Increased size for consistency */
+            transition: opacity var(--transition-fast), transform var(--transition-fast);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .theme-toggle .fa-moon {
@@ -403,6 +393,10 @@
 
         .dark-mode .theme-toggle .fa-sun {
             opacity: 1;
+        }
+
+        .theme-toggle:hover i {
+            transform: scale(1.1);
         }
 
         /* Mobile Styles */
@@ -442,7 +436,7 @@
         }
 
         .theme-toggle {
-            margin-left: var(--spacing-md); /* Adjust spacing as needed */
+            margin-left: var(--spacing-lg); /* Adjust spacing as needed */
         }
 
         .back-button-container {
@@ -450,6 +444,50 @@
             justify-content: center; /* Centers the button */
             width: 100%; /* Takes full width */
             margin: 0 auto; /* Centers the container itself if needed */
+        }
+
+        /* Card Container Styles */
+        .card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: var(--spacing-md) auto;
+            animation: floatIn 0.5s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--light-card);
+        }
+
+        .dark-mode .card {
+            background-color: var(--dark-card);
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 0;
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Wobble Effect */
+        @keyframes buttonWobble {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
         }
     </style>
 </head>
@@ -459,15 +497,24 @@
         <div class="container">
             <nav>
                 <div class="logo">
-                    <a href="#">Murney House</a>
-                </div>
-                <div class="back-button-container">
-                    <a href="../guest-hub.html" class="back-button">Back To Guest Hub</a>
+                    <a href="../../index.html">Murney House</a>
                 </div>
                 <div class="header-controls">
-                    <button class="theme-toggle" aria-label="Toggle light/dark mode">
-                        <i class="fas fa-sun"></i>
-                        <i class="fas fa-moon"></i>
+                    <button class="theme-toggle" aria-label="Toggle dark mode">
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                            <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/>
+                            <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/>
+                            <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/>
+                            <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
                     </button>
                 </div>
             </nav>
@@ -480,63 +527,113 @@
         <section class="how-to-steps">
             <h2>1. Adding Beans</h2>
             <p>Lift lid (1), add beans to hopper (2), close lid. Select grind size with adjuster knob (4).</p>
-            <ol>
-                <li>
-                    <img src="px/Breville-All-Parts.png" alt="Water Tank Illustration" width="800">
-                    <strong>Fill Water Tank:</strong> Fill the water tank by pressing and releasing on lid (7) with fresh, cold water to the desired level as indicated on tank display.
-                    <img src="px/Breville-Display.png" alt="Water Tank Illustration" width="400">
-                </li>
-                <li>
-                    <strong>Select Brew Mode:</strong> Press the "Carafe" button (21) to toggle between carafe and cup modes on the control panel.
-                    <img src="px/Breville-Controls.png" alt="Control Panel Illustration" width="500">
-                    <!-- Placeholder for illustration of control panel -->
-                </li>
-                <li>
-                    <strong>Choose Number of Cups:</strong> Use the "Cups" button (21) to select the number of cups you want to brew.
-                    <img src="placeholder-cups-button.jpg" alt="Cups Button Illustration" width="300">
-                    <!-- Placeholder for illustration of cups button -->
-                </li>
-                <li>
-                    <strong>Select Coffee Strength:</strong> Choose your desired coffee strength using the "Strength" button (e.g., Mild, Medium, Strong).
-                    <img src="placeholder-strength-button.jpg" alt="Strength Button Illustration" width="300">
-                    <!-- Placeholder for illustration of strength button -->
-                </li>
-                <li>
-                    <strong>Start Brewing:</strong> Press the "Start" button to begin brewing.
-                    <img src="placeholder-start-button.jpg" alt="Start Button Illustration" width="300">
-                    <!-- Placeholder for illustration of start button -->
-                </li>
-                <li>
-                    <strong>Pause Feature (Optional):</strong> During brewing, you can pause the process by removing the carafe for a short time to pour a cup. Replace the carafe to resume brewing.
-                    <img src="placeholder-pause-feature.jpg" alt="Pause Feature Illustration" width="300">
-                    <!-- Placeholder for illustration of pause feature -->
-                </li>
-                <li>
-                    <strong>Finish & Serve:</strong> Once brewing is complete, the coffee maker will beep. Carefully remove the carafe andserve.
-                    <img src="placeholder-finished-coffee.jpg" alt="Finished Coffee Illustration" width="300">
-                    <!-- Placeholder for illustration of finished coffee -->
-                </li>
-            </ol>
+            <div class="card">
+                <img src="px/Breville-All-Parts.png" alt="Water Tank Illustration" width="800">
+            </div>
+
+            <h2>2. Brewing Coffee</h2>
+            <div class="card">
+                <ol>
+                    <li>
+                        <strong>Fill Water Tank:</strong> Fill the water tank by pressing and releasing on lid (7) with fresh, cold water to the desired level as indicated on tank display.
+                        <div class="card">
+                            <img src="px/Breville-Display.png" alt="Water Tank Illustration" width="400">
+                        </div>
+                    </li>
+                    <li>
+                        <strong>Select Brew Mode:</strong> Press the "Carafe" button (21) to toggle between carafe and cup modes on the control panel.
+                        <div class="card">
+                            <img src="px/Breville-Controls.png" alt="Water Tank Illustration" width="600">
+                        </div>
+                    </li>
+                    <li>
+                        <strong>Choose Number of Cups:</strong> Turn the "Cups" button (21) to select the number of cups you want to brew.
+                    </li>
+                    <li>
+                        <strong>Select Coffee Strength:</strong> Choose your desired coffee strength using the "Strength" button (23) (e.g., Mild, Medium, Strong).
+                    </li>
+                    <li>
+                        <strong>Start Brewing:</strong> Press the "Start" button (24) to begin brewing.
+                    </li>
+                    <li>
+                        <strong>Pause Feature (Optional):</strong> During brewing, you can pause the process by removing the carafe for a short time to pour a cup. Replace the carafe to resume brewing.
+                    </li>
+                    <li>
+                        <strong>Finish & Serve:</strong> Once brewing is complete, the coffee maker will beep. Carefully remove the carafe and serve.
+                    </li>
+                    <li>
+                        <strong>If You Want To Brew Again:</strong> You will need to clean the basket (13) by pressing the open button (19), lifting the basket cover and removing the basket for rinsing out old grinds.
+                    </li>
+                    <li>
+                        <strong>Auto Start:</strong> You can set a grind/brew start time after adding beans and water by pressing the Auto Start Button (23), this will display the current Auto Start Time flashing, you can adjust the time by turning the Strength Knob (23), then press it (23) to set the Start Time, the machine will beep to confirm.
+                    </li>
+                    <li>
+                        <strong>Cleaning the Carafe:</strong> To Clean the Carafe, rotate lid counter clockwise to open, rinse and repeat in reverse to close.
+                        <div class="card">
+                            <img src="px/Breville-Carafe.png" alt="Carafe Cleaning" width="400">
+                        </div>
+                    </li>
+                </ol>
+            </div>
         </section>
 
-        <a href="../guest-hub.html" class="back-button">Back To Guest Hub</a>
+        <div class="back-button-container">
+            <a href="../guest-hub.html" class="back-button">Back To Guest Hub</a>
+        </div>
+
+        <div style="margin-bottom: var(--spacing-lg);"></div> <!-- Added space after CTA button -->
+
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Murney House. All rights reserved.</p>
+            <p class="text-center">&copy; 2025 Murney House. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Dark Mode Toggle
+        // Dark Mode Toggle with persistence
         const themeToggle = document.querySelector('.theme-toggle');
         const body = document.body;
 
+        // Function to set theme
+        function setTheme(isDark) {
+            if (isDark) {
+                body.classList.add('dark-mode');
+            } else {
+                body.classList.remove('dark-mode');
+            }
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', isDark);
+        }
+
+        // Check if coming from QR code (no referrer)
+        function isDirectAccess() {
+            return !document.referrer || document.referrer.indexOf(window.location.hostname) === -1;
+        }
+
+        // On page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check localStorage first
+            const savedPreference = localStorage.getItem('darkMode');
+
+            if (savedPreference !== null) {
+                // Use saved preference
+                setTheme(savedPreference === 'true');
+            } else if (isDirectAccess()) {
+                // Default to dark mode for QR code access or direct URL entry
+                setTheme(true);
+            } else {
+                // Try to match referring page, default to light mode
+                setTheme(false);
+            }
+        });
+
+        // Toggle button click handler
         themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            // You can save the user's preference to localStorage here
+            const isDarkMode = body.classList.contains('dark-mode');
+            setTheme(!isDarkMode);
         });
     </script>
 </body>
-
+</html>

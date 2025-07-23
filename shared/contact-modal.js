@@ -155,47 +155,101 @@
         }
     }
 
-    function handleContactFormSubmission(e) {
+    async function handleContactFormSubmission(e) {
         const contactForm = e.target;
         const contactModal = document.getElementById('contact-modal');
         const contactCharCount = document.getElementById('contact-char-count');
         const contactDate = document.getElementById('contact-date');
+        const contactSuccess = document.getElementById('contact-success');
+        const contactError = document.getElementById('contact-error');
 
-        // Form validation
-        const email = document.getElementById('contact-email').value;
+        // Hide any previous messages
+        if (contactSuccess) contactSuccess.style.display = 'none';
+        if (contactError) contactError.style.display = 'none';
+
+        // Get form data
+        const formData = {
+            name: document.getElementById('contact-name').value,
+            email: document.getElementById('contact-email').value,
+            subject: document.getElementById('contact-subject').value,
+            message: document.getElementById('contact-message').value,
+            date: document.getElementById('contact-date').value
+        };
+
+        // Client-side validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address');
+        if (!emailRegex.test(formData.email)) {
+            if (contactError) {
+                contactError.textContent = 'Please enter a valid email address';
+                contactError.style.display = 'block';
+            }
             return;
         }
 
-        // Show success message
-        const contactSuccess = document.getElementById('contact-success');
-        if (contactSuccess) {
-            contactSuccess.style.display = 'block';
-        }
+        // Show loading state
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
+        submitButton.textContent = 'Sending...';
+        submitButton.disabled = true;
 
-        // Reset form
-        contactForm.reset();
-        if (contactCharCount) {
-            contactCharCount.textContent = '0';
-        }
+        try {
+            // Send to server
+            const response = await fetch('/send-contact.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
 
-        // Reset date to today
-        if (contactDate) {
-            const today = new Date();
-            const formattedDate = today.toISOString().split('T')[0];
-            contactDate.value = formattedDate;
-        }
+            const result = await response.json();
 
-        // Hide success message and close modal after 3 seconds
-        setTimeout(() => {
-            if (contactSuccess) {
-                contactSuccess.style.display = 'none';
+            if (result.success) {
+                // Show success message
+                if (contactSuccess) {
+                    contactSuccess.style.display = 'block';
+                }
+
+                // Reset form
+                contactForm.reset();
+                if (contactCharCount) {
+                    contactCharCount.textContent = '0';
+                }
+
+                // Reset date to today
+                if (contactDate) {
+                    const today = new Date();
+                    const formattedDate = today.toISOString().split('T')[0];
+                    contactDate.value = formattedDate;
+                }
+
+                // Hide success message and close modal after 3 seconds
+                setTimeout(() => {
+                    if (contactSuccess) {
+                        contactSuccess.style.display = 'none';
+                    }
+                    closeContactModal();
+                }, 3000);
+
+            } else {
+                // Show error message
+                if (contactError) {
+                    contactError.textContent = result.message || 'Failed to send message. Please try again.';
+                    contactError.style.display = 'block';
+                }
             }
-            closeContactModal();
-        }, 3000);
+
+        } catch (error) {
+            console.error('Error sending message:', error);
+            if (contactError) {
+                contactError.textContent = 'Network error. Please check your connection and try again.';
+                contactError.style.display = 'block';
+            }
+        } finally {
+            // Restore button state
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+        }
     }
 
     // Make functions available globally if needed

@@ -1343,31 +1343,71 @@ nav {
     font-style: italic;
 }
 
-/* Custom scrollbar styling - only visible when needed */
+/* Custom scrollbar styling - Guest Book */
+#guest-book-content::-webkit-scrollbar,
 .guest-book-content::-webkit-scrollbar {
     width: 6px;
 }
 
+#guest-book-content::-webkit-scrollbar-track,
 .guest-book-content::-webkit-scrollbar-track {
     background: transparent;
 }
 
+#guest-book-content,
 .guest-book-content {
     scrollbar-width: thin;  /* Firefox specific */
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;  /* Firefox specific */
+    max-height: 300px; /* Force height constraint for scrolling */
+    overflow-y: auto;
 }
 
+#guest-book-content::-webkit-scrollbar-thumb,
 .guest-book-content::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 3px;
 }
 
+.dark-mode #guest-book-content::-webkit-scrollbar-thumb,
 .dark-mode .guest-book-content::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.3);
 }
 
+#guest-book-content::-webkit-scrollbar-thumb:hover,
 .guest-book-content::-webkit-scrollbar-thumb:hover {
     background: var(--cta);
+}
+
+/* Updates Card scrollbar - make sure it shows */
+.updates-scroll {
+    max-height: calc(4 * 1.5em * 1.5); /* Ensure content can overflow */
+    min-height: calc(4 * 1.5em); /* Minimum height */
+    overflow-y: auto;
+}
+
+.updates-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.updates-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.updates-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    transition: background var(--transition-fast);
+}
+
+.updates-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Firefox scrollbar for updates */
+.updates-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
 }
 
 /* Book Now - exact original styling */

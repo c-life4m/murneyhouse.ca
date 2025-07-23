@@ -199,102 +199,111 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 
-// Update the loadGuestBook function
-async function loadGuestBook() {
-    try {
-        const response = await fetch('data/GuestBook.json');
-        const reviews = await response.json();
-        const container = document.getElementById('guest-book-content');
+    // Guest Book functionality with scrollable content
+    async function loadGuestBook() {
+        try {
+            // Ultra-aggressive cache busting for stubborn Firefox
+            const timestamp = Date.now() + Math.random();
+            const userAgent = navigator.userAgent.toLowerCase();
+            const isFirefox = userAgent.includes('firefox');
 
-        if (container && reviews.length > 0) {
-            // Display all reviews at once
-            container.innerHTML = reviews.map(review => `
-                <div class="guest-review">
-                    <div class="review-author">${review.name}${review.location ? `, ${review.location}` : ''}</div>
-                    <div class="review-text">"${review.review}"</div>
-                    <div class="review-date">${new Date(review.date).toLocaleDateString()}</div>
-                </div>
-            `).join('');
+            // Extra cache busting for Firefox
+            const cacheBuster = isFirefox ?
+                `?v=${timestamp}&ff=${Date.now()}&r=${Math.random()}&bust=${performance.now()}` :
+                `?v=${timestamp}&bustcache=${Date.now()}`;
+
+            const response = await fetch(`data/GuestBook.json${cacheBuster}`, {
+                method: 'GET',
+                cache: 'no-store',
+                headers: {
+                    'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+                    'Pragma': 'no-cache',
+                    'Expires': '0',
+                    'If-Modified-Since': 'Thu, 01 Jan 1970 00:00:00 GMT',
+                    ...(isFirefox && {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-Cache-Bypass': 'true'
+                    })
+                }
+            });
+
+            if (!response.ok) throw new Error('Failed to load guest book');
+
+            const data = await response.json();
+            const reviews = data.entries || data || [];
+            const container = document.getElementById('guest-book-content');
+
+            if (container && reviews.length > 0) {
+                displayAllReviews(reviews, container);
+            } else {
+                showGuestBookFallback();
+            }
+        } catch (error) {
+            console.warn('Guest book not available:', error);
+            showGuestBookFallback();
         }
-    } catch (error) {
-    }
-}
-
-function displayGuestBook(entries) {
-    const guestBookContent = document.getElementById('guest-book-content');
-
-    if (!guestBookContent || entries.length === 0) {
-        return;
     }
 
-    let currentIndex = 0;
-    let rotationInterval; // Store interval reference
-    let isPaused = false;
+    function displayAllReviews(entries, container) {
+        if (!container || entries.length === 0) return;
 
-    function showReview(index) {
-        const entry = entries[index];
-
-        guestBookContent.innerHTML = `
+        // Display ALL reviews at once to enable scrolling
+        const reviewsHTML = entries.map(entry => `
             <div class="guest-review">
                 <div class="review-author">${entry.name}${entry.location ? `, ${entry.location}` : ''}</div>
-                <div class="review-text">"${entry.review}"</div>
+                <div class="review-text">"${entry.review || entry.message}"</div>
+                <div class="review-date">${new Date(entry.date).toLocaleDateString()}</div>
             </div>
-        `;
+        `).join('');
+
+        container.innerHTML = reviewsHTML;
+
+        console.log(`Guest book loaded with ${entries.length} reviews - scrollable content`);
     }
 
-    function startRotation() {
-        if (entries.length > 1 && !isPaused) {
-            rotationInterval = setInterval(() => {
-                if (!isPaused) {
-                    currentIndex = (currentIndex + 1) % entries.length;
-                    showReview(currentIndex);
+    function showGuestBookFallback() {
+        const guestBookContent = document.getElementById('guest-book-content');
+        if (guestBookContent) {
+            guestBookContent.innerHTML = `
+                <div class="guest-review">
+                    <div class="review-author">Sarah & Mike, Toronto</div>
+                    <div class="review-text">"A wonderful stay! The personal touch and attention to detail made our visit truly memorable. We'll definitely be back!"</div>
+                    <div class="review-date">${new Date().toLocaleDateString()}</div>
+                </div>
+            `;
+        }
+    }
+
+    // Load Updates functionality
+    async function loadUpdates() {
+        try {
+            // More aggressive cache busting
+            const timestamp = Date.now() + Math.random();
+            const response = await fetch(`data/Updates.json?v=${timestamp}&bustcache=${Date.now()}`, {
+                method: 'GET',
+                cache: 'no-store',
+                headers: {
+                    'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+                    'Pragma': 'no-cache',
+                    'Expires': '0',
+                    'If-Modified-Since': 'Thu, 01 Jan 1970 00:00:00 GMT'
                 }
-            }, 5000);
+            });
+
+            if (!response.ok) throw new Error('Failed to load updates');
+
+            const data = await response.json();
+            processUpdates(data);
+        } catch (error) {
+            console.warn('Updates not available:', error);
         }
     }
-
-    function stopRotation() {
-        if (rotationInterval) {
-            clearInterval(rotationInterval);
-            rotationInterval = null;
-        }
-    }
-
-    // Show first review
-    showReview(currentIndex);
-
-    // Add hover event listeners
-    guestBookContent.addEventListener('mouseenter', () => {
-        isPaused = true;
-        stopRotation();
-    });
-
-    guestBookContent.addEventListener('mouseleave', () => {
-        isPaused = false;
-        startRotation();
-    });
-
-    // Start rotation initially
-    startRotation();
-}
-
-// Load Updates - exact original functionality
-async function loadUpdates() {
-    try {
-        const response = await fetch('data/Updates.json');
-        if (!response.ok) throw new Error('Failed to load updates');
-
-        const data = await response.json();
-        processUpdates(data);
-    } catch (error) {
-    }
-}
 
     function processUpdates(data) {
-        // Process any site updates or notifications - exact original
         if (data.notifications) {
             data.notifications.forEach(notification => {
                 if (notification.active) {
+                    console.log('Notification:', notification.message);
                     // Handle notifications as needed
                 }
             });
@@ -302,7 +311,6 @@ async function loadUpdates() {
     }
 
     // Touch and mobile-specific optimizations
-
     // Prevent zoom on double tap for buttons - mobile optimization
     let lastTouchEnd = 0;
     document.addEventListener('touchend', function(event) {
@@ -348,10 +356,39 @@ async function loadUpdates() {
         window.addEventListener('load', function() {
             setTimeout(() => {
                 const perfData = performance.getEntriesByType('navigation')[0];
+                console.log('Page Load Performance:', {
+                    'DOM Content Loaded': Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart) + 'ms',
+                    'Full Load': Math.round(perfData.loadEventEnd - perfData.loadEventStart) + 'ms'
+                });
             }, 0);
         });
     }
 
+    // Initialize everything
+    loadUpdates();
+    new UpdatesCard();
+    loadGuestBook();
+
+    // Initialize rooms page if applicable
+    if (window.location.pathname.includes('rooms.html')) {
+        setTimeout(() => {
+            const heroImage = document.querySelector('.rooms-hero .hero-image');
+            const heroText = document.querySelector('.rooms-hero .hero-text');
+            const heroTitle = document.querySelector('.rooms-hero .hero-text h1');
+            const heroSubtitle = document.querySelector('.rooms-hero .hero-text p');
+
+            if (heroImage) heroImage.classList.add('in-view');
+            if (heroText) heroText.classList.add('in-view');
+            if (heroTitle) heroTitle.classList.add('in-view');
+            if (heroSubtitle) heroSubtitle.classList.add('in-view');
+        }, 100);
+    }
+
+    console.log('Murney House website loaded successfully - Mobile optimized with original design preserved!');
+
+}); // End of main DOMContentLoaded event listener
+
+// UpdatesCard class with proper scrolling functionality
 class UpdatesCard {
     constructor() {
         this.card = document.getElementById('updatesCard');
@@ -387,6 +424,7 @@ class UpdatesCard {
             this.displayUpdates(data);
 
         } catch (error) {
+            console.warn('Updates not available:', error);
             this.showFallbackContent();
         }
     }
@@ -394,11 +432,25 @@ class UpdatesCard {
     displayUpdates(data) {
         if (!this.content || !data) return;
 
-        const updatesHTML = data.map(update =>
-            `<div class="updates-text">${update.message}</div>`
+        // Handle both array format and object with updates array
+        const updates = Array.isArray(data) ? data : (data.updates || []);
+
+        if (updates.length === 0) {
+            this.showFallbackContent();
+            return;
+        }
+
+        const updatesHTML = updates.map(update =>
+            `<div class="updates-text">${update.message || update.text || update}</div>`
         ).join('');
 
+        // Create scrollable content with proper structure
         this.content.innerHTML = `<div class="updates-scroll">${updatesHTML}</div>`;
+
+        // Initialize custom scrollbar if needed
+        this.initializeScrollbar();
+
+        console.log(`Updates card loaded with ${updates.length} updates`);
     }
 
     showFallbackContent() {
@@ -406,9 +458,35 @@ class UpdatesCard {
 
         this.content.innerHTML = `
             <div class="updates-scroll">
-                <div class="updates-text">Welcome to Murney House! Check back for updates and news.</div>
+                <div class="updates-text">Welcome to Murney House! We're excited to have you stay with us.</div>
+                <div class="updates-text">Check back here for property updates, local events, and special announcements.</div>
+                <div class="updates-text">Our team is always working to enhance your experience and keep you informed of what's happening in the area.</div>
+                <div class="updates-text">Thank you for choosing Murney House for your stay in Belleville!</div>
             </div>
         `;
+
+        this.initializeScrollbar();
+    }
+
+    initializeScrollbar() {
+        const scrollContainer = this.content.querySelector('.updates-scroll');
+        if (!scrollContainer) return;
+
+        // Add scroll indicator if content overflows
+        setTimeout(() => {
+            if (scrollContainer.scrollHeight > scrollContainer.clientHeight) {
+                scrollContainer.classList.add('scrollable');
+
+                // Add scroll event for fade effects if needed
+                scrollContainer.addEventListener('scroll', () => {
+                    const isAtTop = scrollContainer.scrollTop === 0;
+                    const isAtBottom = scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 1;
+
+                    scrollContainer.classList.toggle('at-top', isAtTop);
+                    scrollContainer.classList.toggle('at-bottom', isAtBottom);
+                });
+            }
+        }, 100);
     }
 
     close() {
@@ -418,12 +496,6 @@ class UpdatesCard {
         }, 500);
     }
 }
-    loadUpdates();
-    new UpdatesCard();
-    loadGuestBook();
-
-});
-
 
 /* ========================================
    ROOMS PAGE SPECIFIC FUNCTIONALITY
@@ -449,8 +521,8 @@ function setRoomsHeroBackground() {
 }
 
 // Set background on load and resize
-        window.addEventListener('load', setRoomsHeroBackground);
-        window.addEventListener('resize', setRoomsHeroBackground);
+window.addEventListener('load', setRoomsHeroBackground);
+window.addEventListener('resize', setRoomsHeroBackground);
 
 // Smooth scroll to specific room sections from main page
 function handleRoomNavigation() {
@@ -476,21 +548,3 @@ function initializeRoomsPage() {
         window.addEventListener('resize', setRoomsHeroBackground);
     }
 }
-
-// Hero animation on page load for rooms page
-document.addEventListener('DOMContentLoaded', function() {
-    // Check if we're on the rooms page
-    if (window.location.pathname.includes('rooms.html')) {
-        setTimeout(() => {
-            const heroImage = document.querySelector('.rooms-hero .hero-image');
-            const heroText = document.querySelector('.rooms-hero .hero-text');
-            const heroTitle = document.querySelector('.rooms-hero .hero-text h1');
-            const heroSubtitle = document.querySelector('.rooms-hero .hero-text p');
-
-            if (heroImage) heroImage.classList.add('in-view');
-            if (heroText) heroText.classList.add('in-view');
-            if (heroTitle) heroTitle.classList.add('in-view');
-            if (heroSubtitle) heroSubtitle.classList.add('in-view');
-        }, 100); // Small delay to ensure DOM is ready
-    }
-});

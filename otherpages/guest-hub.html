@@ -8,143 +8,266 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../src/styles/style.css">
+    <!-- Contact Form Styling -->
+    <link rel="stylesheet" href="../shared/contact-modal.css">
     <style>
-        /* Additional styles for the guest hub page */
-        h1.page-title {
-            text-align: center;
-            margin: 2rem 0;
+        /* Enhanced dark mode default styling */
+        :root[data-theme="dark"] {
+            --primary-accent: #e74c3c;
+            --secondary-accent: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --error-color: #e74c3c;
+            --section-separator: #404040;
+            --card-shadow: rgba(0, 0, 0, 0.4);
+            --hover-shadow: rgba(0, 0, 0, 0.6);
         }
 
+        :root[data-theme="light"] {
+            --primary-accent: #c0392b;
+            --secondary-accent: #2980b9;
+            --success-color: #229954;
+            --warning-color: #d68910;
+            --error-color: #c0392b;
+            --section-separator: #e0e0e0;
+            --card-shadow: rgba(0, 0, 0, 0.1);
+            --hover-shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Page title styling - centered */
+        h1.page-title, h2 {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            border-radius: 2px;
+        }
+
+        /* Enhanced card styling with better separation */
         .card {
             background-color: var(--card-bg);
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px var(--card-shadow);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            transition: all 0.4s ease;
+            border: 1px solid var(--section-separator);
+            position: relative;
+            overflow: hidden;
         }
 
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--hover-shadow);
+        }
+
+        /* Enhanced search box */
         .search-box {
             width: 100%;
-            padding: 10px 15px;
+            padding: 15px 20px;
             border: 2px solid var(--border-color);
             border-radius: 30px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             font-size: 1.2rem;
             background-color: var(--input-bg);
             color: var(--text-color);
             transition: all 0.3s ease;
+            box-shadow: 0 4px 10px var(--card-shadow);
         }
 
         .search-box:focus {
             outline: none;
             border-color: var(--accent-color);
-            box-shadow: 0 0 8px rgba(var(--accent-color-rgb), 0.8);
+            box-shadow: 0 0 15px rgba(var(--accent-color-rgb), 0.8);
         }
 
+        /* Enhanced appliance grid with better proportions */
         .appliance-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
+        /* Enhanced appliance items with thumbnails and improved hover effects */
         .appliance-item {
             display: flex;
             align-items: center;
-            padding: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--section-separator);
+            border-radius: 12px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px var(--card-shadow);
         }
 
+        .appliance-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-accent);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+            transform-origin: bottom;
+        }
+
+        .appliance-item:hover {
+            transform: translateX(8px) translateY(-2px);
+            border-color: var(--primary-accent);
+            box-shadow: 0 8px 20px var(--hover-shadow);
+        }
+
+        .appliance-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        /* Enhanced thumbnail styling */
         .appliance-item img {
-            margin-right: 10px;
-            border-radius: 5px;
+            margin-right: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .appliance-item:hover img {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .appliance-item a {
             color: var(--text-color);
             text-decoration: none;
             position: relative;
-            padding: 0.25rem 0;
+            padding: 0.5rem 0;
             transition: color var(--transition-fast);
+            font-weight: 500;
+            flex-grow: 1;
         }
 
         .appliance-item a::after {
             content: '';
             position: absolute;
-            bottom: -3px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--cta), var(--cta-hover));
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
             transition: width var(--transition-fast);
             box-shadow: 0 0 4px rgba(229, 115, 115, 0.3);
         }
 
         .appliance-item a:hover {
-            color: var(--cta);
-            transform: translateY(-1px);
+            color: var(--primary-accent);
         }
 
         .appliance-item a:hover::after {
             width: 100%;
         }
 
+        /* Enhanced accordion styling */
         .accordion {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .accordion-item {
-            border-bottom: 1px solid var(--border-color);
+            border: 1px solid var(--section-separator);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px var(--card-shadow);
         }
 
         .accordion-header {
-            padding: 1rem 0;
+            padding: 1.5rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 600;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            background: var(--card-bg);
         }
 
         .accordion-header:hover {
-            color: var(--accent-color);
+            color: var(--primary-accent);
+            background: var(--hover-bg, rgba(231, 76, 60, 0.1));
         }
 
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding: 0 1rem;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            background: var(--input-bg);
         }
 
         .accordion-content.active {
-            max-height: 300px;
-            padding: 1rem;
+            max-height: 400px;
+            padding: 1.5rem;
         }
 
+        /* Enhanced review form styling */
         .review-form {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: var(--card-bg);
+            border: 1px solid var(--section-separator);
             border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 2rem;
-            margin-top: 2rem;
+            padding: 2.5rem;
+            margin-top: 3rem;
             text-align: center;
+            box-shadow: 0 8px 25px var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--success-color), var(--secondary-accent));
         }
 
         .review-form h2 {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .review-form > p {
-            margin-bottom: 1.5rem;
-            max-width: 600px;
+            margin-bottom: 2rem;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.6;
         }
 
+        /* Enhanced form styling */
         .form-group {
             margin-bottom: 1.5rem;
             text-align: left;
@@ -154,127 +277,155 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
+            color: var(--text-color);
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-family: var(--body-font);
-            background-color: var(--input-bg);
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--input-bg);
             color: var(--text-color);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 1rem;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
-        .dark-mode .form-group input,
-        .dark-mode .form-group textarea {
-            border-color: var(--dark-border);
-            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.6);
+        /* Light grey styling for rating dropdown */
+        #review-rating {
+            background-color: #f5f5f5 !important;
+            color: #333 !important;
+            border: 2px solid #ddd !important;
+        }
+
+        [data-theme="dark"] #review-rating {
+            background-color: #f8f8f8 !important;
+            color: #333 !important;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            border-color: var(--cta);
-            box-shadow: 0 0 0 4px rgba(var(--cta-rgb), 0.6);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
         }
 
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
+        /* Character counter styling */
         .char-counter {
-            font-size: 0.8rem;
-            color: var(--muted-color);
             text-align: right;
-            margin-top: 0.25rem;
-        }
-
-        /* Contact form modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            padding: 2rem;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
-        }
-
-        body:not(.dark-mode) .modal-content {
-            background-color: rgba(255, 255, 255, 0.85); /* Less transparent in light mode */
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--muted-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            color: #666;
             transition: color 0.3s ease;
         }
 
-        .dark-mode .modal-content {
-            background-color: rgba(30, 30, 40, 0.75); /* Less transparent in dark mode */
-            border: 1px solid var(--dark-border);
-        }
-
-        .close-modal:hover {
-            color: var(--text-color);
-        }
-
-        .success-message,
-        .error-message {
-            padding: 1rem;
-            border-radius: 5px;
-            margin-bottom: 1rem;
-            text-align: center;
+        /* Enhanced message styling */
+        .success-message, .error-message {
             display: none;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-weight: 600;
+            text-align: center;
+            border-left: 4px solid;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
         .success-message {
-            background-color: rgba(76, 175, 80, 0.1);
-            color: #4CAF50;
-            border: 1px solid #4CAF50;
+            background-color: #d4edda;
+            color: #155724;
+            border-color: var(--success-color);
         }
 
         .error-message {
-            background-color: rgba(244, 67, 54, 0.1);
-            color: #F44336;
-            border: 1px solid #F44336;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: var(--error-color);
         }
 
+        /* Enhanced footer styling */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        footer .container p {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        /* Enhanced button styling */
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Date input styling for dd/mm/yyyy format */
+        input[type="date"] {
+            position: relative;
+        }
+
+        /* Animation improvements */
+        .card, .review-form {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive improvements */
         @media (max-width: 768px) {
             .appliance-grid {
                 grid-template-columns: 1fr;
             }
 
-            .modal-content {
-                width: 95%;
+            .card {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .review-form {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
-<body>
-    <!-- Header with navigation -->
+<body data-theme="dark">
+    <!-- Header with navigation - UNCHANGED -->
     <header>
         <div class="logo">
             <a href="../index.html">Murney House</a>
@@ -285,7 +436,7 @@
                     <li><a href="../index.html#rooms">Rooms</a></li>
                     <li><a href="../index.html#amenities">Amenities</a></li>
                     <li><a href="../index.html#local-area">Local Area</a></li>
-                    <li><a href="../index.html#contact">Contact</a></li>
+                    <li><a href="?contact=1">Contact</a></li>
                 </ul>
             </div>
             <div class="mobile-nav-toggle">
@@ -298,7 +449,7 @@
                     <li><a href="../index.html#rooms">Rooms</a></li>
                     <li><a href="../index.html#amenities">Amenities</a></li>
                     <li><a href="../index.html#local-area">Local Area</a></li>
-                    <li><a href="../index.html#contact">Contact</a></li>
+                    <li><a href="?contact=1">Contact</a></li>
                 </ul>
             </div>
         </nav>
@@ -326,11 +477,11 @@
     <main style="margin-top: 100px; padding: 2rem 0;">
         <div class="container">
             <h1 class="page-title">Guest Hub</h1>
-            <h4>This is where you will find helpful tips and guidance to enhance your stay</h4>
+            <h4 style="text-align: center;">This is where you will find helpful tips and guidance to enhance your stay</h4>
 
             <!-- How To Use Section -->
             <div class="card">
-                <h2>Gizmo Master List:</h2>
+                <h2>Gizmo Master List</h2>
                 <p>You can search for a gadget in the search field below or select it from the list</p>
                 <input type="text" class="search-box" id="appliance-search" placeholder="Search appliances...">
 
@@ -429,13 +580,8 @@
                     </div>
                     <div class="appliance-item">
                         <img src="guides/px/Monkey BarThmb50.webp" alt="Monkey Bar Thumbnail" width="50">
-                        <a href="../otherpages/underconstruction.htmll">Monkey Bar</a>
+                        <a href="../otherpages/underconstruction.html">Monkey Bar</a>
                     </div>
-                    <!-- Commented out placeholder -->
-                    <!-- <div class="appliance-item">
-                        <img src="guides/px/CoffeeM Thmb50.webp" alt="Placeholder Thumbnail" width="50">
-                        <a href="guides/coffeemaker.html">Placeholder</a>
-                    </div> -->
                 </div>
             </div>
 
@@ -470,7 +616,7 @@
                     <li><strong>Emergency Services:</strong> 911</li>
                     <li><strong>Property Manager:</strong> 555-123-4567</li>
                     <li><strong>Nearest Hospital:</strong> Belleville General Hospital - 265 Dundas St. East, Belleville, ON</li>
-                    <li><strong>Pharmacy:</strong> Healthy FY Pharmacy - 44 Moira St. West, Belleville, ON613-969-8881</li>
+                    <li><strong>Pharmacy:</strong> Healthy FY Pharmacy - 44 Moira St. West, Belleville, ON 613-969-8881</li>
                     <li><strong>After-Hours Maintenance:</strong> 555-765-4321</li>
                 </ul>
             </div>
@@ -529,7 +675,7 @@
                             Is that really a Monkey Bar in the Laundry Area? <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="accordion-content">
-                            <p>Yes! It's exactly what it looks like. If you're in the mood for some chin-ups or just to decompress your spine (and wheigh under 200 Lb), feel free to use it (at your own risk, of course).</p>
+                            <p>Yes! It's exactly what it looks like. If you're in the mood for some chin-ups or just to decompress your spine (and weigh under 200 Lb), feel free to use it (at your own risk, of course).</p>
                         </div>
                     </div>
                 </div>
@@ -538,7 +684,7 @@
             <!-- Share Your Review Section -->
             <div id="share-your-review" class="review-form">
                 <h2>Share Your Review</h2>
-                <p>Share your experience with us and help other guests discover what makes Murney House special.</p>
+                <p>Share your experience and help other guests discover what makes Murney House special. Please note that leaving a review is open to the Guests that have stayed with us within the past 12 months and is validated by Name, Email and Date of Stay (any date within the booked range). Your email will not show in the posted review.</p>
 
                 <div id="review-success" class="success-message">
                     Thank you for your review! It has been submitted successfully.
@@ -555,13 +701,35 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="review-date">Date of Stay</label>
-                        <input type="date" id="review-date" name="date" required>
+                        <label for="review-date-stay">Date of Stay</label>
+                        <input type="date" id="review-date-stay" name="dateStay" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="review-text">Your Review</label>
-                        <textarea id="review-text" name="review" placeholder="Tell us about your experience at Murney House..." rows="4" maxlength="600" required></textarea>
+                        <label for="review-email">Email Address *</label>
+                        <input type="email" id="review-email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-location">Your Location</label>
+                        <input type="text" id="review-location" name="location" placeholder="e.g., Toronto, ON">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-rating">Rating *</label>
+                        <select id="review-rating" name="rating" required>
+                            <option value="">Select a rating</option>
+                            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+                            <option value="4">⭐⭐⭐⭐ Very Good</option>
+                            <option value="3">⭐⭐⭐ Good</option>
+                            <option value="2">⭐⭐ Fair</option>
+                            <option value="1">⭐ Poor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-message">Your Review</label>
+                        <textarea id="review-message" name="review" placeholder="Tell us about your experience at Murney House..." rows="4" maxlength="600" required></textarea>
                         <div class="char-counter"><span id="review-char-count">0</span>/600 characters</div>
                     </div>
 
@@ -571,196 +739,287 @@
         </div>
     </main>
 
-    <!-- Contact Form Modal -->
-    <div id="contact-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Contact Us</h2>
-
-            <div id="contact-success" class="success-message">
-                Your message has been sent successfully! We'll get back to you soon.
-            </div>
-
-            <div id="contact-error" class="error-message">
-                There was an error sending your message. Please try again.
-            </div>
-
-            <form id="contact-form">
-                <div class="form-group">
-                    <label for="contact-date">Date</label>
-                    <input type="date" id="contact-date" name="date" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="contact-name">Your Name</label>
-                    <input type="text" id="contact-name" name="name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="contact-email">Email</label>
-                    <input type="email" id="contact-email" name="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="contact-subject">Subject</label>
-                    <input type="text" id="contact-subject" name="subject" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="contact-message">Message</label>
-                    <textarea id="contact-message" name="message" maxlength="500" required></textarea>
-                    <div class="char-counter"><span id="contact-char-count">0</span>/500 characters</div>
-                </div>
-
-                <button type="submit" class="cta-button">Send Message</button>
-            </form>
-        </div>
-    </div>
-
     <footer>
         <div class="container">
-            <p>&copy; 2024 Murney House. All rights reserved.</p>
+            <p>&copy; 2025 Murney House. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="../src/script.js"></script>
     <script>
-        // Appliance search functionality
-        const searchBox = document.getElementById('appliance-search');
-        const applianceItems = document.querySelectorAll('.appliance-item');
+        // Initialize page with dark mode default and inherit from navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if mode preference was passed from navigation
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode') || 'dark'; // Default to dark mode
 
-        searchBox.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-
-            applianceItems.forEach(item => {
-                const applianceName = item.querySelector('a').textContent.toLowerCase();
-                if (applianceName.includes(searchTerm)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-
-        // Accordion functionality
-        const accordionHeaders = document.querySelectorAll('.accordion-header');
-
-        accordionHeaders.forEach(header => {
-            header.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                content.classList.toggle('active');
-
-                // Toggle icon
-                const icon = this.querySelector('i');
-                if (content.classList.contains('active')) {
-                    icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
-                } else {
-                    icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
-                }
-            });
-        });
-
-        // Character counter for review form
-        const reviewText = document.getElementById('review-text');
-        const reviewCharCount = document.getElementById('review-char-count');
-
-        reviewText.addEventListener('input', function() {
-            const count = this.value.length;
-            reviewCharCount.textContent = count;
-        });
-
-        // Character counter for contact form
-        const contactMessage = document.getElementById('contact-message');
-        const contactCharCount = document.getElementById('contact-char-count');
-
-        contactMessage.addEventListener('input', function() {
-            const count = this.value.length;
-            contactCharCount.textContent = count;
-        });
-
-        // Contact modal functionality
-        const contactLinks = document.querySelectorAll('a[href="../index.html#contact"]');
-        const contactModal = document.getElementById('contact-modal');
-        const closeModal = document.querySelector('.close-modal');
-        const contactForm = document.getElementById('contact-form');
-        const contactDate = document.getElementById('contact-date');
-
-        // Set default date to today
-        const today = new Date();
-        const formattedDate = today.toISOString().split('T')[0];
-        contactDate.value = formattedDate;
-
-        contactLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                contactModal.style.display = 'flex';
-            });
-        });
-
-        closeModal.addEventListener('click', function() {
-            contactModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target === contactModal) {
-                contactModal.style.display = 'none';
+            // Set the theme
+            document.documentElement.setAttribute('data-theme', mode);
+            if (mode === 'light') {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+            } else {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
             }
+
+            // Initialize functionality
+            initializeApplanceSearch();
+            initializeAccordion();
+            initializeReviewForm();
         });
 
-        // Form submission logic
-        reviewForm = document.getElementById('review-form');
-        reviewForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Enhanced appliance search functionality
+        function initializeApplanceSearch() {
+            const searchBox = document.getElementById('appliance-search');
+            const applianceItems = document.querySelectorAll('.appliance-item');
 
-            // Here you would typically send the data to your server
-            // For demonstration, we'll just show a success message
+            if (!searchBox || !applianceItems.length) return;
 
-            const reviewSuccess = document.getElementById('review-success');
-            reviewSuccess.style.display = 'block';
+            searchBox.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
 
-            // Reset form
-            this.reset();
-            reviewCharCount.textContent = '0';
+                applianceItems.forEach(item => {
+                    const applianceName = item.querySelector('a').textContent.toLowerCase();
+                    if (applianceName.includes(searchTerm)) {
+                        item.style.display = 'flex';
+                        item.style.animation = 'fadeInUp 0.3s ease';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
 
-            // Hide success message after 3 seconds
-            setTimeout(() => {
-                reviewSuccess.style.display = 'none';
-            }, 3000);
-        });
+        // Enhanced accordion functionality
+        function initializeAccordion() {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
 
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const isActive = content.classList.contains('active');
 
-            // Form validation
-            const email = document.getElementById('contact-email').value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    // Close all other accordion items
+                    accordionHeaders.forEach(otherHeader => {
+                        const otherContent = otherHeader.nextElementSibling;
+                        const otherIcon = otherHeader.querySelector('i');
+                        otherContent.classList.remove('active');
+                        otherIcon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+                    });
 
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address');
+                    // Toggle current item
+                    if (!isActive) {
+                        content.classList.add('active');
+                        const icon = this.querySelector('i');
+                        icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+                    }
+                });
+            });
+        }
+
+        // Enhanced Review Form Functionality
+        function initializeReviewForm() {
+            const form = document.getElementById('review-form');
+            const reviewText = document.getElementById('review-message');
+            const reviewCharCount = document.getElementById('review-char-count');
+
+            if (!form || !reviewText || !reviewCharCount) {
+                console.log('Review form elements not found');
                 return;
             }
 
-            // Here you would typically send the data to your server
-            // For demonstration, we'll just show a success message
+            // Character counter with enhanced feedback
+            reviewText.addEventListener('input', function() {
+                const currentLength = this.value.length;
+                reviewCharCount.textContent = currentLength;
 
-            const contactSuccess = document.getElementById('contact-success');
-            contactSuccess.style.display = 'block';
+                // Enhanced visual feedback for approaching limit
+                if (currentLength > 550) {
+                    reviewCharCount.style.color = '#e74c3c';
+                    reviewCharCount.style.fontWeight = 'bold';
+                } else if (currentLength > 500) {
+                    reviewCharCount.style.color = '#f39c12';
+                    reviewCharCount.style.fontWeight = '600';
+                } else {
+                    reviewCharCount.style.color = '#666';
+                    reviewCharCount.style.fontWeight = 'normal';
+                }
+            });
 
-            // Reset form
-            this.reset();
-            contactCharCount.textContent = '0';
-            contactDate.value = formattedDate;
+            // Enhanced form submission handler
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                handleReviewSubmission(e);
+            });
 
-            // Hide success message after 3 seconds and close modal
+            console.log('Review form initialized successfully');
+        }
+
+        // Enhanced submission handling with full validation and guest list checking
+        async function handleReviewSubmission(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+
+            // Show loading state
+            submitButton.textContent = 'Submitting...';
+            submitButton.disabled = true;
+
+            // Hide any previous messages
+            hideReviewMessages();
+
+            // Get form data
+            const formData = {
+                name: document.getElementById('review-name')?.value?.trim() || '',
+                email: document.getElementById('review-email')?.value?.trim() || '',
+                location: document.getElementById('review-location')?.value?.trim() || '',
+                rating: parseInt(document.getElementById('review-rating')?.value) || 0,
+                message: document.getElementById('review-message')?.value?.trim() || '',
+                dateStay: document.getElementById('review-date-stay')?.value || ''
+            };
+
+            // Client-side validation
+            const errors = [];
+
+            // Loose name validation (accept first name, last name, or variations)
+            if (!formData.name || formData.name.length < 2) {
+                errors.push('Name is required (minimum 2 characters)');
+            }
+
+            // Strict email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!formData.email) {
+                errors.push('Email is required');
+            } else if (!emailRegex.test(formData.email)) {
+                errors.push('Please enter a valid email address');
+            }
+
+            if (!formData.message) errors.push('Review message is required');
+            if (!formData.dateStay) errors.push('Date of stay is required');
+            if (!formData.rating || formData.rating < 1 || formData.rating > 5) {
+                errors.push('Please select a rating (1-5 stars)');
+            }
+
+            // Date validation - loose within reasonable range
+            if (formData.dateStay) {
+                const stayDate = new Date(formData.dateStay);
+                const today = new Date();
+                today.setHours(23, 59, 59, 999);
+
+                if (stayDate > today) {
+                    errors.push('This date doesn\'t match our booking records - only our guests can leave reviews. Please enter your actual stay date.');
+                }
+
+                // Allow dates within the last year (loose validation)
+                const oneYearAgo = new Date();
+                oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+                if (stayDate < oneYearAgo) {
+                    errors.push('Please enter a stay date within the last 12 months.');
+                }
+            }
+
+            // Show validation errors
+            if (errors.length > 0) {
+                showReviewError('Please fix the following:\n• ' + errors.join('\n• '));
+                restoreSubmitButton(submitButton, originalButtonText);
+                return;
+            }
+
+            try {
+                // Submit to server (which will validate against guestlist.json)
+                const response = await fetch('/submit-review.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showReviewSuccess(result.message);
+                    form.reset();
+                    // Reset character counter
+                    const reviewCharCount = document.getElementById('review-char-count');
+                    if (reviewCharCount) {
+                        reviewCharCount.textContent = '0';
+                        reviewCharCount.style.color = '#666';
+                        reviewCharCount.style.fontWeight = 'normal';
+                    }
+                } else {
+                    // Handle specific validation errors from server
+                    if (result.message.includes('doesn\'t match our records')) {
+                        showReviewError(result.message);
+                    } else {
+                        showReviewError(result.message || 'Submission failed');
+                    }
+                }
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                showReviewError(`Submission failed: ${error.message}. Please try again later.`);
+            } finally {
+                restoreSubmitButton(submitButton, originalButtonText);
+            }
+        }
+
+        // Helper functions for enhanced messages with 3-second auto-hide
+        function showReviewSuccess(message) {
+            const successDiv = document.getElementById('review-success');
+            successDiv.innerHTML = message.replace(/\n/g, '<br>');
+            successDiv.style.display = 'block';
+            successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Hide after 3 seconds and reset form
             setTimeout(() => {
-                contactSuccess.style.display = 'none';
-                contactModal.style.display = 'none';
+                successDiv.style.display = 'none';
             }, 3000);
-        });
+        }
 
-        // Add this to the existing script at the bottom of the page
+        function showReviewError(message) {
+            const errorDiv = document.getElementById('review-error');
+            errorDiv.innerHTML = message.replace(/\n/g, '<br>');
+            errorDiv.style.display = 'block';
+            errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        // Animation for cards on scroll
+            // Hide after 3 seconds
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function hideReviewMessages() {
+            const successDiv = document.getElementById('review-success');
+            const errorDiv = document.getElementById('review-error');
+            if (successDiv) successDiv.style.display = 'none';
+            if (errorDiv) errorDiv.style.display = 'none';
+        }
+
+        function restoreSubmitButton(button, originalText) {
+            button.textContent = originalText;
+            button.disabled = false;
+        }
+
+        // Format date as dd/mm/yyyy for display purposes
+        function formatDateDDMMYYYY(dateString) {
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // Enhanced animation for cards on scroll
         document.addEventListener('DOMContentLoaded', function() {
             // Function to check if an element is in viewport
             function isInViewport(element) {
@@ -775,10 +1034,11 @@
             const cards = document.querySelectorAll('.card, .review-form');
 
             // Add initial class for animation
-            cards.forEach(card => {
+            cards.forEach((card, index) => {
                 card.style.opacity = "0";
                 card.style.transform = "translateY(50px)";
                 card.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+                card.style.transitionDelay = `${index * 0.1}s`; // Stagger animations
             });
 
             // Function to handle scroll animation
@@ -796,9 +1056,16 @@
             // Initial check on page load
             handleScroll();
 
-            // Listen for scroll events
-            window.addEventListener('scroll', handleScroll);
+            // Listen for scroll events with throttling
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                scrollTimeout = setTimeout(handleScroll, 10);
+            });
         });
     </script>
+    <script src="../shared/contact-modal.js"></script>
 </body>
 </html>

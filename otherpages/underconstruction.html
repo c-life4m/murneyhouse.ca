@@ -229,6 +229,17 @@
                 transform-origin: center bottom;
             }
 
+             /* Enhanced footer styling */
+                footer {
+                    text-align: center;
+                    padding: 2rem 0;
+                }
+
+                footer .container p {
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                }
+
             /* Responsive adjustments */
             @media (max-width: 768px) {
                 .construction-container {
@@ -258,7 +269,7 @@
                 }
 
                 .speech-bubble {
-                    top: -10px; /* Adjusted from -35px to match the new positioning */
+                    top: -10px;
                     padding: 12px 15px;
                     font-size: 0.9rem;
                     max-width: 250px;
@@ -281,7 +292,7 @@
                     <li><a href="amenities.html">Amenities</a></li>
                     <li><a href="../index.html#local-area">Local Area</a></li>
                     <li><a href="guest-hub.html">Guest Hub</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="guest-hub.html?contact=1">Contact</a></li>
                 </ul>
             </div>
             <div class="mobile-nav-toggle">
@@ -296,7 +307,7 @@
                     <li class="nav-item"><a href="amenities.html">Amenities</a></li>
                     <li class="nav-item"><a href="../index.html#local-area" class="nav-link">Local Area</a></li>
                     <li class="nav-item"><a href="guest-hub.html" class="nav-link">Guest Hub</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="guest-hub.html?contact=1" class="nav-link">Contact</a></li>
                 </ul>
             </div>
         </nav>
@@ -351,6 +362,12 @@
             <i class="fas fa-arrow-left"></i> Take Me Back
         </a>
     </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Murney House. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script src="../src/script.js"></script>
 

@@ -1,0 +1,33 @@
+# Ultra-aggressive cache prevention for JSON files
+<FilesMatch "\.(json)$">
+    # Standard cache prevention
+    Header always set Cache-Control "no-cache, no-store, must-revalidate, max-age=0, private"
+    Header always set Pragma "no-cache"
+    Header always set Expires "Thu, 01 Jan 1970 00:00:00 GMT"
+    Header always unset ETag
+    Header always unset Last-Modified
+
+    # Firefox-specific headers
+    Header always set X-Cache-Control "no-cache"
+    Header always set X-Firefox-Spdy "no-cache"
+
+    # Prevent all forms of caching
+    Header always set Surrogate-Control "no-store"
+    Header always set X-Accel-Expires "0"
+    Header always set Vary "*"
+
+    # Force revalidation
+    Header always append Cache-Control "proxy-revalidate"
+
+    # Prevent intermediate caching
+    Header always set Age "0"
+</FilesMatch>
+
+# Prevent directory caching
+<IfModule mod_headers.c>
+    Header always set Cache-Control "no-cache, no-store, must-revalidate"
+</IfModule>
+
+# Prevent any caching at all for this directory
+ExpiresActive On
+ExpiresByType application/json "access plus 0 seconds"
