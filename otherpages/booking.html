@@ -1,4 +1,4 @@
-2<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -752,12 +752,12 @@
             padding: 10px;
             border: 2px solid var(--border-color);
             border-radius: 6px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .promo-apply-btn {
             background: var(--accent-color);
-            color: white;
+            color: grey;
             border: none;
             padding: 10px 20px;
             border-radius: 6px;
@@ -1147,7 +1147,7 @@
             </div>
 
             <p style="margin: 20px 0; padding: 15px; background: rgba(255, 255, 200, 0.1); border-radius: 8px; border-left: 4px solid var(--accent-color);">
-                <strong>Important:</strong> A  request confirmation notice has been sent to your email address. If you don't hear from us within 24 hours, please follow up with booking@murneyhouse.ca with your <strong>Booking Request ID</strong> in the subject line.
+                <strong>Important:</strong> A  request confirmation notice has been sent to your email address. If you don't hear from us within 24 hours, please follow up with booking@murneyhouse.ca with your <strong>Booking Request ID</strong> in the subject line. Take a screenshot of this Summary for your records.
             </p>
 
             <button onclick="returnToHome()" class="return-home-btn">Return to Home</button>
@@ -1201,6 +1201,7 @@
     let selectedDates = [];
     let currentRoom = '';
     let addons = { eggs: 0, tomatoes: 0 };
+    let activePromoDiscount = 0; // e.g. 0.10 for 10%
 
     // Room availability data
     const roomAvailability = {
@@ -1943,8 +1944,13 @@
         const multiRoomDiscount = calculateMultiRoomDiscount(selectedRoomsCount, subtotalBeforeDiscount);
         const subtotal = subtotalBeforeDiscount - multiRoomDiscount;
 
-        const bookingFee = subtotal * 0.5;
-        const balance = subtotal - bookingFee;
+        // Calculate promo discount
+        const promoDiscount = subtotal * activePromoDiscount;
+        const finalTotal = subtotal - promoDiscount;
+
+        // Use finalTotal for booking fee and balance
+        const bookingFee = finalTotal * 0.5;
+        const balance = finalTotal - bookingFee;
 
         // Build the summary HTML
         let summaryHTML = `
@@ -1978,8 +1984,17 @@
             `;
         }
 
+        if (activePromoDiscount > 0) {
+            summaryHTML += `
+                <div class="summary-item" style="color: var(--accent-color);">
+                    <span>Promo Discount (${(activePromoDiscount * 100).toFixed(0)}%):</span>
+                    <span>-$${promoDiscount.toFixed(2)}</span>
+                </div>
+            `;
+        }
+
         summaryHTML += `
-            <hr style="border: 1px solid rgba(255,255,255,0.2); margin: 15px 0;">
+            <hr>
             <div class="summary-item">
                 <span><strong>Total Payable at Booking (50%):</strong></span>
                 <span><strong>$${bookingFee.toFixed(2)}</strong></span>
@@ -2006,32 +2021,59 @@
         };
 
         if (validPromoCodes[promoCode]) {
-            promoMessage.textContent = `Promo code applied! ${(validPromoCodes[promoCode] * 100)}% discount`;
+            activePromoDiscount = validPromoCodes[promoCode]; // <-- Set the global discount
+            promoMessage.textContent = `Promo code applied! ${(activePromoDiscount * 100)}% discount`;
             promoMessage.style.color = 'green';
-            // You would implement the actual discount logic here
             updatePriceSummary();
         } else if (promoCode) {
+            activePromoDiscount = 0; // <-- Reset if invalid
             promoMessage.textContent = 'Invalid promo code';
             promoMessage.style.color = 'red';
+            updatePriceSummary();
         } else {
+            activePromoDiscount = 0; // <-- Reset if empty
             promoMessage.textContent = 'Please enter a promo code';
             promoMessage.style.color = 'orange';
         }
+        updatePriceSummary();
     }
 
     // Enhanced form submission with new date format in confirmation
-    document.getElementById('bookingRequestForm').addEventListener('submit', function(e) {
+    document.getElementById('bookingRequestForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+
+            // ── FIX: make sure these values exist in this scope ──
+        const totalGuests   = parseInt(document.getElementById('totalGuests').value, 10) || 1;
+        const selectedDates = JSON.parse(sessionStorage.getItem('selectedDates') || '{}');
+        const form = e.target;
+        const formData = new FormData(form);
 
         // Generate unique 4-digit ID
         const uniqueId = Math.floor(1000 + Math.random() * 9000);
+        formData.append('uniqueId', uniqueId);
 
-        // Gather booking details for summary
-        const selectedRooms = Array.from(document.querySelectorAll('#bookingForm input[type="checkbox"][name="rooms"]:checked'))
-            .map(cb => cb.id.replace('room', 'Room '));
-        const totalGuests = document.getElementById('totalGuests').value;
-        const selectedDates = JSON.parse(sessionStorage.getItem('selectedDates') || '{}');
-        const primaryGuestName = `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`;
+        // Gather selected rooms (as values: room1, room2, room3)
+        const selectedRooms = Array.from(document.querySelectorAll('input[type="checkbox"][name="rooms"]:checked'))
+            .map(cb => cb.value);
+        const firstNameField = document.getElementById('firstName');
+        const lastNameField = document.getElementById('lastName');
+        const primaryGuestName = `${firstNameField.value.trim()} ${lastNameField.value.trim()}`.trim();
+
+        formData.append('selectedRooms', JSON.stringify(selectedRooms));
+
+        // Gather room days and start dates
+        selectedRooms.forEach(room => {
+            const days = document.getElementById(`${room}Days`).value;
+            const startDate = document.getElementById(`${room}StartDate`).value;
+            formData.append(`${room}Days`, days);
+            formData.append(`${room}StartDate`, startDate);
+        });
+
+        // Gather dynamic guest details (if any)
+        const guestDetailsInputs = document.querySelectorAll('#guestDetails input, #guestDetails select');
+        guestDetailsInputs.forEach(input => {
+            formData.append(input.name, input.value);
+        });
 
         // Calculate totals for full breakdown with multi-room discount
         const roomPrices = { room1: 129, room2: 99, room3: 169 };
@@ -2054,6 +2096,21 @@
         const selectedRoomsCount = selectedRooms.length;
         const multiRoomDiscount = calculateMultiRoomDiscount(selectedRoomsCount, subtotalBeforeDiscount);
         const subtotal = subtotalBeforeDiscount - multiRoomDiscount;
+        const promoDiscount = subtotal * activePromoDiscount;
+        const finalTotal = subtotal - promoDiscount;
+        const bookingFee = finalTotal * 0.5;
+        const balance = finalTotal - bookingFee;
+
+        formData.append('roomTotal', roomTotal);
+        formData.append('numDays', numDays);
+        formData.append('additionalGuests', additionalGuests);
+        formData.append('guestSurcharge', guestSurcharge);
+        formData.append('addonTotal', addonTotal);
+        formData.append('subtotalBeforeDiscount', subtotalBeforeDiscount);
+        formData.append('multiRoomDiscount', multiRoomDiscount);
+        formData.append('promoDiscount',  promoDiscount);
+        formData.append('subtotal', subtotal);
+
 
         // Format dates for confirmation with new (PM)/(AM) format
         let dateRangeDisplay = '';
@@ -2087,34 +2144,39 @@
             </div>
         `;
 
-        // Enhanced price breakdown with multi-room discount
+        // ───────────────── Price-breakdown (confirmation card) ─────────────────
         let priceBreakdownHTML = `
             <div style="text-align: left; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
                 <h4 style="margin-top: 0; color: var(--accent-color);">Price Breakdown:</h4>
+
                 <div style="display: flex; justify-content: space-between; margin: 5px 0;">
                     <span>Room Total:</span>
                     <span>$${roomTotal.toFixed(2)}</span>
                 </div>
+
                 ${additionalGuests > 0 ? `
                 <div style="display: flex; justify-content: space-between; margin: 5px 0;">
                     <span>Guest Surcharge (${additionalGuests} × 6%):</span>
                     <span>$${guestSurcharge.toFixed(2)}</span>
                 </div>
                 ` : ''}
+
                 ${addonTotal > 0 ? `
                 <div style="display: flex; justify-content: space-between; margin: 5px 0;">
                     <span>Add-on Services:</span>
                     <span>$${addonTotal.toFixed(2)}</span>
                 </div>
                 ` : ''}
+
                 <hr style="border: 1px solid rgba(255,255,255,0.2); margin: 10px 0;">
+
                 <div style="display: flex; justify-content: space-between; margin: 5px 0; font-weight: bold;">
                     <span>Subtotal:</span>
                     <span>$${subtotalBeforeDiscount.toFixed(2)}</span>
                 </div>
         `;
 
-        // Add multi-room discount to confirmation if applicable
+        // ─── Multi-room discount (if any) ───────────────────────
         if (multiRoomDiscount > 0) {
             const discountPercentage = selectedRoomsCount === 2 ? '10%' : '20%';
             priceBreakdownHTML += `
@@ -2125,29 +2187,49 @@
             `;
         }
 
+        // ─── Promo discount (NEW) ───────────────────────────────
+        if (promoDiscount > 0) {
+            priceBreakdownHTML += `
+                <div style="display: flex; justify-content: space-between; margin: 5px 0; color: var(--accent-color);">
+                    <span>Promo Discount (${(activePromoDiscount * 100).toFixed(0)}%):</span>
+                    <span>-$${promoDiscount.toFixed(2)}</span>
+                </div>
+            `;
+        }
+
         priceBreakdownHTML += `
                 <hr style="border: 1px solid rgba(255,255,255,0.2); margin: 10px 0;">
+
                 <div style="display: flex; justify-content: space-between; margin: 5px 0; font-weight: bold; color: var(--accent-color);">
                     <span>Payable at Booking (50%):</span>
-                    <span>$${(subtotal * 0.5).toFixed(2)}</span>
+                    <span>$${bookingFee.toFixed(2)}</span>          <!-- was subtotal*0.5 -->
                 </div>
+
                 <div style="display: flex; justify-content: space-between; margin: 5px 0;">
                     <span>Balance Due Before Check-in:</span>
-                    <span>$${(subtotal * 0.5).toFixed(2)}</span>
+                    <span>$${balance.toFixed(2)}</span>             <!-- was subtotal*0.5 -->
                 </div>
             </div>
         `;
 
         document.getElementById('fullPriceBreakdown').innerHTML = priceBreakdownHTML;
 
+        document.getElementById('fullPriceBreakdown').innerHTML = priceBreakdownHTML;
+
         document.getElementById('thankYouPopup').style.display = 'flex';
+
+        // Reset promo code state for next booking
+        activePromoDiscount = 0;
+        document.getElementById('promoCode').value = '';
+        document.getElementById('promoMessage').textContent = '';
+        updatePriceSummary();
 
         // Here you would send the actual booking request to your backend and emails
         console.log('Booking request submitted with ID:', uniqueId);
 
         // Simulate sending emails
         console.log('Sending confirmation email to:', document.getElementById('email').value);
-        console.log('Sending notification to admin and CC to x@xx.ca');
+        console.log('Sending notification to admin and CC to manager@murneyhouse.ca');
     });
 
     function returnToHome() {
