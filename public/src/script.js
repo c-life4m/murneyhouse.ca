@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             // More aggressive cache busting
             const timestamp = Date.now() + Math.random();
-            const response = await fetch(`data/Updates.json?v=${timestamp}&bustcache=${Date.now()}`, {
+            const response = await fetch(`updates.php?v=${timestamp}&bustcache=${Date.now()}`, {
                 method: 'GET',
                 cache: 'no-store',
                 headers: {
@@ -416,7 +416,7 @@ class UpdatesCard {
 
     async loadUpdates() {
         try {
-            const response = await fetch('data/Updates.json');
+            const response = await fetch('/api/updates.php?v=' + Date.now());
 
             if (!response.ok) throw new Error('Failed to load updates');
 
